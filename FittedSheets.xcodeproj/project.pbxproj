@@ -14,6 +14,8 @@
 		F803416F212625DF00EAD717 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F803416D212625DF00EAD717 /* LaunchScreen.storyboard */; };
 		F803417A212625DF00EAD717 /* FittedSheetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8034179212625DF00EAD717 /* FittedSheetsTests.swift */; };
 		F8034185212625DF00EAD717 /* FittedSheetsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8034184212625DF00EAD717 /* FittedSheetsUITests.swift */; };
+		F8034199212F15B600EAD717 /* SheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8034198212F15B600EAD717 /* SheetViewController.swift */; };
+		F803419D212F208300EAD717 /* Yalta.swift in Sources */ = {isa = PBXBuildFile; fileRef = F803419C212F208300EAD717 /* Yalta.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,9 @@
 		F8034180212625DF00EAD717 /* FittedSheetsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FittedSheetsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8034184212625DF00EAD717 /* FittedSheetsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FittedSheetsUITests.swift; sourceTree = "<group>"; };
 		F8034186212625DF00EAD717 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8034192212628FE00EAD717 /* FittedSheets.podspec.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FittedSheets.podspec.json; sourceTree = "<group>"; };
+		F8034198212F15B600EAD717 /* SheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViewController.swift; sourceTree = "<group>"; };
+		F803419C212F208300EAD717 /* Yalta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Yalta.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +82,7 @@
 		F8034158212625DD00EAD717 = {
 			isa = PBXGroup;
 			children = (
+				F8034192212628FE00EAD717 /* FittedSheets.podspec.json */,
 				F8034163212625DD00EAD717 /* FittedSheets */,
 				F8034178212625DF00EAD717 /* FittedSheetsTests */,
 				F8034183212625DF00EAD717 /* FittedSheetsUITests */,
@@ -97,6 +103,7 @@
 		F8034163212625DD00EAD717 /* FittedSheets */ = {
 			isa = PBXGroup;
 			children = (
+				F8034197212F154C00EAD717 /* Pod */,
 				F8034164212625DD00EAD717 /* AppDelegate.swift */,
 				F8034166212625DD00EAD717 /* ViewController.swift */,
 				F8034168212625DD00EAD717 /* Main.storyboard */,
@@ -123,6 +130,15 @@
 				F8034186212625DF00EAD717 /* Info.plist */,
 			);
 			path = FittedSheetsUITests;
+			sourceTree = "<group>";
+		};
+		F8034197212F154C00EAD717 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				F8034198212F15B600EAD717 /* SheetViewController.swift */,
+				F803419C212F208300EAD717 /* Yalta.swift */,
+			);
+			path = Pod;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,6 +272,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8034199212F15B600EAD717 /* SheetViewController.swift in Sources */,
+				F803419D212F208300EAD717 /* Yalta.swift in Sources */,
 				F8034167212625DD00EAD717 /* ViewController.swift in Sources */,
 				F8034165212625DD00EAD717 /* AppDelegate.swift in Sources */,
 			);

@@ -16,6 +16,9 @@
 		F8034185212625DF00EAD717 /* FittedSheetsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8034184212625DF00EAD717 /* FittedSheetsUITests.swift */; };
 		F8034199212F15B600EAD717 /* SheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8034198212F15B600EAD717 /* SheetViewController.swift */; };
 		F803419D212F208300EAD717 /* Yalta.swift in Sources */ = {isa = PBXBuildFile; fileRef = F803419C212F208300EAD717 /* Yalta.swift */; };
+		F84FF4AB21348A2900248951 /* SheetSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84FF4AA21348A2900248951 /* SheetSize.swift */; };
+		F84FF4AD21349D6000248951 /* ScrollingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84FF4AC21349D6000248951 /* ScrollingViewController.swift */; };
+		F84FF4AF2134A95300248951 /* InitialTouchPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84FF4AE2134A95300248951 /* InitialTouchPanGestureRecognizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +55,9 @@
 		F8034192212628FE00EAD717 /* FittedSheets.podspec.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FittedSheets.podspec.json; sourceTree = "<group>"; };
 		F8034198212F15B600EAD717 /* SheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViewController.swift; sourceTree = "<group>"; };
 		F803419C212F208300EAD717 /* Yalta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Yalta.swift; sourceTree = "<group>"; };
+		F84FF4AA21348A2900248951 /* SheetSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetSize.swift; sourceTree = "<group>"; };
+		F84FF4AC21349D6000248951 /* ScrollingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingViewController.swift; sourceTree = "<group>"; };
+		F84FF4AE2134A95300248951 /* InitialTouchPanGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialTouchPanGestureRecognizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +112,7 @@
 				F8034197212F154C00EAD717 /* Pod */,
 				F8034164212625DD00EAD717 /* AppDelegate.swift */,
 				F8034166212625DD00EAD717 /* ViewController.swift */,
+				F84FF4AC21349D6000248951 /* ScrollingViewController.swift */,
 				F8034168212625DD00EAD717 /* Main.storyboard */,
 				F803416B212625DF00EAD717 /* Assets.xcassets */,
 				F803416D212625DF00EAD717 /* LaunchScreen.storyboard */,
@@ -137,6 +144,8 @@
 			children = (
 				F8034198212F15B600EAD717 /* SheetViewController.swift */,
 				F803419C212F208300EAD717 /* Yalta.swift */,
+				F84FF4AA21348A2900248951 /* SheetSize.swift */,
+				F84FF4AE2134A95300248951 /* InitialTouchPanGestureRecognizer.swift */,
 			);
 			path = Pod;
 			sourceTree = "<group>";
@@ -273,8 +282,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8034199212F15B600EAD717 /* SheetViewController.swift in Sources */,
+				F84FF4AF2134A95300248951 /* InitialTouchPanGestureRecognizer.swift in Sources */,
 				F803419D212F208300EAD717 /* Yalta.swift in Sources */,
+				F84FF4AB21348A2900248951 /* SheetSize.swift in Sources */,
 				F8034167212625DD00EAD717 /* ViewController.swift in Sources */,
+				F84FF4AD21349D6000248951 /* ScrollingViewController.swift in Sources */,
 				F8034165212625DD00EAD717 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

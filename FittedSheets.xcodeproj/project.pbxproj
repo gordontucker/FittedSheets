@@ -19,6 +19,7 @@
 		F84FF4AB21348A2900248951 /* SheetSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84FF4AA21348A2900248951 /* SheetSize.swift */; };
 		F84FF4AD21349D6000248951 /* ScrollingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84FF4AC21349D6000248951 /* ScrollingViewController.swift */; };
 		F84FF4AF2134A95300248951 /* InitialTouchPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84FF4AE2134A95300248951 /* InitialTouchPanGestureRecognizer.swift */; };
+		F84FF4B12135BE1A00248951 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84FF4B02135BE1A00248951 /* UIViewControllerExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		F84FF4AA21348A2900248951 /* SheetSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetSize.swift; sourceTree = "<group>"; };
 		F84FF4AC21349D6000248951 /* ScrollingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingViewController.swift; sourceTree = "<group>"; };
 		F84FF4AE2134A95300248951 /* InitialTouchPanGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialTouchPanGestureRecognizer.swift; sourceTree = "<group>"; };
+		F84FF4B02135BE1A00248951 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 				F803419C212F208300EAD717 /* Yalta.swift */,
 				F84FF4AA21348A2900248951 /* SheetSize.swift */,
 				F84FF4AE2134A95300248951 /* InitialTouchPanGestureRecognizer.swift */,
+				F84FF4B02135BE1A00248951 /* UIViewControllerExtension.swift */,
 			);
 			path = Pod;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				F84FF4AF2134A95300248951 /* InitialTouchPanGestureRecognizer.swift in Sources */,
 				F803419D212F208300EAD717 /* Yalta.swift in Sources */,
 				F84FF4AB21348A2900248951 /* SheetSize.swift in Sources */,
+				F84FF4B12135BE1A00248951 /* UIViewControllerExtension.swift in Sources */,
 				F8034167212625DD00EAD717 /* ViewController.swift in Sources */,
 				F84FF4AD21349D6000248951 /* ScrollingViewController.swift in Sources */,
 				F8034165212625DD00EAD717 /* AppDelegate.swift in Sources */,
@@ -393,7 +397,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -447,7 +451,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;

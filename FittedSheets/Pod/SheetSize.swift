@@ -8,21 +8,8 @@
 
 import UIKit
 
-enum SheetSize {
+public enum SheetSize {
     case fixed(CGFloat)
     case halfScreen
     case fullScreen
-    
-    var height: CGFloat {
-        switch (self) {
-            case .fixed(let height):
-                return height
-            case .fullScreen:
-                let insets = UIApplication.shared.keyWindow?.safeAreaInsets ?? .zero
-                return UIScreen.main.bounds.height - max(20, insets.top) - insets.bottom
-            case .halfScreen:
-                let insets = UIApplication.shared.keyWindow?.safeAreaInsets ?? .zero
-                return (UIScreen.main.bounds.height - max(20, insets.top) - insets.bottom) / 2
-        }
-    }
 }

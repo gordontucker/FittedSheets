@@ -46,12 +46,21 @@
                                     <action selector="presentSheet3v2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dXA-6w-2yl"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VOO-Gn-T3w">
+                                <rect key="frame" x="40.5" y="328" width="295" height="30"/>
+                                <state key="normal" title="Present bottom sheet navigation Controller"/>
+                                <connections>
+                                    <action selector="presentSheet4:" destination="BYZ-38-t0r" eventType="touchUpInside" id="w7x-wr-eu2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="BU5-yV-ZcX" firstAttribute="top" secondItem="TDL-dg-2JQ" secondAttribute="bottom" constant="32" id="1TI-Au-eK0"/>
                             <constraint firstItem="BU5-yV-ZcX" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="4UC-UL-XbA"/>
+                            <constraint firstItem="VOO-Gn-T3w" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="5dR-GO-blW"/>
                             <constraint firstItem="FNb-8p-3jh" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="MYL-2B-OdO"/>
+                            <constraint firstItem="VOO-Gn-T3w" firstAttribute="top" secondItem="FNb-8p-3jh" secondAttribute="bottom" constant="32" id="OMx-CX-No1"/>
                             <constraint firstItem="FNb-8p-3jh" firstAttribute="top" secondItem="Vrn-8O-PcG" secondAttribute="bottom" constant="32" id="TYa-uM-Xij"/>
                             <constraint firstItem="Vrn-8O-PcG" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="WRd-73-JWd"/>
                             <constraint firstItem="Vrn-8O-PcG" firstAttribute="top" secondItem="BU5-yV-ZcX" secondAttribute="bottom" constant="32" id="k0A-uV-y8C"/>
@@ -63,6 +72,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="206" y="28"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="wwA-dI-geo">
@@ -109,6 +119,79 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Aj7-Ge-GNB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="940" y="29"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="AUe-At-qur">
+            <objects>
+                <navigationController storyboardIdentifier="sheet4" id="gS5-ec-Knb" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="A6e-RH-al1">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="i7G-wq-dhG" kind="relationship" relationship="rootViewController" id="tyq-q0-ie2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xj5-87-PJ7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="562" y="911"/>
+        </scene>
+        <!--Root Controller-->
+        <scene sceneID="ZoJ-o3-Ym4">
+            <objects>
+                <viewController id="i7G-wq-dhG" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="v8L-A3-RwA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QRd-Am-cr9">
+                                <rect key="frame" x="77" y="350.5" width="220" height="30"/>
+                                <state key="normal" title="Navigate to child view controller"/>
+                                <connections>
+                                    <segue destination="Nhx-Ex-sEw" kind="show" id="ODb-X6-Lij"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="QRd-Am-cr9" firstAttribute="centerX" secondItem="c16-Py-z9N" secondAttribute="centerX" id="QE6-q7-CM4"/>
+                            <constraint firstItem="QRd-Am-cr9" firstAttribute="centerY" secondItem="c16-Py-z9N" secondAttribute="centerY" id="r2a-b0-JHA"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="c16-Py-z9N"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Root Controller" id="nZR-cq-hoS"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9id-FI-Adk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1356" y="911"/>
+        </scene>
+        <!--Child View Controller-->
+        <scene sceneID="BW5-He-Sbh">
+            <objects>
+                <viewController id="Nhx-Ex-sEw" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RGb-48-4N5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is the child!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DgD-pL-zMX">
+                                <rect key="frame" x="125" y="355" width="125" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="DgD-pL-zMX" firstAttribute="centerX" secondItem="laY-vD-tjl" secondAttribute="centerX" id="6l4-Hu-IbB"/>
+                            <constraint firstItem="DgD-pL-zMX" firstAttribute="centerY" secondItem="laY-vD-tjl" secondAttribute="centerY" id="Sxu-sA-tMD"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="laY-vD-tjl"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Child View Controller" id="DmB-V5-WSG"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0C3-XM-WHR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2138" y="911"/>
         </scene>
         <!--Scrolling View Controller-->
         <scene sceneID="BWY-QE-5Zi">

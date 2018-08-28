@@ -8,47 +8,37 @@
 
 import UIKit
 
-protocol ScrollableSheetProtocol {
-    var sheetScrollView: UIScrollView? { get }
-}
-
-extension ScrollableSheetProtocol {
-    var sheetScrollView: UIScrollView? { return nil }
-}
-
-extension UIViewController {
-    var sheetViewController: SheetViewController? {
-        var parent = self.parent
-        while let currentParent = parent {
-            if let sheetViewController = currentParent as? SheetViewController {
-                return sheetViewController
-            } else {
-                parent = currentParent.parent
-            }
-        }
-        return nil
-    }
-}
-
-class SheetViewController: UIViewController {
-
-    var childViewController: UIViewController!
+public class SheetViewController: UIViewController {
+    public private(set) var childViewController: UIViewController!
     
-    weak var containerView: UIView!
-    weak var pullBarView: UIView!
+    public private(set) weak var containerView: UIView!
+    public private(set) weak var pullBarView: UIView!
     
+    /// If true, tapping on the overlay above the sheet will dismiss the sheet view controller
     public var dismissOnBackgroundTap: Bool = true
     
-    private var containerSize: SheetSize = .fixed(250)
-    private var actualContainerSize: SheetSize = .fixed(250)
-    private var orderedSheetSizes: [SheetSize] = [.fixed(250), .fullScreen]
+    private var firstPanPoint: CGPoint = CGPoint.zero
     
-    public var firstPanPoint: CGPoint = CGPoint.zero
+    /// If true, the child view controller will be inset to account for the bottom safe area. This must be set before the sheet view controller loads for it to function properly
+    public var adjustForBottomSafeArea: Bool = false
+    
+    /// If true, the bottom safe area will have a blur effect over it. This must be set before the sheet view controller loads for it to function properly
+    public var blurBottomSafeArea: Bool = true
+    
+    /// The current preferred container size
+    private var containerSize: SheetSize = .fixed(300)
+    /// The current actual container size
+    private var actualContainerSize: SheetSize = .fixed(300)
+    /// The array of sizes we are trying to pin to when resizing the sheet. To set, use `setSizes` function
+    private var orderedSheetSizes: [SheetSize] = [.fixed(300), .fullScreen]
+    
     private var panGestureRecognizer: InitialTouchPanGestureRecognizer!
+    /// The child view controller's scroll view we are watching so we can override the pull down/up to work on the sheet when needed
     private weak var childScrollView: UIScrollView?
     
     private var containerHeightConstraint: NSLayoutConstraint!
     
+    /// The color of the overlay above the sheet. Default is a transparent black.
     var overlayColor: UIColor = UIColor(white: 0, alpha: 0.7) {
         didSet {
             if self.isViewLoaded {
@@ -57,7 +47,17 @@ class SheetViewController: UIViewController {
         }
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    private var safeAreaInsets: UIEdgeInsets {
+        var inserts = UIEdgeInsets.zero
+        if #available(iOS 11.0, *) {
+            inserts = UIApplication.shared.keyWindow?.safeAreaInsets ?? inserts
+        }
+        inserts.top = max(inserts.top, 20)
+        return inserts
+    }
+    
+    @available(*, deprecated, message: "Use the init(controller:, sizes:) initializer")
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -65,7 +65,8 @@ class SheetViewController: UIViewController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    convenience init(controller: UIViewController, sizes: [SheetSize] = []) {
+    /// Initialize the sheet view controller with a child. This is the only initializer that will function properly.
+    public convenience init(controller: UIViewController, sizes: [SheetSize] = []) {
         self.init(nibName: nil, bundle: nil)
         self.childViewController = controller
         if sizes.count > 0 {
@@ -74,7 +75,7 @@ class SheetViewController: UIViewController {
         self.modalPresentationStyle = .overFullScreen
     }
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         
         if (self.childViewController == nil) {
@@ -89,22 +90,12 @@ class SheetViewController: UIViewController {
         self.view.addGestureRecognizer(panGestureRecognizer)
         panGestureRecognizer.delegate = self
         self.panGestureRecognizer = panGestureRecognizer
-        
-        self.childViewController.willMove(toParentViewController: self)
-        self.addChildViewController(self.childViewController)
-        self.containerView.addSubview(self.childViewController.view) { (subview) in
-            subview.left.pinToSuperview()
-            subview.right.pinToSuperview()
-            let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
-            subview.bottom.pinToSuperview(inset: bottomInset, relation: .equal)
-            subview.top.pinToSuperview(inset: 24, relation: .equal)
-        }
-        self.childViewController.didMove(toParentViewController: self)
+        self.setUpChildViewController()
         
         self.setUpPullBarView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseOut], animations: { [weak self] in
             guard let _self = self else { return }
@@ -114,17 +105,31 @@ class SheetViewController: UIViewController {
         }, completion: nil)
     }
     
-    func setSizes(_ sizes: [SheetSize]) {
+    /// Change the sizes the sheet should try to pin to
+    public func setSizes(_ sizes: [SheetSize]) {
         guard sizes.count > 0 else {
             print("You cannot set sheet sizes to an empty array")
             return
         }
-        self.orderedSheetSizes = sizes.sorted(by: { $0.height < $1.height })
+        self.orderedSheetSizes = sizes.sorted(by: { self.height(for: $0) < self.height(for: $1) })
         self.containerSize = sizes[0]
         self.actualContainerSize = sizes[0]
     }
     
-    func setUpOverlay() {
+    /// Because iOS 10 doesn't support the better rounded corners implementation, we need to fake it here. This can be deleted once iOS 10 support is dropped.
+    private func updateLegacyRoundedCorners() {
+        if #available(iOS 11.0, *) {
+            self.childViewController.view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        } else {
+            // iOS 10 doesn't have the better rounded corner feature so we need to fake it
+            let path = UIBezierPath(roundedRect: self.childViewController.view.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 10, height: 10))
+            let maskLayer = CAShapeLayer()
+            maskLayer.path = path.cgPath
+            self.childViewController.view.layer.mask = maskLayer
+        }
+    }
+    
+    private func setUpOverlay() {
         let overlay = UIView(frame: CGRect.zero)
         overlay.backgroundColor = self.overlayColor
         self.view.addSubview(overlay) { (subview) in
@@ -132,52 +137,60 @@ class SheetViewController: UIViewController {
         }
     }
     
-    func setUpContainerView() {
+    private func setUpContainerView() {
         let containerView = UIView(frame: CGRect.zero)
         self.view.addSubview(containerView) { (subview) in
-            subview.left.pinToSuperview()
-            subview.right.pinToSuperview()
-            subview.bottom.pinToSuperview()
-            let topInset = max(20, UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 0)
-            print("topInset: \(topInset)")
-            subview.top.pinToSuperview(inset: topInset, relation: .greaterThanOrEqual)
-            self.containerHeightConstraint = subview.height.set(self.containerSize.height)
+            subview.edges(.bottom, .left, .right).pinToSuperview()
+            subview.top.pinToSuperview(inset: self.safeAreaInsets.top, relation: .greaterThanOrEqual)
+            self.containerHeightConstraint = subview.height.set(self.height(for: self.containerSize))
             self.containerHeightConstraint.priority = UILayoutPriority(998)
         }
         containerView.backgroundColor = UIColor.clear
         self.containerView = containerView
-        
-        // Add a background with only the top rounded
-        // First add the rounded corners
-        let roundedCornersView = UIView(frame: CGRect.zero)
-        containerView.addSubview(roundedCornersView) { (subview) in
-            subview.top.pinToSuperview()
-            subview.left.pinToSuperview()
-            subview.right.pinToSuperview()
-            subview.height.set(20)
-        }
-        roundedCornersView.layer.cornerRadius = 10
-        roundedCornersView.layer.masksToBounds = true
-        roundedCornersView.backgroundColor = UIColor.white
-        
-        let solidBackgroundView = UIView(frame: CGRect.zero)
-        containerView.addSubview(solidBackgroundView) { (subview) in
-            subview.top.pinToSuperview(inset: 10, relation: .equal)
-            subview.left.pinToSuperview()
-            subview.right.pinToSuperview()
-            subview.bottom.pinToSuperview()
-        }
-        solidBackgroundView.backgroundColor = UIColor.white
-        
         containerView.transform = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
     }
     
-    func setUpDismissView() {
+    private func setUpChildViewController() {
+        self.childViewController.willMove(toParentViewController: self)
+        self.addChildViewController(self.childViewController)
+        let bottomInset = self.safeAreaInsets.bottom
+        self.containerView.addSubview(self.childViewController.view) { (subview) in
+            subview.edges(.left, .right).pinToSuperview()
+            if self.adjustForBottomSafeArea {
+                subview.bottom.pinToSuperview(inset: bottomInset, relation: .equal)
+            } else {
+                subview.bottom.pinToSuperview()
+            }
+            subview.top.pinToSuperview(inset: 24, relation: .equal)
+        }
+        if #available(iOS 11.0, *) {
+            self.childViewController.view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        }
+        self.childViewController.view.layer.cornerRadius = 10
+        self.childViewController.view.layer.masksToBounds = true
+        self.childViewController.didMove(toParentViewController: self)
+        
+        if self.adjustForBottomSafeArea, bottomInset > 0 {
+            // Add white background over bottom bar
+            self.containerView.addSubview(UIView(frame: CGRect.zero)) { subview in
+                subview.base.backgroundColor = UIColor.white
+                subview.edges(.bottom, .left, .right).pinToSuperview()
+                subview.height.set(bottomInset)
+            }
+        }
+        
+        if blurBottomSafeArea, bottomInset > 0 {
+            self.view.addSubview(UIVisualEffectView(effect: UIBlurEffect(style: .light))) { subview in
+                subview.edges(.bottom, .left, .right).pinToSuperview()
+                subview.height.set(bottomInset)
+            }
+        }
+    }
+    
+    private func setUpDismissView() {
         let dismissAreaView = UIView(frame: CGRect.zero)
         self.view.addSubview(dismissAreaView, containerView) { (dismissAreaView, containerView) in
-            dismissAreaView.top.pinToSuperview()
-            dismissAreaView.left.pinToSuperview()
-            dismissAreaView.right.pinToSuperview()
+            dismissAreaView.edges(.top, .left, .right).pinToSuperview()
             dismissAreaView.bottom.align(with: containerView.top)
         }
         dismissAreaView.backgroundColor = UIColor.clear
@@ -187,12 +200,10 @@ class SheetViewController: UIViewController {
         dismissAreaView.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    func setUpPullBarView() {
+    private func setUpPullBarView() {
         let pullBarView = UIView(frame: CGRect.zero)
         self.containerView.addSubview(pullBarView) { (subview) in
-            subview.top.pinToSuperview()
-            subview.left.pinToSuperview()
-            subview.right.pinToSuperview()
+            subview.edges(.top, .left, .right).pinToSuperview()
             subview.height.set(24)
         }
         self.pullBarView = pullBarView
@@ -201,7 +212,7 @@ class SheetViewController: UIViewController {
         pullBarView.addSubview(grabView) { (subview) in
             subview.centerY.alignWithSuperview()
             subview.centerX.alignWithSuperview()
-            subview.size.set(CGSize(width: 70, height: 6))
+            subview.size.set(CGSize(width: 50, height: 6))
         }
         grabView.layer.cornerRadius = 3
         grabView.layer.masksToBounds = true
@@ -221,18 +232,17 @@ class SheetViewController: UIViewController {
     @objc func panned(_ gesture: UIPanGestureRecognizer) {
         let point = gesture.translation(in: gesture.view?.superview)
         if gesture.state == .began {
-            print("began")
             self.firstPanPoint = point
             self.actualContainerSize = .fixed(self.containerView.frame.height)
         }
         
-        let minHeight = self.orderedSheetSizes.first?.height ?? 0
-        let maxHeight = self.orderedSheetSizes.last?.height ?? 0
+        let minHeight = self.height(for: self.orderedSheetSizes.first)
+        let maxHeight = self.height(for: self.orderedSheetSizes.last)
         
         if gesture.state == .cancelled || gesture.state == .failed {
             UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseOut], animations: {
                 self.containerView.transform = CGAffineTransform.identity
-                self.containerHeightConstraint.constant = self.containerSize.height
+                self.containerHeightConstraint.constant = self.height(for: self.containerSize)
             }, completion: nil)
         } else if gesture.state == .ended {
             let velocity = (0.2 * gesture.velocity(in: self.view).y)
@@ -243,7 +253,6 @@ class SheetViewController: UIViewController {
             }
             
             let animationDuration = TimeInterval(abs(velocity*0.0002) + 0.2)
-            print("v:\(velocity), finalY: \(finalHeight), height: \(containerView.frame.height)")
             
             guard finalHeight >= minHeight else {
                 // Dismiss
@@ -259,40 +268,37 @@ class SheetViewController: UIViewController {
             var newSize = self.containerSize
             if point.y < 0 {
                 // We need to move to the next larger one
-                print("switching to a larger size, if available")
                 newSize = self.orderedSheetSizes.last ?? self.containerSize
                 for size in self.orderedSheetSizes.reversed() {
-                    if finalHeight < size.height {
+                    if finalHeight < self.height(for: size) {
                         newSize = size
                     } else {
                         break
                     }
                 }
             } else {
-                print("switching to a smaller size, if available")
                 // We need to move to the next smaller one
                 newSize = self.orderedSheetSizes.first ?? self.containerSize
                 for size in self.orderedSheetSizes {
-                    if finalHeight > size.height {
+                    if finalHeight > self.height(for: size) {
                         newSize = size
                     } else {
                         break
                     }
                 }
             }
-            print("new size: \(newSize)")
             self.containerSize = newSize
             
             UIView.animate(withDuration: animationDuration, delay: 0, options: [.curveEaseOut], animations: {
                 self.containerView.transform = CGAffineTransform.identity
-                self.containerHeightConstraint.constant = newSize.height
+                self.containerHeightConstraint.constant = self.height(for: newSize)
                 self.view.layoutIfNeeded()
             }, completion: { [weak self] complete in
                 guard let _self = self else { return }
                 _self.actualContainerSize = .fixed(_self.containerView.frame.height)
             })
         } else {
-            var newHeight = max(0, self.actualContainerSize.height + (self.firstPanPoint.y - point.y))
+            var newHeight = max(0, self.height(for: self.actualContainerSize) + (self.firstPanPoint.y - point.y))
             var offset: CGFloat = 0
             if newHeight < minHeight {
                 offset = minHeight - newHeight
@@ -315,29 +321,42 @@ class SheetViewController: UIViewController {
         }
     }
     
-    func handleScrollView(_ scrollView: UIScrollView) {
+    /// Handle a scroll view in the child view controller by watching for the offset for the scrollview and taking priority when at the top (so pulling up/down can grow/shrink the sheet instead of bouncing the child's scroll view)
+    public func handleScrollView(_ scrollView: UIScrollView) {
         scrollView.panGestureRecognizer.require(toFail: panGestureRecognizer)
         self.childScrollView = scrollView
+    }
+    
+    private func height(for size: SheetSize?) -> CGFloat {
+        guard let size = size else { return 0 }
+        switch (size) {
+            case .fixed(let height):
+                return height
+            case .fullScreen:
+                let insets = self.safeAreaInsets
+                return UIScreen.main.bounds.height - insets.top
+            case .halfScreen:
+                let insets = self.safeAreaInsets
+                return (UIScreen.main.bounds.height - insets.top) / 2
+        }
     }
 }
 
 extension SheetViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard let panGestureRecognizer = gestureRecognizer as? InitialTouchPanGestureRecognizer, let childScrollView = self.childScrollView, let point = panGestureRecognizer.initialTouchLocation else { return true }
         
         let pointInChildScrollView: CGPoint = self.view.convert(point, to: childScrollView)
         
-        print(">> begin at \(pointInChildScrollView.y)?")
         guard pointInChildScrollView.y > 0 else { return true }
         
         let velocity = panGestureRecognizer.velocity(in: panGestureRecognizer.view?.superview)
         guard abs(velocity.y) > abs(velocity.x), childScrollView.contentOffset.y == 0 else { return false }
         
         if velocity.y < 0 {
-            print("scrolling up")
-            return self.orderedSheetSizes.last?.height ?? 0 > self.containerSize.height && self.containerSize.height < SheetSize.fullScreen.height
+            let containerHeight = height(for: self.containerSize)
+            return height(for: self.orderedSheetSizes.last) > containerHeight && containerHeight < height(for: SheetSize.fullScreen)
         } else {
-            print("scrolling down")
             return true
         }
     }

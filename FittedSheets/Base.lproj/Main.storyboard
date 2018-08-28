@@ -18,61 +18,116 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TDL-dg-2JQ">
-                                <rect key="frame" x="58.5" y="80" width="258" height="30"/>
-                                <state key="normal" title="Present bottom sheet dynamic height"/>
-                                <connections>
-                                    <action selector="presentSheet1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="N1i-UQ-SAo"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BU5-yV-ZcX">
-                                <rect key="frame" x="78" y="142" width="220" height="30"/>
-                                <state key="normal" title="Present bottom sheet scrollview"/>
-                                <connections>
-                                    <action selector="presentSheet2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pXQ-cK-r1F"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vrn-8O-PcG">
-                                <rect key="frame" x="71" y="204" width="233" height="30"/>
-                                <state key="normal" title="Present bottom sheet fixed height"/>
-                                <connections>
-                                    <action selector="presentSheet3:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MHK-w9-A9p"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNb-8p-3jh">
-                                <rect key="frame" x="61" y="266" width="254" height="30"/>
-                                <state key="normal" title="Present bottom sheet fixed height v2"/>
-                                <connections>
-                                    <action selector="presentSheet3v2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dXA-6w-2yl"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VOO-Gn-T3w">
-                                <rect key="frame" x="40.5" y="328" width="295" height="30"/>
-                                <state key="normal" title="Present bottom sheet navigation Controller"/>
-                                <connections>
-                                    <action selector="presentSheet4:" destination="BYZ-38-t0r" eventType="touchUpInside" id="w7x-wr-eu2"/>
-                                </connections>
-                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PE1-gg-GmU">
+                                <rect key="frame" x="16" y="20" width="343" height="647"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="yEe-R1-Onq">
+                                        <rect key="frame" x="0.0" y="32" width="375" height="402"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Jn-4z-EMs">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Keyboard tester" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fm1-rh-rc3">
+                                                        <rect key="frame" x="0.0" y="0.0" width="311" height="30"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="30" id="Boc-Kg-pZh"/>
+                                                        </constraints>
+                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vNK-eq-TwJ">
+                                                        <rect key="frame" x="320.5" y="0.0" width="54.5" height="30"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="54.5" id="u8m-Uw-yZO"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Dismiss"/>
+                                                        <connections>
+                                                            <action selector="dismissKeyboard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="w0V-aV-gCC"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="vNK-eq-TwJ" firstAttribute="top" secondItem="fm1-rh-rc3" secondAttribute="top" id="3B8-tQ-may"/>
+                                                    <constraint firstAttribute="bottom" secondItem="fm1-rh-rc3" secondAttribute="bottom" id="6tm-lH-iwG"/>
+                                                    <constraint firstItem="vNK-eq-TwJ" firstAttribute="bottom" secondItem="fm1-rh-rc3" secondAttribute="bottom" id="P4y-VN-0vj"/>
+                                                    <constraint firstItem="vNK-eq-TwJ" firstAttribute="leading" secondItem="fm1-rh-rc3" secondAttribute="trailing" constant="9.5" id="PDR-X3-XbA"/>
+                                                    <constraint firstItem="fm1-rh-rc3" firstAttribute="top" secondItem="4Jn-4z-EMs" secondAttribute="top" id="Rna-oA-F8r"/>
+                                                    <constraint firstAttribute="bottom" secondItem="vNK-eq-TwJ" secondAttribute="bottom" id="U8s-Vr-Qar"/>
+                                                    <constraint firstAttribute="trailing" secondItem="vNK-eq-TwJ" secondAttribute="trailing" id="ZLo-RX-6GR"/>
+                                                    <constraint firstItem="fm1-rh-rc3" firstAttribute="leading" secondItem="4Jn-4z-EMs" secondAttribute="leading" id="idv-ub-wKy"/>
+                                                    <constraint firstItem="fm1-rh-rc3" firstAttribute="centerX" secondItem="4Jn-4z-EMs" secondAttribute="centerX" constant="-32" id="kWZ-QN-zTm"/>
+                                                    <constraint firstItem="vNK-eq-TwJ" firstAttribute="top" secondItem="4Jn-4z-EMs" secondAttribute="top" id="oyG-gD-dYV"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TDL-dg-2JQ">
+                                                <rect key="frame" x="0.0" y="62" width="375" height="30"/>
+                                                <state key="normal" title="Present bottom sheet dynamic height"/>
+                                                <connections>
+                                                    <action selector="presentSheet1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="N1i-UQ-SAo"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BU5-yV-ZcX">
+                                                <rect key="frame" x="0.0" y="124" width="375" height="30"/>
+                                                <state key="normal" title="Present bottom sheet scrollview"/>
+                                                <connections>
+                                                    <action selector="presentSheet2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pXQ-cK-r1F"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vrn-8O-PcG">
+                                                <rect key="frame" x="0.0" y="186" width="375" height="30"/>
+                                                <state key="normal" title="Present bottom sheet fixed height"/>
+                                                <connections>
+                                                    <action selector="presentSheet3:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MHK-w9-A9p"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNb-8p-3jh">
+                                                <rect key="frame" x="0.0" y="248" width="375" height="30"/>
+                                                <state key="normal" title="Present bottom sheet fixed height v2"/>
+                                                <connections>
+                                                    <action selector="presentSheet3v2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dXA-6w-2yl"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VOO-Gn-T3w">
+                                                <rect key="frame" x="0.0" y="310" width="375" height="30"/>
+                                                <state key="normal" title="Present bottom sheet navigation Controller"/>
+                                                <connections>
+                                                    <action selector="presentSheet4:" destination="BYZ-38-t0r" eventType="touchUpInside" id="w7x-wr-eu2"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HDD-ua-gUD">
+                                                <rect key="frame" x="0.0" y="372" width="375" height="30"/>
+                                                <state key="normal" title="Present bottom sheet with textfield"/>
+                                                <connections>
+                                                    <action selector="presentSheet5:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Yfw-xb-ebF"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="yEe-R1-Onq" secondAttribute="bottom" constant="400" id="0WM-oc-Flg"/>
+                                    <constraint firstItem="yEe-R1-Onq" firstAttribute="top" secondItem="PE1-gg-GmU" secondAttribute="top" constant="32" id="QGn-uk-kcF"/>
+                                    <constraint firstItem="yEe-R1-Onq" firstAttribute="leading" secondItem="PE1-gg-GmU" secondAttribute="leading" id="iMQ-PP-euM"/>
+                                    <constraint firstAttribute="trailing" secondItem="yEe-R1-Onq" secondAttribute="trailing" id="kwY-Er-ys7"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="BU5-yV-ZcX" firstAttribute="top" secondItem="TDL-dg-2JQ" secondAttribute="bottom" constant="32" id="1TI-Au-eK0"/>
-                            <constraint firstItem="BU5-yV-ZcX" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="4UC-UL-XbA"/>
-                            <constraint firstItem="VOO-Gn-T3w" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="5dR-GO-blW"/>
-                            <constraint firstItem="FNb-8p-3jh" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="MYL-2B-OdO"/>
-                            <constraint firstItem="VOO-Gn-T3w" firstAttribute="top" secondItem="FNb-8p-3jh" secondAttribute="bottom" constant="32" id="OMx-CX-No1"/>
-                            <constraint firstItem="FNb-8p-3jh" firstAttribute="top" secondItem="Vrn-8O-PcG" secondAttribute="bottom" constant="32" id="TYa-uM-Xij"/>
-                            <constraint firstItem="Vrn-8O-PcG" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="WRd-73-JWd"/>
-                            <constraint firstItem="Vrn-8O-PcG" firstAttribute="top" secondItem="BU5-yV-ZcX" secondAttribute="bottom" constant="32" id="k0A-uV-y8C"/>
-                            <constraint firstItem="TDL-dg-2JQ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="60" id="qyM-W8-33S"/>
-                            <constraint firstItem="TDL-dg-2JQ" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="wfZ-Wm-Uah"/>
+                            <constraint firstItem="PE1-gg-GmU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="25H-E7-OyN"/>
+                            <constraint firstItem="PE1-gg-GmU" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-16" id="FK8-zv-oLK"/>
+                            <constraint firstItem="yEe-R1-Onq" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="YnN-8T-4cr"/>
+                            <constraint firstItem="PE1-gg-GmU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="n7i-uY-MaD"/>
+                            <constraint firstItem="PE1-gg-GmU" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="yEV-ge-Uan"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="206" y="28"/>
+            <point key="canvasLocation" x="205.59999999999999" y="27.436281859070466"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="wwA-dI-geo">
@@ -192,6 +247,45 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0C3-XM-WHR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2138" y="911"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="fey-JP-OdZ">
+            <objects>
+                <viewController storyboardIdentifier="sheet5" id="yKP-H0-fKu" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AwC-ah-5dV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7eA-Dg-MAP">
+                                <rect key="frame" x="16" y="36" width="343" height="41"/>
+                                <string key="text">We have a keyboard here. 
+Handle it gracefully!</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="edA-Rj-Cx5">
+                                <rect key="frame" x="16" y="93" width="343" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="7eA-Dg-MAP" firstAttribute="top" secondItem="Dbd-fJ-a1Y" secondAttribute="top" constant="16" id="3Rq-Dt-XTR"/>
+                            <constraint firstItem="Dbd-fJ-a1Y" firstAttribute="trailing" secondItem="edA-Rj-Cx5" secondAttribute="trailing" constant="16" id="6xs-IR-rhY"/>
+                            <constraint firstItem="7eA-Dg-MAP" firstAttribute="leading" secondItem="Dbd-fJ-a1Y" secondAttribute="leading" constant="16" id="Axz-kp-MWU"/>
+                            <constraint firstAttribute="trailing" secondItem="7eA-Dg-MAP" secondAttribute="trailing" constant="16" id="M7S-sr-BRg"/>
+                            <constraint firstItem="edA-Rj-Cx5" firstAttribute="top" secondItem="7eA-Dg-MAP" secondAttribute="bottom" constant="16" id="eYi-E8-2Yh"/>
+                            <constraint firstItem="edA-Rj-Cx5" firstAttribute="leading" secondItem="Dbd-fJ-a1Y" secondAttribute="leading" constant="16" id="tN9-Gf-ANf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Dbd-fJ-a1Y"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zgv-Vv-0hF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2858" y="911"/>
         </scene>
         <!--Scrolling View Controller-->
         <scene sceneID="BWY-QE-5Zi">

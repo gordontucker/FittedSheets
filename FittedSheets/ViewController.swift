@@ -19,19 +19,21 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    @IBAction func dismissKeyboard(_ sender: Any) {
+        self.view.endEditing(true)
+    }
+    
     @IBAction func presentSheet1(_ sender: Any) {
         let controller = SheetViewController(controller: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sheet1"))
         controller.blurBottomSafeArea = false
-        controller.modalPresentationStyle = .overCurrentContext
         self.present(controller, animated: false, completion: nil)
     }
     
     @IBAction func presentSheet2(_ sender: Any) {
         
-        let controller = SheetViewController(controller: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sheet2"))
+        let controller = SheetViewController(controller: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sheet2"), sizes: [.halfScreen, .fullScreen, .fixed(250)])
         
-        controller.modalPresentationStyle = .overCurrentContext
         self.present(controller, animated: false, completion: nil)
     }
     
@@ -41,10 +43,19 @@ class ViewController: UIViewController {
         self.present(controller, animated: false, completion: nil)
     }
     
+    @IBAction func presentSheet3v2(_ sender: Any) {
+        let controller = SheetViewController(controller: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sheet3"), sizes: [.fixed(100)])
+        controller.adjustForBottomSafeArea = true
+        self.present(controller, animated: false, completion: nil)
+    }
+    
     @IBAction func presentSheet4(_ sender: Any) {
         let controller = SheetViewController(controller: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sheet4"), sizes: [.fixed(450), .fixed(300), .fixed(600), .fullScreen])
-        controller.modalPresentationStyle = .overCurrentContext
-        controller.adjustForBottomSafeArea = true
+        self.present(controller, animated: false, completion: nil)
+    }
+    
+    @IBAction func presentSheet5(_ sender: Any) {
+        let controller = SheetViewController(controller: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sheet5"), sizes: [.fixed(450), .fixed(300), .fixed(160), .fullScreen])
         self.present(controller, animated: false, completion: nil)
     }
 }

@@ -37,6 +37,8 @@ public class SheetViewController: UIViewController {
     private weak var childScrollView: UIScrollView?
     
     private var containerHeightConstraint: NSLayoutConstraint!
+    private var containerBottomConstraint: NSLayoutConstraint!
+    private var keyboardHeight: CGFloat = 0
     
     /// The color of the overlay above the sheet. Default is a transparent black.
     var overlayColor: UIColor = UIColor(white: 0, alpha: 0.7) {
@@ -93,6 +95,9 @@ public class SheetViewController: UIViewController {
         self.setUpChildViewController()
         
         self.setUpPullBarView()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardShown(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDismissed(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -140,7 +145,8 @@ public class SheetViewController: UIViewController {
     private func setUpContainerView() {
         let containerView = UIView(frame: CGRect.zero)
         self.view.addSubview(containerView) { (subview) in
-            subview.edges(.bottom, .left, .right).pinToSuperview()
+            subview.edges(.left, .right).pinToSuperview()
+            self.containerBottomConstraint = subview.bottom.pinToSuperview()
             subview.top.pinToSuperview(inset: self.safeAreaInsets.top, relation: .greaterThanOrEqual)
             self.containerHeightConstraint = subview.height.set(self.height(for: self.containerSize))
             self.containerHeightConstraint.priority = UILayoutPriority(998)
@@ -148,6 +154,13 @@ public class SheetViewController: UIViewController {
         containerView.backgroundColor = UIColor.clear
         self.containerView = containerView
         containerView.transform = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
+        
+        self.view.addSubview(UIView(frame: CGRect.zero)) { subview in
+            subview.edges(.left, .right, .bottom).pinToSuperview()
+            subview.height.set(0).priority = UILayoutPriority(100)
+            subview.top.align(with: containerView.al.bottom)
+            subview.base.backgroundColor = UIColor.white
+        }
     }
     
     private func setUpChildViewController() {
@@ -321,6 +334,32 @@ public class SheetViewController: UIViewController {
         }
     }
     
+    @objc func keyboardShown(_ notification: Notification) {
+        guard let info:[AnyHashable: Any] = notification.userInfo, let keyboardRect:CGRect = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        
+        let windowRect = self.view.convert(self.view.bounds, to: nil)
+        let actualHeight = windowRect.maxY - keyboardRect.origin.y
+        self.adjustForKeyboard(height: actualHeight, from: notification)
+    }
+    
+    @objc func keyboardDismissed(_ notification: Notification) {
+        self.adjustForKeyboard(height: 0, from: notification)
+    }
+    
+    private func adjustForKeyboard(height: CGFloat, from notification: Notification) {
+        guard let info:[AnyHashable: Any] = notification.userInfo else { return }
+        
+        let duration:TimeInterval = (info[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+        let animationCurveRawNSN = info[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
+        let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIViewAnimationOptions.curveEaseInOut.rawValue
+        let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
+        
+        UIView.animate(withDuration: duration, delay: 0, options: animationCurve, animations: {
+            self.containerBottomConstraint.constant = -height
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
     /// Handle a scroll view in the child view controller by watching for the offset for the scrollview and taking priority when at the top (so pulling up/down can grow/shrink the sheet instead of bouncing the child's scroll view)
     public func handleScrollView(_ scrollView: UIScrollView) {
         scrollView.panGestureRecognizer.require(toFail: panGestureRecognizer)
@@ -334,10 +373,9 @@ public class SheetViewController: UIViewController {
                 return height
             case .fullScreen:
                 let insets = self.safeAreaInsets
-                return UIScreen.main.bounds.height - insets.top
+                return UIScreen.main.bounds.height - insets.top - 20
             case .halfScreen:
-                let insets = self.safeAreaInsets
-                return (UIScreen.main.bounds.height - insets.top) / 2
+                return (UIScreen.main.bounds.height) / 2 + 24
         }
     }
 }

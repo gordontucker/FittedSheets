@@ -41,7 +41,7 @@ public class SheetViewController: UIViewController {
     private var keyboardHeight: CGFloat = 0
     
     /// The color of the overlay above the sheet. Default is a transparent black.
-    public var overlayColor: UIColor = UIColor(white: 0, alpha: 0.7) {
+    var overlayColor: UIColor = UIColor(white: 0, alpha: 0.7) {
         didSet {
             if self.isViewLoaded {
                 self.view.backgroundColor = self.overlayColor
@@ -113,7 +113,6 @@ public class SheetViewController: UIViewController {
     /// Change the sizes the sheet should try to pin to
     public func setSizes(_ sizes: [SheetSize]) {
         guard sizes.count > 0 else {
-            print("You cannot set sheet sizes to an empty array")
             return
         }
         self.orderedSheetSizes = sizes.sorted(by: { self.height(for: $0) < self.height(for: $1) })
@@ -149,7 +148,7 @@ public class SheetViewController: UIViewController {
             self.containerBottomConstraint = subview.bottom.pinToSuperview()
             subview.top.pinToSuperview(inset: self.safeAreaInsets.top, relation: .greaterThanOrEqual)
             self.containerHeightConstraint = subview.height.set(self.height(for: self.containerSize))
-            self.containerHeightConstraint.priority = UILayoutPriority(998)
+            self.containerHeightConstraint.priority = UILayoutPriority(900)
         }
         containerView.backgroundColor = UIColor.clear
         self.containerView = containerView
@@ -237,8 +236,8 @@ public class SheetViewController: UIViewController {
         UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseIn], animations: { [weak self] in
             self?.containerView.transform = CGAffineTransform(translationX: 0, y: self?.containerView.frame.height ?? 0)
             self?.view.backgroundColor = UIColor.clear
-        }, completion: { [weak self] complete in
-            self?.dismiss(animated: false, completion: nil)
+            }, completion: { [weak self] complete in
+                self?.dismiss(animated: false, completion: nil)
         })
     }
     
@@ -249,8 +248,18 @@ public class SheetViewController: UIViewController {
             self.actualContainerSize = .fixed(self.containerView.frame.height)
         }
         
-        let minHeight = self.height(for: self.orderedSheetSizes.first)
-        let maxHeight = self.height(for: self.orderedSheetSizes.last)
+        let minHeight = min(self.height(for: self.actualContainerSize), self.height(for: self.orderedSheetSizes.first))
+        let maxHeight = max(self.height(for: self.actualContainerSize), self.height(for: self.orderedSheetSizes.last))
+        
+        var newHeight = max(0, self.height(for: self.actualContainerSize) + (self.firstPanPoint.y - point.y))
+        var offset: CGFloat = 0
+        if newHeight < minHeight {
+            offset = minHeight - newHeight
+            newHeight = minHeight
+        }
+        if newHeight > maxHeight {
+            newHeight = maxHeight
+        }
         
         if gesture.state == .cancelled || gesture.state == .failed {
             UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseOut], animations: {
@@ -259,15 +268,15 @@ public class SheetViewController: UIViewController {
             }, completion: nil)
         } else if gesture.state == .ended {
             let velocity = (0.2 * gesture.velocity(in: self.view).y)
-            var finalHeight = containerView.frame.height - velocity
-            if velocity > 300 {
+            var finalHeight = newHeight - offset - velocity
+            if velocity > 500 {
                 // They swiped hard, always just close the sheet when they do
                 finalHeight = -1
             }
             
             let animationDuration = TimeInterval(abs(velocity*0.0002) + 0.2)
             
-            guard finalHeight >= minHeight else {
+            guard finalHeight >= (minHeight / 2) else {
                 // Dismiss
                 UIView.animate(withDuration: animationDuration, delay: 0, options: [.curveEaseOut], animations: { [weak self] in
                     self?.containerView.transform = CGAffineTransform(translationX: 0, y: self?.containerView.frame.height ?? 0)
@@ -311,16 +320,6 @@ public class SheetViewController: UIViewController {
                 _self.actualContainerSize = .fixed(_self.containerView.frame.height)
             })
         } else {
-            var newHeight = max(0, self.height(for: self.actualContainerSize) + (self.firstPanPoint.y - point.y))
-            var offset: CGFloat = 0
-            if newHeight < minHeight {
-                offset = minHeight - newHeight
-                newHeight = minHeight
-            }
-            if newHeight > maxHeight {
-                newHeight = maxHeight
-            }
-            
             Constraints(for: self.containerView) { (containerView) in
                 self.containerHeightConstraint.constant = newHeight
             }
@@ -348,6 +347,7 @@ public class SheetViewController: UIViewController {
     
     private func adjustForKeyboard(height: CGFloat, from notification: Notification) {
         guard let info:[AnyHashable: Any] = notification.userInfo else { return }
+        self.keyboardHeight = height
         
         let duration:TimeInterval = (info[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
         let animationCurveRawNSN = info[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
@@ -395,6 +395,9 @@ extension SheetViewController: UIGestureRecognizerDelegate {
             let containerHeight = height(for: self.containerSize)
             return height(for: self.orderedSheetSizes.last) > containerHeight && containerHeight < height(for: SheetSize.fullScreen)
         } else {
+            if keyboardHeight > 0 {
+                childScrollView.endEditing(true)
+            }
             return true
         }
     }

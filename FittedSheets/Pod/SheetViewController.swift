@@ -146,7 +146,7 @@ public class SheetViewController: UIViewController {
         self.view.addSubview(containerView) { (subview) in
             subview.edges(.left, .right).pinToSuperview()
             self.containerBottomConstraint = subview.bottom.pinToSuperview()
-            subview.top.pinToSuperview(inset: self.safeAreaInsets.top, relation: .greaterThanOrEqual)
+            subview.top.pinToSuperview(inset: self.safeAreaInsets.top + 20, relation: .greaterThanOrEqual)
             self.containerHeightConstraint = subview.height.set(self.height(for: self.containerSize))
             self.containerHeightConstraint.priority = UILayoutPriority(900)
         }
@@ -233,11 +233,16 @@ public class SheetViewController: UIViewController {
     
     @objc func dismissTapped() {
         guard dismissOnBackgroundTap else { return }
+        self.closeSheet()
+    }
+    
+    /// Animates the sheet to the closed state and then dismisses the view controller
+    public func closeSheet(completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseIn], animations: { [weak self] in
             self?.containerView.transform = CGAffineTransform(translationX: 0, y: self?.containerView.frame.height ?? 0)
             self?.view.backgroundColor = UIColor.clear
-            }, completion: { [weak self] complete in
-                self?.dismiss(animated: false, completion: nil)
+        }, completion: { [weak self] complete in
+            self?.dismiss(animated: false, completion: completion)
         })
     }
     
@@ -355,7 +360,7 @@ public class SheetViewController: UIViewController {
         let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
         
         UIView.animate(withDuration: duration, delay: 0, options: animationCurve, animations: {
-            self.containerBottomConstraint.constant = -height
+            self.containerBottomConstraint.constant = min(0, -height + (self.adjustForBottomSafeArea ? self.safeAreaInsets.bottom : 0))
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
@@ -384,9 +389,9 @@ extension SheetViewController: UIGestureRecognizerDelegate {
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard let panGestureRecognizer = gestureRecognizer as? InitialTouchPanGestureRecognizer, let childScrollView = self.childScrollView, let point = panGestureRecognizer.initialTouchLocation else { return true }
         
-        let pointInChildScrollView: CGPoint = self.view.convert(point, to: childScrollView)
+        let pointInChildScrollView = self.view.convert(point, to: childScrollView).y - childScrollView.contentOffset.y
         
-        guard pointInChildScrollView.y > 0 else { return true }
+        guard pointInChildScrollView > 0 else { return true }
         
         let velocity = panGestureRecognizer.velocity(in: panGestureRecognizer.view?.superview)
         guard abs(velocity.y) > abs(velocity.x), childScrollView.contentOffset.y == 0 else { return false }

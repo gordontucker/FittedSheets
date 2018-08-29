@@ -391,18 +391,20 @@ extension SheetViewController: UIGestureRecognizerDelegate {
         
         let pointInChildScrollView = self.view.convert(point, to: childScrollView).y - childScrollView.contentOffset.y
         
-        guard pointInChildScrollView > 0 else { return true }
-        
         let velocity = panGestureRecognizer.velocity(in: panGestureRecognizer.view?.superview)
+        guard pointInChildScrollView > 0 else {
+            if keyboardHeight > 0 {
+                childScrollView.endEditing(true)
+            }
+            return true
+        }
+        
         guard abs(velocity.y) > abs(velocity.x), childScrollView.contentOffset.y == 0 else { return false }
         
         if velocity.y < 0 {
             let containerHeight = height(for: self.containerSize)
             return height(for: self.orderedSheetSizes.last) > containerHeight && containerHeight < height(for: SheetSize.fullScreen)
         } else {
-            if keyboardHeight > 0 {
-                childScrollView.endEditing(true)
-            }
             return true
         }
     }

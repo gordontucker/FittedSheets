@@ -392,7 +392,7 @@ extension SheetViewController: UIGestureRecognizerDelegate {
         let pointInChildScrollView = self.view.convert(point, to: childScrollView).y - childScrollView.contentOffset.y
         
         let velocity = panGestureRecognizer.velocity(in: panGestureRecognizer.view?.superview)
-        guard pointInChildScrollView > 0 else {
+        guard pointInChildScrollView > 0, pointInChildScrollView < childScrollView.bounds.height else {
             if keyboardHeight > 0 {
                 childScrollView.endEditing(true)
             }

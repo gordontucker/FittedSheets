@@ -96,8 +96,8 @@ public class SheetViewController: UIViewController {
         
         self.setUpPullBarView()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardShown(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDismissed(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardShown(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDismissed(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -163,8 +163,8 @@ public class SheetViewController: UIViewController {
     }
     
     private func setUpChildViewController() {
-        self.childViewController.willMove(toParentViewController: self)
-        self.addChildViewController(self.childViewController)
+        self.childViewController.willMove(toParent: self)
+        self.addChild(self.childViewController)
         let bottomInset = self.safeAreaInsets.bottom
         self.containerView.addSubview(self.childViewController.view) { (subview) in
             subview.edges(.left, .right).pinToSuperview()
@@ -180,7 +180,7 @@ public class SheetViewController: UIViewController {
         }
         self.childViewController.view.layer.cornerRadius = 10
         self.childViewController.view.layer.masksToBounds = true
-        self.childViewController.didMove(toParentViewController: self)
+        self.childViewController.didMove(toParent: self)
         
         if self.adjustForBottomSafeArea, bottomInset > 0 {
             // Add white background over bottom bar
@@ -339,7 +339,7 @@ public class SheetViewController: UIViewController {
     }
     
     @objc func keyboardShown(_ notification: Notification) {
-        guard let info:[AnyHashable: Any] = notification.userInfo, let keyboardRect:CGRect = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        guard let info:[AnyHashable: Any] = notification.userInfo, let keyboardRect:CGRect = (info[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
         
         let windowRect = self.view.convert(self.view.bounds, to: nil)
         let actualHeight = windowRect.maxY - keyboardRect.origin.y
@@ -354,10 +354,10 @@ public class SheetViewController: UIViewController {
         guard let info:[AnyHashable: Any] = notification.userInfo else { return }
         self.keyboardHeight = height
         
-        let duration:TimeInterval = (info[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
-        let animationCurveRawNSN = info[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
-        let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIViewAnimationOptions.curveEaseInOut.rawValue
-        let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
+        let duration:TimeInterval = (info[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+        let animationCurveRawNSN = info[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber
+        let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIView.AnimationOptions.curveEaseInOut.rawValue
+        let animationCurve:UIView.AnimationOptions = UIView.AnimationOptions(rawValue: animationCurveRaw)
         
         UIView.animate(withDuration: duration, delay: 0, options: animationCurve, animations: {
             self.containerBottomConstraint.constant = min(0, -height + (self.adjustForBottomSafeArea ? self.safeAreaInsets.bottom : 0))

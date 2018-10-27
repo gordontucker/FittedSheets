@@ -26,7 +26,7 @@ self.present(controller, animated: false, completion: nil)
 ```swift
 let controller = MyViewController()
 
-let sheetController = SheetViewController(controller: controller, sizes: [.fixed(100), .fixed(200), .halfScreen, .fullScreen)
+let sheetController = SheetViewController(controller: controller, sizes: [.fixed(100), .fixed(200), .halfScreen, .fullScreen])
 sheetController.blurBottomSafeArea = false
 sheetController.adjustForBottomSafeArea = true
 

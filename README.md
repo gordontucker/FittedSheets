@@ -8,6 +8,8 @@ Minimum requirements is Swift 4.2 and Xcode 10
 ## About
 This project is to enable easily presenting view controllers in a bottom sheet that supports scrollviews and multiple sizes. Contributions and feedback are very welcome.  
 
+The bottom sheet tries to be smart about the height it takes. If the view controller is smaller than the sizes specified, it will only grow as large as the intrensic height of the presented view controller. If it is larger, it will stop at each height specified in the initializer or setSizes function.
+
 ## Usage
 Using a bottom sheet is simple. 
 

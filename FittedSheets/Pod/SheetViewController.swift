@@ -11,8 +11,8 @@ import UIKit
 public class SheetViewController: UIViewController {
     public private(set) var childViewController: UIViewController!
     
-    public private(set) weak var containerView: UIView!
-    public private(set) weak var pullBarView: UIView!
+    public let containerView = UIView()
+    public let pullBarView = UIView()
     
     /// If true, tapping on the overlay above the sheet will dismiss the sheet view controller
     public var dismissOnBackgroundTap: Bool = true
@@ -142,22 +142,20 @@ public class SheetViewController: UIViewController {
     }
     
     private func setUpContainerView() {
-        let containerView = UIView(frame: CGRect.zero)
-        self.view.addSubview(containerView) { (subview) in
+        self.view.addSubview(self.containerView) { (subview) in
             subview.edges(.left, .right).pinToSuperview()
             self.containerBottomConstraint = subview.bottom.pinToSuperview()
             subview.top.pinToSuperview(inset: self.safeAreaInsets.top + 20, relation: .greaterThanOrEqual)
             self.containerHeightConstraint = subview.height.set(self.height(for: self.containerSize))
             self.containerHeightConstraint.priority = UILayoutPriority(900)
         }
-        containerView.backgroundColor = UIColor.clear
-        self.containerView = containerView
-        containerView.transform = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
+        self.containerView.backgroundColor = UIColor.clear
+        self.containerView.transform = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
         
         self.view.addSubview(UIView(frame: CGRect.zero)) { subview in
             subview.edges(.left, .right, .bottom).pinToSuperview()
             subview.height.set(0).priority = UILayoutPriority(100)
-            subview.top.align(with: containerView.al.bottom)
+            subview.top.align(with: self.containerView.al.bottom)
             subview.base.backgroundColor = UIColor.white
         }
     }
@@ -213,15 +211,13 @@ public class SheetViewController: UIViewController {
     }
     
     private func setUpPullBarView() {
-        let pullBarView = UIView(frame: CGRect.zero)
-        self.containerView.addSubview(pullBarView) { (subview) in
+        self.containerView.addSubview(self.pullBarView) { (subview) in
             subview.edges(.top, .left, .right).pinToSuperview()
             subview.height.set(24)
         }
-        self.pullBarView = pullBarView
         
         let grabView = UIView(frame: CGRect.zero)
-        pullBarView.addSubview(grabView) { (subview) in
+        self.pullBarView.addSubview(grabView) { (subview) in
             subview.centerY.alignWithSuperview()
             subview.centerX.alignWithSuperview()
             subview.size.set(CGSize(width: 50, height: 6))

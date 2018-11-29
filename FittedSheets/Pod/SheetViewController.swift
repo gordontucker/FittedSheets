@@ -103,10 +103,10 @@ public class SheetViewController: UIViewController {
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseOut], animations: { [weak self] in
-            guard let _self = self else { return }
-            _self.view.backgroundColor = _self.overlayColor
-            _self.containerView.transform = CGAffineTransform.identity
-            _self.actualContainerSize = .fixed(_self.containerView.frame.height)
+            guard let self = self else { return }
+            self.view.backgroundColor = self.overlayColor
+            self.containerView.transform = CGAffineTransform.identity
+            self.actualContainerSize = .fixed(self.containerView.frame.height)
         }, completion: nil)
     }
     
@@ -321,8 +321,8 @@ public class SheetViewController: UIViewController {
                 self.containerHeightConstraint.constant = self.height(for: newSize)
                 self.view.layoutIfNeeded()
             }, completion: { [weak self] complete in
-                guard let _self = self else { return }
-                _self.actualContainerSize = .fixed(_self.containerView.frame.height)
+                guard let self = self else { return }
+                self.actualContainerSize = .fixed(self.containerView.frame.height)
             })
         } else {
             Constraints(for: self.containerView) { (containerView) in

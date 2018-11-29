@@ -1,7 +1,10 @@
 # FittedSheets
 Bottom sheets for iOS
 
-Minimum requirements is Swift 4.2 and Xcode 10
+Minimum requirement:  
+![iOSVersion](https://img.shields.io/badge/iOS-10.3-green.svg) 
+![SwiftVersion](https://img.shields.io/badge/Swift-4.2-green.svg) 
+![XcodeVersion](https://img.shields.io/badge/Xcode-10-green.svg)  
 
 ![Demo](https://raw.githubusercontent.com/gordontucker/FittedSheets/master/fullDemo.gif)  
 

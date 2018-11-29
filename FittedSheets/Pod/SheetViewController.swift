@@ -72,7 +72,7 @@ public class SheetViewController: UIViewController {
         self.init(nibName: nil, bundle: nil)
         self.childViewController = controller
         if sizes.count > 0 {
-            self.setSizes(sizes)
+            self.setSizes(sizes, animated: false)
         }
         self.modalPresentationStyle = .overFullScreen
     }
@@ -111,13 +111,23 @@ public class SheetViewController: UIViewController {
     }
     
     /// Change the sizes the sheet should try to pin to
-    public func setSizes(_ sizes: [SheetSize]) {
+    public func setSizes(_ sizes: [SheetSize], animated: Bool = true) {
         guard sizes.count > 0 else {
             return
         }
         self.orderedSheetSizes = sizes.sorted(by: { self.height(for: $0) < self.height(for: $1) })
-        self.containerSize = sizes[0]
-        self.actualContainerSize = sizes[0]
+        
+        self.resize(to: sizes[0], animated: animated)
+    }
+    
+    public func resize(to size: SheetSize, animated: Bool = true) {
+        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: { [weak self] in
+            guard let self = self, let constraint = self.containerHeightConstraint else { return }
+            constraint.constant = self.height(for: size)
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        self.containerSize = size
+        self.actualContainerSize = size
     }
     
     /// Because iOS 10 doesn't support the better rounded corners implementation, we need to fake it here. This can be deleted once iOS 10 support is dropped.

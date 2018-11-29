@@ -20,6 +20,7 @@
 		F84FF4AD21349D6000248951 /* ScrollingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84FF4AC21349D6000248951 /* ScrollingViewController.swift */; };
 		F84FF4AF2134A95300248951 /* InitialTouchPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84FF4AE2134A95300248951 /* InitialTouchPanGestureRecognizer.swift */; };
 		F84FF4B12135BE1A00248951 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84FF4B02135BE1A00248951 /* UIViewControllerExtension.swift */; };
+		F883089F21B0A581005CFB9D /* SelfResizingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883089E21B0A581005CFB9D /* SelfResizingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		F84FF4AC21349D6000248951 /* ScrollingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingViewController.swift; sourceTree = "<group>"; };
 		F84FF4AE2134A95300248951 /* InitialTouchPanGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialTouchPanGestureRecognizer.swift; sourceTree = "<group>"; };
 		F84FF4B02135BE1A00248951 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		F883089E21B0A581005CFB9D /* SelfResizingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfResizingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,10 +113,10 @@
 		F8034163212625DD00EAD717 /* FittedSheets */ = {
 			isa = PBXGroup;
 			children = (
+				F88308A121B0A592005CFB9D /* Examples */,
 				F8034197212F154C00EAD717 /* Pod */,
 				F8034164212625DD00EAD717 /* AppDelegate.swift */,
 				F8034166212625DD00EAD717 /* ViewController.swift */,
-				F84FF4AC21349D6000248951 /* ScrollingViewController.swift */,
 				F8034168212625DD00EAD717 /* Main.storyboard */,
 				F803416B212625DF00EAD717 /* Assets.xcassets */,
 				F803416D212625DF00EAD717 /* LaunchScreen.storyboard */,
@@ -151,6 +153,15 @@
 				F84FF4B02135BE1A00248951 /* UIViewControllerExtension.swift */,
 			);
 			path = Pod;
+			sourceTree = "<group>";
+		};
+		F88308A121B0A592005CFB9D /* Examples */ = {
+			isa = PBXGroup;
+			children = (
+				F84FF4AC21349D6000248951 /* ScrollingViewController.swift */,
+				F883089E21B0A581005CFB9D /* SelfResizingViewController.swift */,
+			);
+			path = Examples;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -286,6 +297,7 @@
 			files = (
 				F8034199212F15B600EAD717 /* SheetViewController.swift in Sources */,
 				F84FF4AF2134A95300248951 /* InitialTouchPanGestureRecognizer.swift in Sources */,
+				F883089F21B0A581005CFB9D /* SelfResizingViewController.swift in Sources */,
 				F803419D212F208300EAD717 /* Yalta.swift in Sources */,
 				F84FF4AB21348A2900248951 /* SheetSize.swift in Sources */,
 				F84FF4B12135BE1A00248951 /* UIViewControllerExtension.swift in Sources */,

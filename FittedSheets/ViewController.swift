@@ -58,5 +58,10 @@ class ViewController: UIViewController {
         let controller = SheetViewController(controller: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sheet5"), sizes: [.fixed(450), .fixed(300), .fixed(160), .fullScreen])
         self.present(controller, animated: false, completion: nil)
     }
+    
+    @IBAction func presentSelfSizingSheet(_ sender: Any) {
+        let controller = SheetViewController(controller: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "selfsizing"), sizes: [.fullScreen])
+        self.present(controller, animated: false, completion: nil)
+    }
 }
 

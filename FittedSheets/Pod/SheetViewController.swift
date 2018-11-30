@@ -121,11 +121,15 @@ public class SheetViewController: UIViewController {
     }
     
     public func resize(to size: SheetSize, animated: Bool = true) {
-        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: { [weak self] in
-            guard let self = self, let constraint = self.containerHeightConstraint else { return }
-            constraint.constant = self.height(for: size)
-            self.view.layoutIfNeeded()
-        }, completion: nil)
+        if animated {
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: { [weak self] in
+                guard let self = self, let constraint = self.containerHeightConstraint else { return }
+                constraint.constant = self.height(for: size)
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        } else {
+            self.containerHeightConstraint?.constant = self.height(for: size)
+        }
         self.containerSize = size
         self.actualContainerSize = size
     }

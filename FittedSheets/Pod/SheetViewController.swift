@@ -41,7 +41,7 @@ public class SheetViewController: UIViewController {
     private var keyboardHeight: CGFloat = 0
     
     /// The color of the overlay above the sheet. Default is a transparent black.
-    var overlayColor: UIColor = UIColor(white: 0, alpha: 0.7) {
+    public var overlayColor: UIColor = UIColor(white: 0, alpha: 0.7) {
         didSet {
             if self.isViewLoaded {
                 self.view.backgroundColor = self.overlayColor

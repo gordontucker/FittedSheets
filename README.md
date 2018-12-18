@@ -25,7 +25,7 @@ let controller = MyViewController()
 
 let sheetController = SheetViewController(controller: controller)
 
-self.present(controller, animated: false, completion: nil)
+self.present(sheetController, animated: false, completion: nil)
 ```
 
 **Customizing settings**  

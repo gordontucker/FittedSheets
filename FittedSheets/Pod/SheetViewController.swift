@@ -371,6 +371,8 @@ public class SheetViewController: UIViewController {
         
         UIView.animate(withDuration: duration, delay: 0, options: animationCurve, animations: {
             self.containerBottomConstraint.constant = min(0, -height + (self.adjustForBottomSafeArea ? self.safeAreaInsets.bottom : 0))
+            // Tell our child view it needs to layout again to prevent the navigation bar from moving to the wrong spot if in a UINavigationController
+            self.childViewController.view.setNeedsLayout()
             self.view.layoutIfNeeded()
         }, completion: nil)
     }

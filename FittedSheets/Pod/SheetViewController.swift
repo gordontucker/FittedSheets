@@ -58,6 +58,9 @@ public class SheetViewController: UIViewController {
         return inserts
     }
     
+    public var willDismiss: ((SheetViewController) -> Void)?
+    public var didDismiss: ((SheetViewController) -> Void)?
+    
     @available(*, deprecated, message: "Use the init(controller:, sizes:) initializer")
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -254,6 +257,14 @@ public class SheetViewController: UIViewController {
         }, completion: { [weak self] complete in
             self?.dismiss(animated: false, completion: completion)
         })
+    }
+    
+    override public func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        self.willDismiss?(self)
+        super.dismiss(animated: flag) {
+            self.didDismiss?(self)
+            completion?()
+        }
     }
     
     @objc func panned(_ gesture: UIPanGestureRecognizer) {

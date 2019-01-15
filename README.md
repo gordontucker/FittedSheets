@@ -25,7 +25,7 @@ let controller = MyViewController()
 
 let sheetController = SheetViewController(controller: controller)
 
-self.present(sheetController, animated: false, completion: nil)
+self.present(sheetController, animated: false, completion: nil) // It is important to set animated to false or it behaves weird currently
 ```
 
 **Customizing settings**  
@@ -38,6 +38,18 @@ sheetController.blurBottomSafeArea = false
 sheetController.adjustForBottomSafeArea = true
 
 self.present(controller, animated: false, completion: nil)
+```
+
+**Handling dismiss events**
+```swift
+let sheet = SheetViewController(controller: controller, sizes: [.fixed(420), .fullScreen])
+sheet.willDismiss = { _ in
+    // This is called just before the sheet is dismissed
+}
+sheet.didDismiss = { _ in
+    // This is called after the sheet is dismissed
+}
+self.present(sheet, animated: false, completion: nil)
 ```
 
 ## Settings

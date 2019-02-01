@@ -26,20 +26,20 @@ class ExamplesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addExample("Color Tests", controller: ColorExampleViewController.instantiate())
-        addExample("Scroll View", controller: ScrollViewExampleViewController.instantiate())
-        addExample("Table View", controller: TableViewExampleViewController.instantiate())
-        addExample("Table View Controller", controller: ExampleTableViewController.instantiate())
-        addExample("Intrinsic Height", controller: IntrinsicExampleViewController.instantiate())
-        addExample("Self Resizing", controller: ResizingExampleViewController.instantiate())
+        addExample("Color Tests", controller: { ColorExampleViewController.instantiate() })
+        addExample("Scroll View", controller: { ScrollViewExampleViewController.instantiate() })
+        addExample("Table View", controller: { TableViewExampleViewController.instantiate() })
+        addExample("Table View Controller", controller: { ExampleTableViewController.instantiate() })
+        addExample("Intrinsic Height", controller: { IntrinsicExampleViewController.instantiate() })
+        addExample("Self Resizing", controller: { ResizingExampleViewController.instantiate() })
     }
     
-    func addExample(_ name: String, controller: UIViewController) {
+    func addExample(_ name: String, controller: @escaping () -> UIViewController) {
         let button = UIButton(type: .custom)
         button.setTitle(name, for: .normal)
         button.onTap { [weak self] in
             guard let self = self else { return }
-            var controller = controller
+            var controller = controller()
             let stringSizes = self.sizesTextField.text!.components(separatedBy: ",")
             var sizes: [SheetSize] = stringSizes.compactMap({
                 Int($0.trimmingCharacters(in: .whitespacesAndNewlines))

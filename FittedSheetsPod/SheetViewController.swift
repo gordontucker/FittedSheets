@@ -12,10 +12,24 @@ public class SheetViewController: UIViewController {
     public private(set) var childViewController: UIViewController!
     
     public let containerView = UIView()
+    /// The view that can be pulled to resize a sheeet. This includes the background. To change the color of the bar, use `handleView` instead
     public let pullBarView = UIView()
+    public let handleView = UIView()
+    public var handleColor: UIColor? {
+        get { return handleView.backgroundColor }
+        set { handleView.backgroundColor = newValue }
+    }
     
     /// If true, tapping on the overlay above the sheet will dismiss the sheet view controller
     public var dismissOnBackgroundTap: Bool = true
+    
+    public var extendBackgroundBehindHandle: Bool = false {
+        didSet {
+            guard isViewLoaded else { return }
+            self.pullBarView.backgroundColor = extendBackgroundBehindHandle ? childViewController.view.backgroundColor : UIColor.clear
+            self.updateRoundedCorners()
+        }
+    }
     
     private var firstPanPoint: CGPoint = CGPoint.zero
     
@@ -24,6 +38,13 @@ public class SheetViewController: UIViewController {
     
     /// If true, the bottom safe area will have a blur effect over it. This must be set before the sheet view controller loads for it to function properly
     public var blurBottomSafeArea: Bool = true
+    
+    /// Turn rounding on or off for the top corners. Only available for iOS 11 and above
+    public var roundTopCorners: Bool = true {
+        didSet {
+            self.updateRoundedCorners()
+        }
+    }
     
     /// The current preferred container size
     private var containerSize: SheetSize = .fixed(300)
@@ -99,6 +120,7 @@ public class SheetViewController: UIViewController {
         
         self.setUpPullBarView()
         
+        self.updateRoundedCorners()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardShown(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDismissed(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -190,11 +212,9 @@ public class SheetViewController: UIViewController {
             }
             subview.top.pinToSuperview(inset: 24, relation: .equal)
         }
-        if #available(iOS 11.0, *) {
-            self.childViewController.view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        }
-        self.childViewController.view.layer.cornerRadius = 10
+        
         self.childViewController.view.layer.masksToBounds = true
+        
         self.childViewController.didMove(toParent: self)
         
         if self.adjustForBottomSafeArea, bottomInset > 0 {
@@ -211,6 +231,18 @@ public class SheetViewController: UIViewController {
                 subview.edges(.bottom, .left, .right).pinToSuperview()
                 subview.height.set(bottomInset)
             }
+        }
+    }
+    
+    /// Updates which view has rounded corners (only supported on iOS 11)
+    private func updateRoundedCorners() {
+        if #available(iOS 11.0, *) {
+            let controllerWithRoundedCorners = extendBackgroundBehindHandle ? self.pullBarView : self.childViewController.view
+            let controllerWithoutRoundedCorners = extendBackgroundBehindHandle ? self.childViewController.view : self.pullBarView
+            controllerWithRoundedCorners?.layer.maskedCorners = roundTopCorners ? [.layerMaxXMinYCorner, .layerMinXMinYCorner] : []
+            controllerWithRoundedCorners?.layer.cornerRadius = roundTopCorners ? 10 : 0
+            controllerWithoutRoundedCorners?.layer.maskedCorners = []
+            controllerWithoutRoundedCorners?.layer.cornerRadius = 0
         }
     }
     
@@ -233,15 +265,17 @@ public class SheetViewController: UIViewController {
             subview.height.set(24)
         }
         
-        let grabView = UIView(frame: CGRect.zero)
-        self.pullBarView.addSubview(grabView) { (subview) in
+        self.pullBarView.addSubview(handleView) { (subview) in
             subview.centerY.alignWithSuperview()
             subview.centerX.alignWithSuperview()
             subview.size.set(CGSize(width: 50, height: 6))
         }
-        grabView.layer.cornerRadius = 3
-        grabView.layer.masksToBounds = true
-        grabView.backgroundColor = UIColor(white: 0.868, alpha: 1)
+        pullBarView.layer.masksToBounds = true
+        pullBarView.backgroundColor = extendBackgroundBehindHandle ? childViewController.view.backgroundColor : UIColor.clear
+        
+        handleView.layer.cornerRadius = 3
+        handleView.layer.masksToBounds = true
+        handleView.backgroundColor = UIColor(white: 0.868, alpha: 1)
     }
     
     @objc func dismissTapped() {

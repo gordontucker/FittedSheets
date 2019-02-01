@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="LqH-1c-u84">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Color Example View Controller-->
+        <scene sceneID="zm3-Eh-5bO">
+            <objects>
+                <viewController storyboardIdentifier="sheet1" id="LqH-1c-u84" customClass="ColorExampleViewController" customModule="FittedSheets" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KZY-QN-WQP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a label at the top" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KIy-Mf-Y1D">
+                                <rect key="frame" x="0.0" y="21" width="375" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a label at the bottom" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q2N-Oy-aQt">
+                                <rect key="frame" x="0.0" y="645" width="375" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test Bottom Sheet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V8P-Jr-JGr">
+                                <rect key="frame" x="61" y="323" width="253.5" height="41"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="34"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93333333330000001" green="0.31372549020000001" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Q2N-Oy-aQt" firstAttribute="top" relation="greaterThanOrEqual" secondItem="KIy-Mf-Y1D" secondAttribute="bottom" constant="1" id="BGX-ia-n03"/>
+                            <constraint firstItem="Q2N-Oy-aQt" firstAttribute="leading" secondItem="nyw-wp-GQO" secondAttribute="leading" id="Op8-wH-lvg"/>
+                            <constraint firstItem="V8P-Jr-JGr" firstAttribute="centerX" secondItem="nyw-wp-GQO" secondAttribute="centerX" id="Ph7-0m-pPZ"/>
+                            <constraint firstItem="nyw-wp-GQO" firstAttribute="bottom" secondItem="Q2N-Oy-aQt" secondAttribute="bottom" constant="1" id="dk2-SF-rij"/>
+                            <constraint firstItem="Q2N-Oy-aQt" firstAttribute="trailing" secondItem="nyw-wp-GQO" secondAttribute="trailing" id="fhd-TX-I5S"/>
+                            <constraint firstItem="V8P-Jr-JGr" firstAttribute="centerY" secondItem="nyw-wp-GQO" secondAttribute="centerY" id="mbm-pA-4DB"/>
+                            <constraint firstItem="nyw-wp-GQO" firstAttribute="trailing" secondItem="KIy-Mf-Y1D" secondAttribute="trailing" id="nOz-oo-vOM"/>
+                            <constraint firstItem="KIy-Mf-Y1D" firstAttribute="top" secondItem="nyw-wp-GQO" secondAttribute="top" constant="1" id="pJB-Tx-W9f"/>
+                            <constraint firstItem="KIy-Mf-Y1D" firstAttribute="leading" secondItem="nyw-wp-GQO" secondAttribute="leading" id="xmI-wS-ApP"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="nyw-wp-GQO"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Knl-Ji-YTX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="940" y="28.335832083958024"/>
+        </scene>
+    </scenes>
+</document>

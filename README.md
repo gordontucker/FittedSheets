@@ -11,9 +11,9 @@ This project is to enable easily presenting view controllers in a bottom sheet t
 
 The bottom sheet tries to be smart about the height it takes. If the view controller is smaller than the sizes specified, it will only grow as large as the intrensic height of the presented view controller. If it is larger, it will stop at each height specified in the initializer or setSizes function.
 
-| Default Settings | Extended Background | Color Tinted | Navigation Controller |
+| Default Settings | Extended Background | Color Tinted | Interactable |
 |:-:|:-:|:-:|:-:|
-| ![Default Options](ss_default_options.png) | ![Extend Background Behind Bar](ss_extend_background.png) | ![Color Tinting](ss_colors.png) | ![Color Tinting](ss_navigation.png) |
+| ![Default Options](ss_default_options.png) | ![Extend Background Behind Bar](ss_extend_background.png) | ![Color Tinting](ss_colors.png) | ![Interaction](fullDemo.gif) |  
 
 ## Usage
 Using a bottom sheet is simple. 

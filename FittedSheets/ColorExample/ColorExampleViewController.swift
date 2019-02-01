@@ -12,9 +12,6 @@ class ColorExampleViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
         self.sheetViewController?.handleColor = UIColor(red: 0.933, green: 0.314, blue: 0.349, alpha: 0.8)
         self.sheetViewController?.overlayColor = UIColor(red: 0.933, green: 0.314, blue: 0.349, alpha: 0.3)
     }

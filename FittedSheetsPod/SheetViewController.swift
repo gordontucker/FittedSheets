@@ -15,9 +15,10 @@ public class SheetViewController: UIViewController {
     /// The view that can be pulled to resize a sheeet. This includes the background. To change the color of the bar, use `handleView` instead
     public let pullBarView = UIView()
     public let handleView = UIView()
-    public var handleColor: UIColor? {
-        get { return handleView.backgroundColor }
-        set { handleView.backgroundColor = newValue }
+    public var handleColor: UIColor = UIColor(white: 0.868, alpha: 1) {
+        didSet {
+            self.handleView.backgroundColor = self.handleColor
+        }
     }
     
     /// If true, tapping on the overlay above the sheet will dismiss the sheet view controller
@@ -42,6 +43,7 @@ public class SheetViewController: UIViewController {
     /// Turn rounding on or off for the top corners. Only available for iOS 11 and above
     public var roundTopCorners: Bool = true {
         didSet {
+            guard isViewLoaded else { return }
             self.updateRoundedCorners()
         }
     }
@@ -108,7 +110,7 @@ public class SheetViewController: UIViewController {
             fatalError("SheetViewController requires a child view controller")
         }
         
-        self.view.backgroundColor = UIColor.clear
+        self.view.backgroundColor = self.overlayColor
         self.setUpContainerView()
         self.setUpDismissView()
         
@@ -275,7 +277,7 @@ public class SheetViewController: UIViewController {
         
         handleView.layer.cornerRadius = 3
         handleView.layer.masksToBounds = true
-        handleView.backgroundColor = UIColor(white: 0.868, alpha: 1)
+        handleView.backgroundColor = self.handleColor
     }
     
     @objc func dismissTapped() {

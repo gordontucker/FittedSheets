@@ -43,7 +43,10 @@ sheetController.blurBottomSafeArea = false
 sheetController.adjustForBottomSafeArea = true
 
 // Turn off rounded corners
-sheetController.roundTopCorners = false
+sheetController.topCornersRadius = 0
+
+// Make corners more round
+sheetController.topCornersRadius = 15
 
 // Disable the dismiss on background tap functionality
 sheetController.dismissOnBackgroundTap = false

@@ -65,7 +65,7 @@ class ExamplesViewController: UIViewController {
             sheetController.blurBottomSafeArea = self.blurBottomSafeAreaSwitch.isOn
             sheetController.dismissOnBackgroundTap = self.dismissOnBackgroundTapSwitch.isOn
             sheetController.extendBackgroundBehindHandle = self.extendBackgroundBehindHandleSwitch.isOn
-            sheetController.roundTopCorners = self.roundedCornersSwitch.isOn
+            sheetController.topCornersRadius = self.roundedCornersSwitch.isOn ? 15 : 0
             
             sheetController.willDismiss = { _ in
                 print("Will dismiss \(name)")

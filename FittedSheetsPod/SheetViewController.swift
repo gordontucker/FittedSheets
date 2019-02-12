@@ -9,6 +9,7 @@
 import UIKit
 
 public class SheetViewController: UIViewController {
+    // MARK: - Public Properties
     public private(set) var childViewController: UIViewController!
     
     public let containerView = UIView()
@@ -40,14 +41,27 @@ public class SheetViewController: UIViewController {
     /// If true, the bottom safe area will have a blur effect over it. This must be set before the sheet view controller loads for it to function properly
     public var blurBottomSafeArea: Bool = true
     
-    /// Turn rounding on or off for the top corners. Only available for iOS 11 and above
-    public var roundTopCorners: Bool = true {
+    /// Adjust corner radius for the top corners. Only available for iOS 11 and above
+    public var topCornersRadius: CGFloat = 3 {
         didSet {
             guard isViewLoaded else { return }
             self.updateRoundedCorners()
         }
     }
     
+    /// The color of the overlay above the sheet. Default is a transparent black.
+    public var overlayColor: UIColor = UIColor(white: 0, alpha: 0.7) {
+        didSet {
+            if self.isViewLoaded {
+                self.view.backgroundColor = self.overlayColor
+            }
+        }
+    }
+    
+    public var willDismiss: ((SheetViewController) -> Void)?
+    public var didDismiss: ((SheetViewController) -> Void)?
+    
+    // MARK: - Private properties
     /// The current preferred container size
     private var containerSize: SheetSize = .fixed(300)
     /// The current actual container size
@@ -63,15 +77,6 @@ public class SheetViewController: UIViewController {
     private var containerBottomConstraint: NSLayoutConstraint!
     private var keyboardHeight: CGFloat = 0
     
-    /// The color of the overlay above the sheet. Default is a transparent black.
-    public var overlayColor: UIColor = UIColor(white: 0, alpha: 0.7) {
-        didSet {
-            if self.isViewLoaded {
-                self.view.backgroundColor = self.overlayColor
-            }
-        }
-    }
-    
     private var safeAreaInsets: UIEdgeInsets {
         var inserts = UIEdgeInsets.zero
         if #available(iOS 11.0, *) {
@@ -81,9 +86,7 @@ public class SheetViewController: UIViewController {
         return inserts
     }
     
-    public var willDismiss: ((SheetViewController) -> Void)?
-    public var didDismiss: ((SheetViewController) -> Void)?
-    
+    // MARK: - Functions
     @available(*, deprecated, message: "Use the init(controller:, sizes:) initializer")
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -241,8 +244,8 @@ public class SheetViewController: UIViewController {
         if #available(iOS 11.0, *) {
             let controllerWithRoundedCorners = extendBackgroundBehindHandle ? self.pullBarView : self.childViewController.view
             let controllerWithoutRoundedCorners = extendBackgroundBehindHandle ? self.childViewController.view : self.pullBarView
-            controllerWithRoundedCorners?.layer.maskedCorners = roundTopCorners ? [.layerMaxXMinYCorner, .layerMinXMinYCorner] : []
-            controllerWithRoundedCorners?.layer.cornerRadius = roundTopCorners ? 10 : 0
+            controllerWithRoundedCorners?.layer.maskedCorners = self.topCornersRadius > 0 ? [.layerMaxXMinYCorner, .layerMinXMinYCorner] : []
+            controllerWithRoundedCorners?.layer.cornerRadius = self.topCornersRadius
             controllerWithoutRoundedCorners?.layer.maskedCorners = []
             controllerWithoutRoundedCorners?.layer.cornerRadius = 0
         }

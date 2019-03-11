@@ -193,6 +193,7 @@ public class SheetViewController: UIViewController {
             self.containerHeightConstraint = subview.height.set(self.height(for: self.containerSize))
             self.containerHeightConstraint.priority = UILayoutPriority(900)
         }
+        self.containerView.layer.masksToBounds = true
         self.containerView.backgroundColor = UIColor.clear
         self.containerView.transform = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
         
@@ -242,8 +243,8 @@ public class SheetViewController: UIViewController {
     /// Updates which view has rounded corners (only supported on iOS 11)
     private func updateRoundedCorners() {
         if #available(iOS 11.0, *) {
-            let controllerWithRoundedCorners = extendBackgroundBehindHandle ? self.pullBarView : self.childViewController.view
-            let controllerWithoutRoundedCorners = extendBackgroundBehindHandle ? self.childViewController.view : self.pullBarView
+            let controllerWithRoundedCorners = extendBackgroundBehindHandle ? self.containerView : self.childViewController.view
+            let controllerWithoutRoundedCorners = extendBackgroundBehindHandle ? self.childViewController.view : self.containerView
             controllerWithRoundedCorners?.layer.maskedCorners = self.topCornersRadius > 0 ? [.layerMaxXMinYCorner, .layerMinXMinYCorner] : []
             controllerWithRoundedCorners?.layer.cornerRadius = self.topCornersRadius
             controllerWithoutRoundedCorners?.layer.maskedCorners = []

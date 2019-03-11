@@ -21,6 +21,9 @@ public class SheetViewController: UIViewController {
             self.handleView.backgroundColor = self.handleColor
         }
     }
+    public var handleSize: CGSize = CGSize(width: 50, height: 6)
+    public var handleTopEdgeInset: CGFloat = 9
+    public var handleBottomEdgeInset: CGFloat = 9
     
     /// If true, tapping on the overlay above the sheet will dismiss the sheet view controller
     public var dismissOnBackgroundTap: Bool = true
@@ -121,10 +124,9 @@ public class SheetViewController: UIViewController {
         self.view.addGestureRecognizer(panGestureRecognizer)
         panGestureRecognizer.delegate = self
         self.panGestureRecognizer = panGestureRecognizer
-        self.setUpChildViewController()
-        
+      
         self.setUpPullBarView()
-        
+        self.setUpChildViewController()
         self.updateRoundedCorners()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardShown(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDismissed(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -216,7 +218,7 @@ public class SheetViewController: UIViewController {
             } else {
                 subview.bottom.pinToSuperview()
             }
-            subview.top.pinToSuperview(inset: 24, relation: .equal)
+            subview.top.align(with: self.pullBarView.al.bottom)
         }
         
         self.childViewController.view.layer.masksToBounds = true
@@ -268,18 +270,18 @@ public class SheetViewController: UIViewController {
     private func setUpPullBarView() {
         self.containerView.addSubview(self.pullBarView) { (subview) in
             subview.edges(.top, .left, .right).pinToSuperview()
-            subview.height.set(24)
         }
         
         self.pullBarView.addSubview(handleView) { (subview) in
-            subview.centerY.alignWithSuperview()
+            subview.top.pinToSuperview(inset: handleTopEdgeInset, relation: .equal)
+            subview.bottom.pinToSuperview(inset: handleBottomEdgeInset, relation: .equal)
             subview.centerX.alignWithSuperview()
-            subview.size.set(CGSize(width: 50, height: 6))
+            subview.size.set(handleSize)
         }
         pullBarView.layer.masksToBounds = true
         pullBarView.backgroundColor = extendBackgroundBehindHandle ? childViewController.view.backgroundColor : UIColor.clear
         
-        handleView.layer.cornerRadius = 3
+        handleView.layer.cornerRadius = handleSize.height / 2.0
         handleView.layer.masksToBounds = true
         handleView.backgroundColor = self.handleColor
     }

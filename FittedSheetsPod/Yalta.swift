@@ -263,7 +263,7 @@ struct AnchorCollectionSize {
 // MARK: - Constraints
 
 final class Constraints {
-    internal(set) var constraints = [NSLayoutConstraint]()
+    var constraints = [NSLayoutConstraint]()
     
     /// All of the constraints created in the given closure are automatically
     /// activated at the same time. This is more efficient then installing them

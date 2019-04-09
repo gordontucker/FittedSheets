@@ -155,7 +155,7 @@ extension Anchor where Type: AnchorType.Edge {
             case .bottom: (item2, attr2) = (vc.bottomLayoutGuide, .top)
                 // There are no layout guides for .left and .right, so just pin
             // to the superview instead.
-            default: (item2, attr2) = (vc.view, self.attribute)
+            default: (item2, attr2) = (vc.view!, self.attribute)
             }
         }
         return _pin(to: item2, attribute: attr2, inset: inset, relation: relation)
@@ -383,6 +383,8 @@ internal extension NSLayoutConstraint.Relation {
         case .greaterThanOrEqual: return .lessThanOrEqual
         case .lessThanOrEqual: return .greaterThanOrEqual
         case .equal: return self
+        @unknown default:
+            return self
         }
     }
 }

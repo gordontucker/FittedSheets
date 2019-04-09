@@ -55,7 +55,7 @@ public class SheetViewController: UIViewController {
     /// The color of the overlay above the sheet. Default is a transparent black.
     public var overlayColor: UIColor = UIColor(white: 0, alpha: 0.7) {
         didSet {
-            if self.isViewLoaded {
+            if self.isViewLoaded && self.view?.window != nil {
                 self.view.backgroundColor = self.overlayColor
             }
         }
@@ -116,7 +116,7 @@ public class SheetViewController: UIViewController {
             fatalError("SheetViewController requires a child view controller")
         }
         
-        self.view.backgroundColor = self.overlayColor
+        self.view.backgroundColor = UIColor.clear
         self.setUpContainerView()
         self.setUpDismissView()
         

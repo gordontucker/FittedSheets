@@ -60,7 +60,7 @@ sheetController.overlayColor = UIColor.red
 // Change the handle color
 sheetController.handleColor = UIColor.orange
 
-self.present(controller, animated: false, completion: nil)
+self.present(sheetController, animated: false, completion: nil)
 ```
 
 **Handling dismiss events**

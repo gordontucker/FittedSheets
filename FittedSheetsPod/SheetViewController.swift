@@ -28,6 +28,13 @@ public class SheetViewController: UIViewController {
     /// If true, tapping on the overlay above the sheet will dismiss the sheet view controller
     public var dismissOnBackgroundTap: Bool = true
     
+    /// If true, sheet's dismiss view will be generated, otherwise sheet remains fixed and will need to be dismissed programatically
+    public var dismissable: Bool = true {
+        didSet {
+            guard isViewLoaded else { return }
+        }
+    }
+    
     public var extendBackgroundBehindHandle: Bool = false {
         didSet {
             guard isViewLoaded else { return }
@@ -118,12 +125,15 @@ public class SheetViewController: UIViewController {
         
         self.view.backgroundColor = UIColor.clear
         self.setUpContainerView()
-        self.setUpDismissView()
         
-        let panGestureRecognizer = InitialTouchPanGestureRecognizer(target: self, action: #selector(panned(_:)))
-        self.view.addGestureRecognizer(panGestureRecognizer)
-        panGestureRecognizer.delegate = self
-        self.panGestureRecognizer = panGestureRecognizer
+        if(dismissable){
+            self.setUpDismissView()
+            
+            let panGestureRecognizer = InitialTouchPanGestureRecognizer(target: self, action: #selector(panned(_:)))
+            self.view.addGestureRecognizer(panGestureRecognizer)
+            panGestureRecognizer.delegate = self
+            self.panGestureRecognizer = panGestureRecognizer
+        }
       
         self.setUpPullBarView()
         self.setUpChildViewController()

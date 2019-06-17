@@ -464,7 +464,7 @@ extension SheetViewController: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         guard let view = touch.view else { return true }
         // Allowing gesture recognition on a button seems to prevent it's events from firing properly sometimes
-        return !(view is UIButton)
+        return !(view is UIControl)
     }
     
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {

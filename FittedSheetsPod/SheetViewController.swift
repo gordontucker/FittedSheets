@@ -294,6 +294,11 @@ public class SheetViewController: UIViewController {
         handleView.layer.cornerRadius = handleSize.height / 2.0
         handleView.layer.masksToBounds = true
         handleView.backgroundColor = self.handleColor
+        
+        pullBarView.isAccessibilityElement = true
+        pullBarView.accessibilityLabel = "Pull bar"
+        pullBarView.accessibilityHint = "Tap on this bar to dismiss the modal"
+        pullBarView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissTapped)))
     }
     
     @objc func dismissTapped() {

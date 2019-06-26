@@ -219,6 +219,10 @@ public class SheetViewController: UIViewController {
             subview.height.set(24)
         }
         self.pullBarView = pullBarView
+        pullBarView.isAccessibilityElement = true
+        pullBarView.accessibilityLabel = "Pull bar"
+        pullBarView.accessibilityHint = "Tap on this bar to dismiss the modal"
+        pullBarView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissTapped)))
         
         let grabView = UIView(frame: CGRect.zero)
         pullBarView.addSubview(grabView) { (subview) in

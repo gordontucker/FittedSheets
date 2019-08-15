@@ -362,7 +362,7 @@ public class SheetViewController: UIViewController {
             
             let animationDuration = TimeInterval(abs(velocity*0.0002) + 0.2)
             
-            guard finalHeight >= (minHeight / 2) else {
+            guard finalHeight >= (minHeight / 2) || !dismissOnPan else {
                 // Dismiss
                 UIView.animate(withDuration: animationDuration, delay: 0, options: [.curveEaseOut], animations: { [weak self] in
                     self?.containerView.transform = CGAffineTransform(translationX: 0, y: self?.containerView.frame.height ?? 0)
@@ -410,7 +410,7 @@ public class SheetViewController: UIViewController {
                 self.containerHeightConstraint.constant = newHeight
             }
             
-            if offset > 0 {
+            if offset > 0 && dismissOnPan {
                 self.containerView.transform = CGAffineTransform(translationX: 0, y: offset)
             } else {
                 self.containerView.transform = CGAffineTransform.identity

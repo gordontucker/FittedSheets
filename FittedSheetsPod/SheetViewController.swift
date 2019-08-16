@@ -28,6 +28,9 @@ public class SheetViewController: UIViewController {
     /// If true, tapping on the overlay above the sheet will dismiss the sheet view controller
     public var dismissOnBackgroundTap: Bool = true
     
+    /// If true, sheet may be dismissed by panning down
+    public var dismissOnPan: Bool = true
+    
     /// If true, sheet's dismiss view will be generated, otherwise sheet remains fixed and will need to be dismissed programatically
     public var dismissable: Bool = true {
         didSet {
@@ -359,7 +362,7 @@ public class SheetViewController: UIViewController {
             
             let animationDuration = TimeInterval(abs(velocity*0.0002) + 0.2)
             
-            guard finalHeight >= (minHeight / 2) else {
+            guard finalHeight >= (minHeight / 2) || !dismissOnPan else {
                 // Dismiss
                 UIView.animate(withDuration: animationDuration, delay: 0, options: [.curveEaseOut], animations: { [weak self] in
                     self?.containerView.transform = CGAffineTransform(translationX: 0, y: self?.containerView.frame.height ?? 0)
@@ -407,7 +410,7 @@ public class SheetViewController: UIViewController {
                 self.containerHeightConstraint.constant = newHeight
             }
             
-            if offset > 0 {
+            if offset > 0 && dismissOnPan {
                 self.containerView.transform = CGAffineTransform(translationX: 0, y: offset)
             } else {
                 self.containerView.transform = CGAffineTransform.identity

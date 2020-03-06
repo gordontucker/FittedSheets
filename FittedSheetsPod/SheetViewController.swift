@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class SheetViewController: UIViewController {
+open class SheetViewController: UIViewController {
     // MARK: - Public Properties
     public private(set) var childViewController: UIViewController!
     
@@ -129,14 +129,14 @@ public class SheetViewController: UIViewController {
         self.view.backgroundColor = UIColor.clear
         self.setUpContainerView()
         
-        if(dismissable){
+        if dismissable {
             self.setUpDismissView()
-            
-            let panGestureRecognizer = InitialTouchPanGestureRecognizer(target: self, action: #selector(panned(_:)))
-            self.view.addGestureRecognizer(panGestureRecognizer)
-            panGestureRecognizer.delegate = self
-            self.panGestureRecognizer = panGestureRecognizer
         }
+        
+        let panGestureRecognizer = InitialTouchPanGestureRecognizer(target: self, action: #selector(panned(_:)))
+        self.view.addGestureRecognizer(panGestureRecognizer)
+        panGestureRecognizer.delegate = self
+        self.panGestureRecognizer = panGestureRecognizer
       
         self.setUpPullBarView()
         self.setUpChildViewController()

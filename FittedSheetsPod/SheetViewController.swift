@@ -299,8 +299,8 @@ public class SheetViewController: UIViewController {
         handleView.backgroundColor = self.handleColor
         
         pullBarView.isAccessibilityElement = true
-        pullBarView.accessibilityLabel = "Pull bar"
-        pullBarView.accessibilityHint = "Tap on this bar to dismiss the modal"
+        pullBarView.accessibilityLabel = "Overlay controller"
+        pullBarView.accessibilityHint = "Double tap to dismiss card overlay"
         pullBarView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissTapped)))
     }
     

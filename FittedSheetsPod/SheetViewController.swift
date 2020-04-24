@@ -31,6 +31,9 @@ public class SheetViewController: UIViewController {
     /// If true, sheet may be dismissed by panning down
     public var dismissOnPan: Bool = true
     
+    /// If false, the pan gesture to dismiss the sheet will not be recognized when it conflicts with a UIControl
+    public var shouldRecognizePanGestureWithUIControls: Bool = false
+    
     /// If true, sheet's dismiss view will be generated, otherwise sheet remains fixed and will need to be dismissed programatically
     public var dismissable: Bool = true {
         didSet {
@@ -470,9 +473,13 @@ public class SheetViewController: UIViewController {
 
 extension SheetViewController: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        guard let view = touch.view else { return true }
-        // Allowing gesture recognition on a button seems to prevent it's events from firing properly sometimes
-        return !(view is UIControl)
+        // Allowing gesture recognition on a UIControl seems to prevent its events from firing properly sometimes
+        if !shouldRecognizePanGestureWithUIControls {
+            if let view = touch.view {
+                return !(view is UIControl)
+            }
+        }
+        return true
     }
     
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {

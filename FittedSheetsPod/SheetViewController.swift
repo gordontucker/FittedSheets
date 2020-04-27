@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class SheetViewController: UIViewController {
+open class SheetViewController: UIViewController {
     // MARK: - Public Properties
     public private(set) var childViewController: UIViewController!
     
@@ -35,11 +35,7 @@ public class SheetViewController: UIViewController {
     public var shouldRecognizePanGestureWithUIControls: Bool = false
     
     /// If true, sheet's dismiss view will be generated, otherwise sheet remains fixed and will need to be dismissed programatically
-    public var dismissable: Bool = true {
-        didSet {
-            guard isViewLoaded else { return }
-        }
-    }
+    public var dismissable: Bool = true
     
     public var extendBackgroundBehindHandle: Bool = false {
         didSet {
@@ -134,12 +130,12 @@ public class SheetViewController: UIViewController {
         
         if(dismissable){
             self.setUpDismissView()
-            
-            let panGestureRecognizer = InitialTouchPanGestureRecognizer(target: self, action: #selector(panned(_:)))
-            self.view.addGestureRecognizer(panGestureRecognizer)
-            panGestureRecognizer.delegate = self
-            self.panGestureRecognizer = panGestureRecognizer
         }
+
+        let panGestureRecognizer = InitialTouchPanGestureRecognizer(target: self, action: #selector(panned(_:)))
+        self.view.addGestureRecognizer(panGestureRecognizer)
+        panGestureRecognizer.delegate = self
+        self.panGestureRecognizer = panGestureRecognizer
       
         self.setUpPullBarView()
         self.setUpChildViewController()
@@ -365,7 +361,7 @@ public class SheetViewController: UIViewController {
             
             let animationDuration = TimeInterval(abs(velocity*0.0002) + 0.2)
             
-            guard finalHeight >= (minHeight / 2) || !dismissOnPan else {
+            guard finalHeight >= (minHeight / 2) || !dismissOnPan || !dismissable else {
                 // Dismiss
                 UIView.animate(withDuration: animationDuration, delay: 0, options: [.curveEaseOut], animations: { [weak self] in
                     self?.containerView.transform = CGAffineTransform(translationX: 0, y: self?.containerView.frame.height ?? 0)
@@ -413,7 +409,7 @@ public class SheetViewController: UIViewController {
                 self.containerHeightConstraint.constant = newHeight
             }
             
-            if offset > 0 && dismissOnPan {
+            if offset > 0 {
                 self.containerView.transform = CGAffineTransform(translationX: 0, y: offset)
             } else {
                 self.containerView.transform = CGAffineTransform.identity

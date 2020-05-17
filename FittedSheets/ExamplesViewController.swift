@@ -58,9 +58,11 @@ class ExamplesViewController: UIViewController {
                     controller = NavigationRootViewController.instantiate(exampleViewController: controller)
                 }
                 controller = UINavigationController(rootViewController: controller)
+                
             }
             
             let sheetController = SheetViewController(controller: controller, sizes: sizes)
+            sheetController.navigationEmbedded = self.navigationControllerSwitch.isOn
             sheetController.adjustForBottomSafeArea = self.adjustForBottomSafeAreaSwitch.isOn
             sheetController.blurBottomSafeArea = self.blurBottomSafeAreaSwitch.isOn
             sheetController.dismissOnBackgroundTap = self.dismissOnBackgroundTapSwitch.isOn

@@ -34,6 +34,8 @@ open class SheetViewController: UIViewController {
     /// If false, the pan gesture to dismiss the sheet will not be recognized when it conflicts with a UIControl
     public var shouldRecognizePanGestureWithUIControls: Bool = false
     
+    public var navigationEmbedded: Bool = false
+    
     /// If true, sheet's dismiss view will be generated, otherwise sheet remains fixed and will need to be dismissed programatically
     public var dismissable: Bool = true
     
@@ -291,7 +293,16 @@ open class SheetViewController: UIViewController {
             subview.size.set(handleSize)
         }
         pullBarView.layer.masksToBounds = true
-        pullBarView.backgroundColor = extendBackgroundBehindHandle ? childViewController.view.backgroundColor : UIColor.clear
+        if navigationEmbedded{
+            
+            //set the background colour to default light mode navigation bar colour
+            let bgColor = UIColor(red: (247/255), green: (247/255), blue: (247/255), alpha: 1)
+            pullBarView.backgroundColor = extendBackgroundBehindHandle ? bgColor : UIColor.white
+        }else{
+            pullBarView.backgroundColor = extendBackgroundBehindHandle ? childViewController.view.backgroundColor : UIColor.clear
+        }
+        
+        
         
         handleView.layer.cornerRadius = handleSize.height / 2.0
         handleView.layer.masksToBounds = true

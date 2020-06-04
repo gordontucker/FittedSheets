@@ -23,7 +23,7 @@ _The constructor is `init(controller:, sizes:)`. Sizes is optional, but if speci
 **Using default settings**  
 
 ```swift
-import FittedSheetsPod
+import FittedSheets
 
 let controller = MyViewController()
 

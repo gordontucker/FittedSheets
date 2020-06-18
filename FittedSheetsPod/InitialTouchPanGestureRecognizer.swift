@@ -5,7 +5,7 @@
 //  Created by Gordon Tucker on 8/27/18.
 //  Copyright © 2018 Gordon Tucker. All rights reserved.
 //
-
+#if os(iOS) || os(tvOS) || os(watchOS)
 import UIKit.UIGestureRecognizerSubclass
 
 class InitialTouchPanGestureRecognizer: UIPanGestureRecognizer {
@@ -16,3 +16,4 @@ class InitialTouchPanGestureRecognizer: UIPanGestureRecognizer {
         initialTouchLocation = touches.first?.location(in: view)
     }
 }
+#endif

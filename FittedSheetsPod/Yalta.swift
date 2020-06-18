@@ -5,6 +5,7 @@
 // August 2018 version, to update copy all code from https://raw.githubusercontent.com/kean/Yalta/master/Sources/Yalta.swift (leaving this header instead of the updated one)
 // Make sure to remove all `public` from this class so we don't cause issues with anyone using this library in their own code already
 
+#if os(iOS) || os(tvOS) || os(watchOS)
 import UIKit
 
 protocol LayoutItem { // `UIView`, `UILayoutGuide`
@@ -415,3 +416,5 @@ extension Anchor where Type: AnchorType.Dimension {
         return Constraints.constrain(self, anchor, offset: offset, multiplier: multiplier, relation: relation)
     }
 }
+
+#endif // os(iOS) || os(tvOS) || os(watchOS)

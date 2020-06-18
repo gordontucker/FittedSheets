@@ -6,6 +6,7 @@
 //  Copyright © 2018 Gordon Tucker. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS) || os(watchOS)
 import UIKit
 
 open class SheetViewController: UIViewController {
@@ -501,3 +502,5 @@ extension SheetViewController: UIGestureRecognizerDelegate {
         }
     }
 }
+
+#endif // os(iOS) || os(tvOS) || os(watchOS)

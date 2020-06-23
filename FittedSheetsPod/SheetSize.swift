@@ -6,7 +6,7 @@
 //  Copyright © 2018 Gordon Tucker. All rights reserved.
 //
 
-import UIKit
+import CoreGraphics
 
 public enum SheetSize {
     case fixed(CGFloat)

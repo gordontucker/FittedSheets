@@ -52,8 +52,8 @@ public class SheetViewController: UIViewController {
     private var panOffset: CGFloat = 0
     private var panGestureRecognizer: InitialTouchPanGestureRecognizer!
     
-    public init(childViewController: UIViewController, sizes: [SheetSize] = [.intrensic], pullBarOptions: PullBarOptions? = PullBarOptions()) {
-        self.contentViewController = SheetContentViewController(childViewController: childViewController, pullBarOptions: pullBarOptions)
+    public init(controller: UIViewController, sizes: [SheetSize] = [.intrensic], pullBarOptions: PullBarOptions? = PullBarOptions()) {
+        self.contentViewController = SheetContentViewController(childViewController: controller, pullBarOptions: pullBarOptions)
         self.sizes = sizes
         super.init(nibName: nil, bundle: nil)
         self.modalPresentationStyle = .overFullScreen
@@ -70,6 +70,7 @@ public class SheetViewController: UIViewController {
         self.addOverlay()
         self.addContentView()
         self.addOverlayTapView()
+        self.addPanGestureRecognizer()
         self.registerKeyboardObservers()
         self.resize(to: self.sizes.first ?? .intrensic, animated: false)
     }
@@ -129,15 +130,19 @@ public class SheetViewController: UIViewController {
             $0.edges.pin(insets: 0, axis: .horizontal, alignment: .center)
             $0.left.pin().priority = UILayoutPriority(999)
             $0.bottom.pin()
+            self.contentViewHeightConstraint = $0.height.equal(self.height(for: self.currentSize))
+            
+            let top: CGFloat
             if (self.useFullScreenMode) {
-                $0.top.pin()
+                top = 0
             } else {
-                var safeAreaTop: CGFloat = 20
                 if #available(iOS 11.0, *) {
-                    safeAreaTop = UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 20
+                    top = max(20, UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 20)
+                } else {
+                    top = 20
                 }
-                $0.top.pin(inset: max(safeAreaTop, 20))
             }
+            $0.edges.pin(insets: UIEdgeInsets(top: top, left: 0, bottom: 0, right: 0), axis: .vertical, alignment: .bottom)
         }
     }
     
@@ -154,8 +159,13 @@ public class SheetViewController: UIViewController {
             self.firstPanPoint = point
         }
         
-        let minHeight: CGFloat = 0
-        let maxHeight = self.view.bounds.height
+        let minHeight: CGFloat = self.height(for: self.orderedSizes.first)
+        let maxHeight: CGFloat
+        if self.allowPullingPastMaxHeight {
+            maxHeight = self.view.bounds.height
+        } else {
+            maxHeight = max(self.height(for: self.orderedSizes.last), self.contentViewController.view.bounds.height)
+        }
         
         var newHeight = max(0, self.contentViewController.view.bounds.height + (self.firstPanPoint.y - point.y))
         var offset: CGFloat = 0
@@ -192,7 +202,7 @@ public class SheetViewController: UIViewController {
                 
                 let animationDuration = TimeInterval(abs(velocity*0.0002) + 0.2)
                 
-                guard finalHeight >= (minHeight / 2) || !self.dismissOnPull else {
+                guard finalHeight > 0 || !self.dismissOnPull else {
                     // Dismiss
                     UIView.animate(withDuration: animationDuration, delay: 0, options: [.curveEaseOut], animations: { [weak self] in
                         self?.contentViewController.view.transform = CGAffineTransform(translationX: 0, y: self?.contentViewController.view.bounds.height ?? 0)
@@ -351,7 +361,10 @@ extension SheetViewController: SheetContentViewDelegate {
     }
     
     func preferredHeightChanged(oldHeight: CGFloat, newSize: CGFloat) {
-        
+        // If our intrensic size changed and that is what we are sized to currently, use that
+        if self.currentSize == .intrensic {
+            self.resize(to: .intrensic)
+        }
     }
 }
 

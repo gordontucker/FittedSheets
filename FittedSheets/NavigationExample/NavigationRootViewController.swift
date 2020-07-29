@@ -16,7 +16,7 @@ class NavigationRootViewController: UIViewController {
     }
     
     @IBAction func closeTapped(_ sender: Any) {
-        self.sheetViewController?.closeSheet() {
+        self.sheetViewController?.dismiss(animated: true) {
             print("Closing sheet with toolbar button complete")
         }
     }

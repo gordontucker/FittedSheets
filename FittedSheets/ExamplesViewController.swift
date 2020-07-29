@@ -60,19 +60,18 @@ class ExamplesViewController: UIViewController {
                 controller = UINavigationController(rootViewController: controller)
             }
             
-            let sheetController = SheetViewController(controller: controller, sizes: sizes)
-            sheetController.adjustForBottomSafeArea = self.adjustForBottomSafeAreaSwitch.isOn
-            sheetController.blurBottomSafeArea = self.blurBottomSafeAreaSwitch.isOn
-            sheetController.dismissOnBackgroundTap = self.dismissOnBackgroundTapSwitch.isOn
-            sheetController.extendBackgroundBehindHandle = self.extendBackgroundBehindHandleSwitch.isOn
-            sheetController.topCornersRadius = self.roundedCornersSwitch.isOn ? 15 : 0
+            var pullBarOptions = PullBarOptions()
+            pullBarOptions.cornerRadius = self.roundedCornersSwitch.isOn ? 15 : 0
             
-            sheetController.willDismiss = { _ in
-                print("Will dismiss \(name)")
-            }
-            sheetController.didDismiss = { _ in
-                print("Will dismiss \(name)")
-            }
+            let sheetController = SheetViewController(controller: controller, sizes: sizes)
+            sheetController.dismissOnOverlayTap = self.dismissOnBackgroundTapSwitch.isOn
+            
+//            sheetController.willDismiss = { _ in
+//                print("Will dismiss \(name)")
+//            }
+//            sheetController.didDismiss = { _ in
+//                print("Will dismiss \(name)")
+//            }
             
             self.present(sheetController, animated: false, completion: nil)
         }
@@ -91,7 +90,6 @@ class ExamplesViewController: UIViewController {
     
     @IBAction func presentSheet1(_ sender: Any) {
         let controller = SheetViewController(controller: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sheet1"))
-        controller.blurBottomSafeArea = false
         self.present(controller, animated: false, completion: nil)
     }
     
@@ -104,13 +102,11 @@ class ExamplesViewController: UIViewController {
     
     @IBAction func presentSheet3(_ sender: Any) {
         let controller = SheetViewController(controller: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sheet3"), sizes: [.fullScreen, .fixed(200)])
-        controller.adjustForBottomSafeArea = true
         self.present(controller, animated: false, completion: nil)
     }
     
     @IBAction func presentSheet3v2(_ sender: Any) {
         let controller = SheetViewController(controller: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sheet3"), sizes: [.fixed(100)])
-        controller.adjustForBottomSafeArea = true
         self.present(controller, animated: false, completion: nil)
     }
     

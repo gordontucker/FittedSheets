@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public enum SheetSize {
+public enum SheetSize: Equatable {
     case intrensic
     case fixed(CGFloat)
     case halfScreen

@@ -9,7 +9,9 @@
 import CoreGraphics
 
 public enum SheetSize {
+    case intrensic
     case fixed(CGFloat)
     case halfScreen
     case fullScreen
+    case percent(Float)
 }

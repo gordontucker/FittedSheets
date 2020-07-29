@@ -17,7 +17,6 @@
 		F857D0952204B71F004C862F /* FittedSheetsPod.h in Headers */ = {isa = PBXBuildFile; fileRef = F857D0932204B71F004C862F /* FittedSheetsPod.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F857D0982204B71F004C862F /* FittedSheetsPod.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F857D0912204B71F004C862F /* FittedSheetsPod.framework */; };
 		F857D0992204B71F004C862F /* FittedSheetsPod.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F857D0912204B71F004C862F /* FittedSheetsPod.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F857D09E2204B776004C862F /* SheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8034198212F15B600EAD717 /* SheetViewController.swift */; };
 		F857D09F2204B776004C862F /* Yalta.swift in Sources */ = {isa = PBXBuildFile; fileRef = F803419C212F208300EAD717 /* Yalta.swift */; };
 		F857D0A02204B776004C862F /* InitialTouchPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84FF4AE2134A95300248951 /* InitialTouchPanGestureRecognizer.swift */; };
 		F857D0A12204B776004C862F /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84FF4B02135BE1A00248951 /* UIViewControllerExtension.swift */; };
@@ -36,6 +35,12 @@
 		F857D0C02204DD00004C862F /* NavigationRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857D0BF2204DD00004C862F /* NavigationRootViewController.swift */; };
 		F857D0C32204DFC7004C862F /* KeyboardExample.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F857D0C22204DFC7004C862F /* KeyboardExample.storyboard */; };
 		F857D0C52204DFDA004C862F /* UITextFieldExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857D0C42204DFDA004C862F /* UITextFieldExampleViewController.swift */; };
+		F8A42B4A24D1E241005DE55B /* SheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B4924D1E241005DE55B /* SheetViewController.swift */; };
+		F8A42B4C24D1E2EF005DE55B /* SheetContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B4B24D1E2EF005DE55B /* SheetContentViewController.swift */; };
+		F8A42B4E24D1E40A005DE55B /* PullBarOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B4D24D1E40A005DE55B /* PullBarOptions.swift */; };
+		F8A42B5024D1E4C3005DE55B /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B4F24D1E4C3005DE55B /* UIColorExtension.swift */; };
+		F8A42B5224D1F6D3005DE55B /* SheetContentViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B5124D1F6D3005DE55B /* SheetContentViewDelegate.swift */; };
+		F8A42B5624D20201005DE55B /* SheetDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B5524D20201005DE55B /* SheetDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,7 +97,6 @@
 		F8034184212625DF00EAD717 /* FittedSheetsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FittedSheetsUITests.swift; sourceTree = "<group>"; };
 		F8034186212625DF00EAD717 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8034192212628FE00EAD717 /* FittedSheets.podspec.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FittedSheets.podspec.json; sourceTree = "<group>"; };
-		F8034198212F15B600EAD717 /* SheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViewController.swift; sourceTree = "<group>"; };
 		F803419C212F208300EAD717 /* Yalta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Yalta.swift; sourceTree = "<group>"; };
 		F84FF4AA21348A2900248951 /* SheetSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetSize.swift; sourceTree = "<group>"; };
 		F84FF4AE2134A95300248951 /* InitialTouchPanGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialTouchPanGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -114,6 +118,12 @@
 		F857D0BF2204DD00004C862F /* NavigationRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRootViewController.swift; sourceTree = "<group>"; };
 		F857D0C22204DFC7004C862F /* KeyboardExample.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = KeyboardExample.storyboard; sourceTree = "<group>"; };
 		F857D0C42204DFDA004C862F /* UITextFieldExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExampleViewController.swift; sourceTree = "<group>"; };
+		F8A42B4924D1E241005DE55B /* SheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViewController.swift; sourceTree = "<group>"; };
+		F8A42B4B24D1E2EF005DE55B /* SheetContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetContentViewController.swift; sourceTree = "<group>"; };
+		F8A42B4D24D1E40A005DE55B /* PullBarOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullBarOptions.swift; sourceTree = "<group>"; };
+		F8A42B4F24D1E4C3005DE55B /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		F8A42B5124D1F6D3005DE55B /* SheetContentViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetContentViewDelegate.swift; sourceTree = "<group>"; };
+		F8A42B5524D20201005DE55B /* SheetDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,13 +223,18 @@
 		F857D0922204B71F004C862F /* FittedSheetsPod */ = {
 			isa = PBXGroup;
 			children = (
-				F8034198212F15B600EAD717 /* SheetViewController.swift */,
+				F8A42B4924D1E241005DE55B /* SheetViewController.swift */,
+				F8A42B4B24D1E2EF005DE55B /* SheetContentViewController.swift */,
 				F803419C212F208300EAD717 /* Yalta.swift */,
 				F84FF4AA21348A2900248951 /* SheetSize.swift */,
 				F84FF4AE2134A95300248951 /* InitialTouchPanGestureRecognizer.swift */,
 				F84FF4B02135BE1A00248951 /* UIViewControllerExtension.swift */,
 				F857D0932204B71F004C862F /* FittedSheetsPod.h */,
 				F857D0942204B71F004C862F /* Info.plist */,
+				F8A42B4D24D1E40A005DE55B /* PullBarOptions.swift */,
+				F8A42B4F24D1E4C3005DE55B /* UIColorExtension.swift */,
+				F8A42B5124D1F6D3005DE55B /* SheetContentViewDelegate.swift */,
+				F8A42B5524D20201005DE55B /* SheetDelegate.swift */,
 			);
 			path = FittedSheetsPod;
 			sourceTree = "<group>";
@@ -488,10 +503,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8A42B4A24D1E241005DE55B /* SheetViewController.swift in Sources */,
 				F857D0A12204B776004C862F /* UIViewControllerExtension.swift in Sources */,
-				F857D09E2204B776004C862F /* SheetViewController.swift in Sources */,
+				F8A42B5624D20201005DE55B /* SheetDelegate.swift in Sources */,
+				F8A42B4C24D1E2EF005DE55B /* SheetContentViewController.swift in Sources */,
 				F857D0A02204B776004C862F /* InitialTouchPanGestureRecognizer.swift in Sources */,
+				F8A42B5224D1F6D3005DE55B /* SheetContentViewDelegate.swift in Sources */,
+				F8A42B5024D1E4C3005DE55B /* UIColorExtension.swift in Sources */,
 				F857D09F2204B776004C862F /* Yalta.swift in Sources */,
+				F8A42B4E24D1E40A005DE55B /* PullBarOptions.swift in Sources */,
 				F857D0A22204B776004C862F /* SheetSize.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -656,14 +676,14 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3KLL357N6U;
 				INFOPLIST_FILE = FittedSheets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = gordontucker.FittedSheets;
+				PRODUCT_BUNDLE_IDENTIFIER = jane.FittedSheets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -676,14 +696,14 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3KLL357N6U;
 				INFOPLIST_FILE = FittedSheets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = gordontucker.FittedSheets;
+				PRODUCT_BUNDLE_IDENTIFIER = jane.FittedSheets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Km3-vg-lm2">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -223,7 +223,72 @@ navigation controller</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="125.59999999999999" y="22.938530734632685"/>
+            <point key="canvasLocation" x="-367" y="21"/>
+        </scene>
+        <!--Examples-->
+        <scene sceneID="KmO-ZY-lY5">
+            <objects>
+                <viewController id="PeH-a5-9HN" customClass="RootViewController" customModule="FittedSheets" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bDC-zY-nqc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E5b-WP-7ZL">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="1di-QP-Fr8">
+                                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" placeholder="YES" id="2Mj-Sx-IPw"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="1di-QP-Fr8" firstAttribute="trailing" secondItem="PWD-4J-rtb" secondAttribute="trailing" id="WoE-YV-jmW"/>
+                                    <constraint firstItem="1di-QP-Fr8" firstAttribute="leading" secondItem="PWD-4J-rtb" secondAttribute="leading" id="XKy-be-911"/>
+                                    <constraint firstItem="1di-QP-Fr8" firstAttribute="bottom" secondItem="PWD-4J-rtb" secondAttribute="bottom" constant="-20" id="bey-oY-BGp"/>
+                                    <constraint firstItem="1di-QP-Fr8" firstAttribute="width" secondItem="W9u-5l-eT8" secondAttribute="width" id="eMC-wV-2vU"/>
+                                    <constraint firstItem="1di-QP-Fr8" firstAttribute="top" secondItem="PWD-4J-rtb" secondAttribute="top" constant="20" id="kSD-xt-AxC"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="PWD-4J-rtb"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="W9u-5l-eT8"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Wiw-uX-x9H" firstAttribute="trailing" secondItem="E5b-WP-7ZL" secondAttribute="trailing" id="ErM-ML-bXa"/>
+                            <constraint firstItem="E5b-WP-7ZL" firstAttribute="bottom" secondItem="Wiw-uX-x9H" secondAttribute="bottom" id="Jac-oL-QLW"/>
+                            <constraint firstItem="E5b-WP-7ZL" firstAttribute="leading" secondItem="bDC-zY-nqc" secondAttribute="leading" id="qx6-6s-aqi"/>
+                            <constraint firstItem="E5b-WP-7ZL" firstAttribute="top" secondItem="Wiw-uX-x9H" secondAttribute="top" id="tCk-ct-duS"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Wiw-uX-x9H"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Examples" id="tZn-87-4lJ"/>
+                    <connections>
+                        <outlet property="stackView" destination="1di-QP-Fr8" id="6X2-R6-lE3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NgF-hZ-CYC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1895.2" y="20.239880059970016"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="3Vr-0S-Nmk">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Km3-vg-lm2" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Xl9-fl-n0d">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="PeH-a5-9HN" kind="relationship" relationship="rootViewController" id="TGq-W0-TiR"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SuN-7r-Lgs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="956" y="19.340329835082461"/>
         </scene>
     </scenes>
 </document>

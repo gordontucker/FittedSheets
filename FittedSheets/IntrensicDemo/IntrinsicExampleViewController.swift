@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FittedSheetsPod
 
 class IntrinsicExampleViewController: UIViewController {
 
@@ -14,7 +15,7 @@ class IntrinsicExampleViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    static func instantiate() -> IntrinsicExampleViewController {
-        return UIStoryboard(name: "SelfSizingExample", bundle: nil).instantiateViewController(withIdentifier: "intrinsic") as! IntrinsicExampleViewController
+    static func instantiate() -> UIViewController {
+        return UIStoryboard(name: "IntrensicDemo", bundle: nil).instantiateViewController(withIdentifier: "intrinsic")
     }
 }

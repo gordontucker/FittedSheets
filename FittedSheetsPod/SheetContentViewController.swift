@@ -24,6 +24,7 @@ public class SheetContentViewController: UIViewController {
     
     public var contentView = UIView()
     private var contentTopConstraint: NSLayoutConstraint?
+    private var contentBottomConstraint: NSLayoutConstraint?
     private var navigationHeightConstraint: NSLayoutConstraint?
     public var roundedContainerView = UIView()
     public var pullBarView: UIView?
@@ -74,6 +75,10 @@ public class SheetContentViewController: UIViewController {
         self.updatePreferredHeight()
     }
     
+    func adjustForKeyboard(height: CGFloat) {
+        self.updateChildViewControllerBottomConstraint(adjustment: -height)
+    }
+    
     private func updateNavigationControllerHeight() {
         // UINavigationControllers don't set intrensic size, this is a workaround to fix that
         guard self.options.setIntrensicHeightOnNavigationControllers, let navigationController = self.childViewController as? UINavigationController else { return }
@@ -114,6 +119,16 @@ public class SheetContentViewController: UIViewController {
         }
     }
     
+    private func updateChildViewControllerBottomConstraint(adjustment: CGFloat) {
+        if #available(iOS 11.0, *) {
+            self.contentBottomConstraint?.constant = adjustment
+        } else if self.options.cornerRadius > 0 {
+            self.contentBottomConstraint?.constant = options.cornerRadius + adjustment
+        } else {
+            self.contentBottomConstraint?.constant = adjustment
+        }
+    }
+    
     private func setupChildViewController() {
         self.childViewController.willMove(toParent: self)
         self.addChild(self.childViewController)
@@ -122,14 +137,13 @@ public class SheetContentViewController: UIViewController {
             view.left.pinToSuperview()
             view.right.pinToSuperview()
             if #available(iOS 11.0, *) {
-                view.bottom.pinToSuperview()
+                self.contentBottomConstraint = view.bottom.pinToSuperview()
                 view.top.pinToSuperview()
             } else if self.options.cornerRadius > 0 {
-                view.bottom.pinToSuperview(inset: options.cornerRadius)
-                view.bottom.pinToSuperview(inset: options.cornerRadius)
+                self.contentBottomConstraint = view.bottom.pinToSuperview(inset: options.cornerRadius)
                 view.top.pinToSuperview(inset: options.pullBarHeight)
             } else {
-                view.bottom.pinToSuperview()
+                self.contentBottomConstraint = view.bottom.pinToSuperview()
                 view.top.pinToSuperview()
             }
         }

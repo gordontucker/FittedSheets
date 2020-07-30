@@ -28,6 +28,6 @@ class ResizingExampleViewController: UIViewController {
     }
     
     static func instantiate() -> ResizingExampleViewController {
-        return UIStoryboard(name: "SelfSizingExample", bundle: nil).instantiateViewController(withIdentifier: "resizing") as! ResizingExampleViewController
+        return UIStoryboard(name: "ResizingDemo", bundle: nil).instantiateViewController(withIdentifier: "resizing") as! ResizingExampleViewController
     }
 }

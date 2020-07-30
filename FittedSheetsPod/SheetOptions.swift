@@ -15,6 +15,8 @@ public struct SheetOptions {
     public var cornerRadius: CGFloat = 20
     public var shouldExtendBackground = true
     public var setIntrensicHeightOnNavigationControllers = true
+    /// Allow the sheet to become full screen if pulled all the way to the top and not larger than the maximum size specified in sizes. Defaults to true.
+    public var useFullScreenMode = true
     
     public init() { }
 }

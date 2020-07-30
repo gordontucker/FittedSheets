@@ -32,6 +32,7 @@ class ExamplesViewController: UIViewController {
         addExample("Table View Controller", controller: { ExampleTableViewController.instantiate() })
         addExample("Intrinsic Height", controller: { IntrinsicExampleViewController.instantiate() })
         addExample("Self Resizing", controller: { ResizingExampleViewController.instantiate() })
+        addExample("Keyboard", controller: { UITextFieldExampleViewController.instantiate() })
     }
     
     func addExample(_ name: String, controller: @escaping () -> UIViewController) {
@@ -46,11 +47,8 @@ class ExamplesViewController: UIViewController {
             }).map({
                 SheetSize.fixed(CGFloat($0))
             })
-            if self.halfScreenSwitch.isOn {
-                sizes.append(.halfScreen)
-            }
             if self.fullScreenSwitch.isOn {
-                sizes.append(.fullScreen)
+                sizes.append(.fullscreen)
             }
             
             if self.navigationControllerSwitch.isOn {
@@ -95,13 +93,13 @@ class ExamplesViewController: UIViewController {
     
     @IBAction func presentSheet2(_ sender: Any) {
         
-        let controller = SheetViewController(controller: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sheet2"), sizes: [.halfScreen, .fullScreen, .fixed(250)])
+        let controller = SheetViewController(controller: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sheet2"), sizes: [.percent(0.5), .fullscreen, .fixed(250)])
         
         self.present(controller, animated: false, completion: nil)
     }
     
     @IBAction func presentSheet3(_ sender: Any) {
-        let controller = SheetViewController(controller: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sheet3"), sizes: [.fullScreen, .fixed(200)])
+        let controller = SheetViewController(controller: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sheet3"), sizes: [.fullscreen, .fixed(200)])
         self.present(controller, animated: false, completion: nil)
     }
     
@@ -111,17 +109,17 @@ class ExamplesViewController: UIViewController {
     }
     
     @IBAction func presentSheet4(_ sender: Any) {
-        let controller = SheetViewController(controller: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sheet4"), sizes: [.fixed(450), .fixed(300), .fixed(600), .fullScreen])
+        let controller = SheetViewController(controller: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sheet4"), sizes: [.fixed(450), .fixed(300), .fixed(600), .fullscreen])
         self.present(controller, animated: false, completion: nil)
     }
     
     @IBAction func presentSheet5(_ sender: Any) {
-        let controller = SheetViewController(controller: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sheet5"), sizes: [.fixed(450), .fixed(300), .fixed(160), .fullScreen])
+        let controller = SheetViewController(controller: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sheet5"), sizes: [.fixed(450), .fixed(300), .fixed(160), .fullscreen])
         self.present(controller, animated: false, completion: nil)
     }
     
     @IBAction func presentSelfSizingSheet(_ sender: Any) {
-        let controller = SheetViewController(controller: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "selfsizing"), sizes: [.fullScreen])
+        let controller = SheetViewController(controller: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "selfsizing"), sizes: [.fullscreen])
         self.present(controller, animated: false, completion: nil)
     }
 }

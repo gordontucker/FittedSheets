@@ -8,6 +8,6 @@
 
 import UIKit
 
-protocol SheetDelegate: class {
-    
+public protocol SheetDelegate: class {
+    func sheetViewControllerChangedSize(from: SheetSize, to: SheetSize)
 }

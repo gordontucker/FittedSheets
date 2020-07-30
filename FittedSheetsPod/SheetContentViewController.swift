@@ -37,10 +37,7 @@ public class SheetContentViewController: UIViewController {
         
         if options.setIntrensicHeightOnNavigationControllers, let navigationController = self.childViewController as? UINavigationController {
             navigationController.delegate = self
-            self.updateNavigationControllerHeight()
         }
-        
-        self.updatePreferredHeight()
     }
     
     public required init?(coder: NSCoder) {
@@ -54,6 +51,7 @@ public class SheetContentViewController: UIViewController {
         self.setupRoundedContainerView()
         self.setupPullBarView()
         self.setupChildViewController()
+        self.updatePreferredHeight()
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -72,11 +70,7 @@ public class SheetContentViewController: UIViewController {
     }
     
     func updateAfterLayout() {
-        let previousSize = self.size
         self.size = self.childViewController.view.bounds.height
-        if self.size != previousSize {
-            self.delegate?.childViewDidResize(oldSize: previousSize, newSize: self.size)
-        }
         self.updatePreferredHeight()
     }
     
@@ -125,17 +119,18 @@ public class SheetContentViewController: UIViewController {
         self.addChild(self.childViewController)
         self.roundedContainerView.addSubview(self.childViewController.view)
         Constraints(for: self.childViewController.view) { view in
-            view.left.pin()
-            view.right.pin()
+            view.left.pinToSuperview()
+            view.right.pinToSuperview()
             if #available(iOS 11.0, *) {
-                view.bottom.pin()
-                view.top.pin()
+                view.bottom.pinToSuperview()
+                view.top.pinToSuperview()
             } else if self.options.cornerRadius > 0 {
-                view.bottom.pin(inset: options.cornerRadius)
-                view.top.pin(inset: options.pullBarHeight)
+                view.bottom.pinToSuperview(inset: options.cornerRadius)
+                view.bottom.pinToSuperview(inset: options.cornerRadius)
+                view.top.pinToSuperview(inset: options.pullBarHeight)
             } else {
-                view.bottom.pin()
-                view.top.pin()
+                view.bottom.pinToSuperview()
+                view.top.pinToSuperview()
             }
         }
         if #available(iOS 11.0, *), self.options.shouldExtendBackground, self.options.pullBarHeight > 0 {
@@ -148,10 +143,10 @@ public class SheetContentViewController: UIViewController {
     private func setupContentView() {
         self.view.addSubview(self.contentView)
         Constraints(for: self.contentView) {
-            $0.left.pin()
-            $0.right.pin()
-            $0.bottom.pin()
-            self.contentTopConstraint = $0.top.pin()
+            $0.left.pinToSuperview()
+            $0.right.pinToSuperview()
+            $0.bottom.pinToSuperview()
+            self.contentTopConstraint = $0.top.pinToSuperview()
         }
     }
     
@@ -159,15 +154,15 @@ public class SheetContentViewController: UIViewController {
         self.contentView.addSubview(self.roundedContainerView)
         
         Constraints(for: self.roundedContainerView) { view in
-            view.top.pin()
-            view.left.pin()
-            view.right.pin()
+            view.top.pinToSuperview()
+            view.left.pinToSuperview()
+            view.right.pinToSuperview()
             if #available(iOS 11.0, *) {
-                view.bottom.pin()
+                view.bottom.pinToSuperview()
             } else if self.options.cornerRadius > 0 {
-                view.bottom.pin(inset: -options.cornerRadius)
+                view.bottom.pinToSuperview(inset: -options.cornerRadius)
             } else {
-                view.bottom.pin()
+                view.bottom.pinToSuperview()
             }
         }
         
@@ -188,10 +183,10 @@ public class SheetContentViewController: UIViewController {
         pullBarView.backgroundColor = .clear
         self.contentView.addSubview(pullBarView)
         Constraints(for: pullBarView) {
-            $0.top.pin()
-            $0.left.pin()
-            $0.right.pin()
-            $0.height.equal(options.pullBarHeight)
+            $0.top.pinToSuperview()
+            $0.left.pinToSuperview()
+            $0.right.pinToSuperview()
+            $0.height.set(options.pullBarHeight)
         }
         self.pullBarView = pullBarView
         
@@ -201,9 +196,9 @@ public class SheetContentViewController: UIViewController {
         gripView.layer.masksToBounds = true
         pullBarView.addSubview(gripView)
         Constraints(for: gripView) {
-            $0.centerY.align()
-            $0.centerX.align()
-            $0.size.equal(options.gripSize)
+            $0.centerY.alignWithSuperview()
+            $0.centerX.alignWithSuperview()
+            $0.size.set(options.gripSize)
         }
     }
 }

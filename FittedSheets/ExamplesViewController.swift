@@ -46,11 +46,11 @@ class ExamplesViewController: UIViewController {
             }).map({
                 SheetSize.fixed(CGFloat($0))
             })
-            if self.fullScreenSwitch.isOn {
-                sizes.append(.fullScreen)
-            }
             if self.halfScreenSwitch.isOn {
                 sizes.append(.halfScreen)
+            }
+            if self.fullScreenSwitch.isOn {
+                sizes.append(.fullScreen)
             }
             
             if self.navigationControllerSwitch.isOn {

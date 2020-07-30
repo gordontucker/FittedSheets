@@ -9,6 +9,5 @@
 import UIKit
 
 protocol SheetContentViewDelegate: class {
-    func childViewDidResize(oldSize: CGFloat, newSize: CGFloat)
     func preferredHeightChanged(oldHeight: CGFloat, newSize: CGFloat)
 }

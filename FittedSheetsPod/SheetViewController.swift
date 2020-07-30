@@ -11,8 +11,7 @@ import UIKit
 
 public class SheetViewController: UIViewController {
     
-    /// Options for the pull bar. Set to nil if no pull bar is desired
-    public var pullBarOptions: PullBarOptions? = PullBarOptions()
+    public private(set) var options: SheetOptions
     /// Automatically grow/move the sheet to accomidate the keyboard. Defaults to false.
     public var autoAdjustToKeyboard = false
     /// Allow pulling past the maximum height and bounce back. Defaults to true.
@@ -51,10 +50,13 @@ public class SheetViewController: UIViewController {
     private var firstPanPoint: CGPoint = CGPoint.zero
     private var panOffset: CGFloat = 0
     private var panGestureRecognizer: InitialTouchPanGestureRecognizer!
+    private var prePanHeight: CGFloat = 0
+    private var isPanning: Bool = false
     
-    public init(controller: UIViewController, sizes: [SheetSize] = [.intrensic], pullBarOptions: PullBarOptions? = PullBarOptions()) {
-        self.contentViewController = SheetContentViewController(childViewController: controller, pullBarOptions: pullBarOptions)
-        self.sizes = sizes
+    public init(controller: UIViewController, sizes: [SheetSize] = [.intrensic], options: SheetOptions = SheetOptions()) {
+        self.contentViewController = SheetContentViewController(childViewController: controller, options: options)
+        self.sizes = sizes.count > 0 ? sizes : [.intrensic]
+        self.options = options
         super.init(nibName: nil, bundle: nil)
         self.modalPresentationStyle = .overFullScreen
     }
@@ -157,6 +159,8 @@ public class SheetViewController: UIViewController {
         let point = gesture.translation(in: gesture.view?.superview)
         if gesture.state == .began {
             self.firstPanPoint = point
+            self.prePanHeight = self.contentViewController.view.bounds.height
+            self.isPanning = true
         }
         
         let minHeight: CGFloat = self.height(for: self.orderedSizes.first)
@@ -164,10 +168,10 @@ public class SheetViewController: UIViewController {
         if self.allowPullingPastMaxHeight {
             maxHeight = self.view.bounds.height
         } else {
-            maxHeight = max(self.height(for: self.orderedSizes.last), self.contentViewController.view.bounds.height)
+            maxHeight = max(self.height(for: self.orderedSizes.last), self.prePanHeight)
         }
         
-        var newHeight = max(0, self.contentViewController.view.bounds.height + (self.firstPanPoint.y - point.y))
+        var newHeight = max(0, self.prePanHeight + (self.firstPanPoint.y - point.y))
         var offset: CGFloat = 0
         if newHeight < minHeight {
             offset = minHeight - newHeight
@@ -182,7 +186,9 @@ public class SheetViewController: UIViewController {
                 UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseOut], animations: {
                     self.contentViewController.view.transform = CGAffineTransform.identity
                     self.contentViewHeightConstraint.constant = self.height(for: self.currentSize)
-                }, completion: nil)
+                }, completion: { _ in
+                    self.isPanning = false
+                })
             
             case .began, .changed:
                 self.contentViewHeightConstraint.constant = newHeight
@@ -242,8 +248,7 @@ public class SheetViewController: UIViewController {
                     self.contentViewHeightConstraint.constant = self.height(for: newSize)
                     self.view.layoutIfNeeded()
                 }, completion: { complete in
-                    //guard let self = self else { return }
-                    //? self.actualContainerSize = .fixed(self.containerView.frame.height)
+                    self.isPanning = false
                 })
             case .possible:
                 break
@@ -262,16 +267,16 @@ public class SheetViewController: UIViewController {
         
         let windowRect = self.view.convert(self.view.bounds, to: nil)
         let actualHeight = windowRect.maxY - keyboardRect.origin.y
-        self.adjustForKeyboard(height: actualHeight, from: notification)
+        self.adjustForKeyboard(pullBarHeight: actualHeight, from: notification)
     }
     
     @objc func keyboardDismissed(_ notification: Notification) {
-        self.adjustForKeyboard(height: 0, from: notification)
+        self.adjustForKeyboard(pullBarHeight: 0, from: notification)
     }
     
-    private func adjustForKeyboard(height: CGFloat, from notification: Notification) {
+    private func adjustForKeyboard(pullBarHeight: CGFloat, from notification: Notification) {
         guard let info:[AnyHashable: Any] = notification.userInfo else { return }
-        self.keyboardHeight = height
+        self.keyboardHeight = pullBarHeight
         
         let duration:TimeInterval = (info[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
         let animationCurveRawNSN = info[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber
@@ -285,8 +290,8 @@ public class SheetViewController: UIViewController {
         guard let size = size else { return 0 }
         let contentHeight: CGFloat
         switch (size) {
-            case .fixed(let height):
-                contentHeight = height + self.keyboardHeight
+            case .fixed(let pullBarHeight):
+                contentHeight = pullBarHeight + self.keyboardHeight
             case .fullScreen:
                 if #available(iOS 11.0, *) {
                     contentHeight = self.view.bounds.height - self.view.safeAreaInsets.top + self.keyboardHeight
@@ -307,16 +312,19 @@ public class SheetViewController: UIViewController {
                        duration: TimeInterval = 0.2,
                        options: UIView.AnimationOptions = [.curveEaseOut],
                        animated: Bool = true) {
+        
+        self.currentSize = size
         if animated {
             UIView.animate(withDuration: duration, delay: 0, options: options, animations: { [weak self] in
                 guard let self = self, let constraint = self.contentViewHeightConstraint else { return }
                 constraint.constant = self.height(for: size)
                 self.view.layoutIfNeeded()
-            }, completion: nil)
+            }, completion: { _ in
+                self.contentViewController.updateAfterLayout()
+            })
         } else {
             self.contentViewHeightConstraint?.constant = self.height(for: size)
         }
-        self.currentSize = size
     }
 }
 
@@ -362,7 +370,7 @@ extension SheetViewController: SheetContentViewDelegate {
     
     func preferredHeightChanged(oldHeight: CGFloat, newSize: CGFloat) {
         // If our intrensic size changed and that is what we are sized to currently, use that
-        if self.currentSize == .intrensic {
+        if self.currentSize == .intrensic, !self.isPanning {
             self.resize(to: .intrensic)
         }
     }

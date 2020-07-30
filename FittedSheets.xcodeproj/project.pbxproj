@@ -37,10 +37,11 @@
 		F857D0C52204DFDA004C862F /* UITextFieldExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857D0C42204DFDA004C862F /* UITextFieldExampleViewController.swift */; };
 		F8A42B4A24D1E241005DE55B /* SheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B4924D1E241005DE55B /* SheetViewController.swift */; };
 		F8A42B4C24D1E2EF005DE55B /* SheetContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B4B24D1E2EF005DE55B /* SheetContentViewController.swift */; };
-		F8A42B4E24D1E40A005DE55B /* PullBarOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B4D24D1E40A005DE55B /* PullBarOptions.swift */; };
+		F8A42B4E24D1E40A005DE55B /* SheetOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B4D24D1E40A005DE55B /* SheetOptions.swift */; };
 		F8A42B5024D1E4C3005DE55B /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B4F24D1E4C3005DE55B /* UIColorExtension.swift */; };
 		F8A42B5224D1F6D3005DE55B /* SheetContentViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B5124D1F6D3005DE55B /* SheetContentViewDelegate.swift */; };
 		F8A42B5624D20201005DE55B /* SheetDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B5524D20201005DE55B /* SheetDelegate.swift */; };
+		F8A42B5824D3457D005DE55B /* SheetNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B5724D3457D005DE55B /* SheetNavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,10 +121,11 @@
 		F857D0C42204DFDA004C862F /* UITextFieldExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExampleViewController.swift; sourceTree = "<group>"; };
 		F8A42B4924D1E241005DE55B /* SheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViewController.swift; sourceTree = "<group>"; };
 		F8A42B4B24D1E2EF005DE55B /* SheetContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetContentViewController.swift; sourceTree = "<group>"; };
-		F8A42B4D24D1E40A005DE55B /* PullBarOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullBarOptions.swift; sourceTree = "<group>"; };
+		F8A42B4D24D1E40A005DE55B /* SheetOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetOptions.swift; sourceTree = "<group>"; };
 		F8A42B4F24D1E4C3005DE55B /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		F8A42B5124D1F6D3005DE55B /* SheetContentViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetContentViewDelegate.swift; sourceTree = "<group>"; };
 		F8A42B5524D20201005DE55B /* SheetDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetDelegate.swift; sourceTree = "<group>"; };
+		F8A42B5724D3457D005DE55B /* SheetNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetNavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,10 +233,11 @@
 				F84FF4B02135BE1A00248951 /* UIViewControllerExtension.swift */,
 				F857D0932204B71F004C862F /* FittedSheetsPod.h */,
 				F857D0942204B71F004C862F /* Info.plist */,
-				F8A42B4D24D1E40A005DE55B /* PullBarOptions.swift */,
+				F8A42B4D24D1E40A005DE55B /* SheetOptions.swift */,
 				F8A42B4F24D1E4C3005DE55B /* UIColorExtension.swift */,
 				F8A42B5124D1F6D3005DE55B /* SheetContentViewDelegate.swift */,
 				F8A42B5524D20201005DE55B /* SheetDelegate.swift */,
+				F8A42B5724D3457D005DE55B /* SheetNavigationController.swift */,
 			);
 			path = FittedSheetsPod;
 			sourceTree = "<group>";
@@ -508,10 +511,11 @@
 				F8A42B5624D20201005DE55B /* SheetDelegate.swift in Sources */,
 				F8A42B4C24D1E2EF005DE55B /* SheetContentViewController.swift in Sources */,
 				F857D0A02204B776004C862F /* InitialTouchPanGestureRecognizer.swift in Sources */,
+				F8A42B5824D3457D005DE55B /* SheetNavigationController.swift in Sources */,
 				F8A42B5224D1F6D3005DE55B /* SheetContentViewDelegate.swift in Sources */,
 				F8A42B5024D1E4C3005DE55B /* UIColorExtension.swift in Sources */,
 				F857D09F2204B776004C862F /* Yalta.swift in Sources */,
-				F8A42B4E24D1E40A005DE55B /* PullBarOptions.swift in Sources */,
+				F8A42B4E24D1E40A005DE55B /* SheetOptions.swift in Sources */,
 				F857D0A22204B776004C862F /* SheetSize.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uuq-Mz-yzp">
-                                <rect key="frame" x="69.5" y="350.5" width="236" height="30"/>
+                                <rect key="frame" x="69.5" y="94" width="236" height="523"/>
                                 <state key="normal" title="Push child on navigation controller"/>
                                 <connections>
                                     <action selector="navigateToChildTapped:" destination="6TY-Pi-viA" eventType="touchUpInside" id="GdH-mX-taV"/>
@@ -29,6 +27,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Uuq-Mz-yzp" firstAttribute="centerX" secondItem="IhH-fc-OYT" secondAttribute="centerX" id="0Fw-6W-eyk"/>
+                            <constraint firstItem="IhH-fc-OYT" firstAttribute="bottom" secondItem="Uuq-Mz-yzp" secondAttribute="bottom" constant="50" id="G1b-dQ-gXR"/>
                             <constraint firstItem="Uuq-Mz-yzp" firstAttribute="centerY" secondItem="IhH-fc-OYT" secondAttribute="centerY" id="vRd-PC-GV4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IhH-fc-OYT"/>

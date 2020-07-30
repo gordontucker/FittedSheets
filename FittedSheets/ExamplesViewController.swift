@@ -60,8 +60,8 @@ class ExamplesViewController: UIViewController {
                 controller = UINavigationController(rootViewController: controller)
             }
             
-            var pullBarOptions = PullBarOptions()
-            pullBarOptions.cornerRadius = self.roundedCornersSwitch.isOn ? 15 : 0
+            var pullBarOptions = SheetOptions()
+            pullBarOptions.cornerRadius = self.roundedCornersSwitch.isOn ? 20 : 0
             
             let sheetController = SheetViewController(controller: controller, sizes: sizes)
             sheetController.dismissOnOverlayTap = self.dismissOnBackgroundTapSwitch.isOn

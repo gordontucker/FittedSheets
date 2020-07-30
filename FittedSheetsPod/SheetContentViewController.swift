@@ -12,25 +12,34 @@ public class SheetContentViewController: UIViewController {
     
     public private(set) var childViewController: UIViewController
     
-    private var pullBarOptions: PullBarOptions?
+    private var options: SheetOptions
     private (set) var size: CGFloat = 0
     private (set) var preferredHeight: CGFloat
     
     public var contentBackgroundColor: UIColor? {
-        get { self.contentView.backgroundColor }
-        set { self.contentView.backgroundColor = newValue }
+        get { self.roundedContainerView.backgroundColor }
+        set { self.roundedContainerView.backgroundColor = newValue }
     }
     weak var delegate: SheetContentViewDelegate?
     
     public var contentView = UIView()
+    private var contentTopConstraint: NSLayoutConstraint?
+    private var navigationHeightConstraint: NSLayoutConstraint?
+    public var roundedContainerView = UIView()
     public var pullBarView: UIView?
     public var gripView: UIView?
     
-    public init(childViewController: UIViewController, pullBarOptions: PullBarOptions?) {
-        self.pullBarOptions = pullBarOptions
+    public init(childViewController: UIViewController, options: SheetOptions) {
+        self.options = options
         self.childViewController = childViewController
         self.preferredHeight = 0
         super.init(nibName: nil, bundle: nil)
+        
+        if options.setIntrensicHeightOnNavigationControllers, let navigationController = self.childViewController as? UINavigationController {
+            navigationController.delegate = self
+            self.updateNavigationControllerHeight()
+        }
+        
         self.updatePreferredHeight()
     }
     
@@ -42,6 +51,7 @@ public class SheetContentViewController: UIViewController {
         super.viewDidLoad()
         
         self.setupContentView()
+        self.setupRoundedContainerView()
         self.setupPullBarView()
         self.setupChildViewController()
     }
@@ -58,6 +68,10 @@ public class SheetContentViewController: UIViewController {
     
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        self.updateAfterLayout()
+    }
+    
+    func updateAfterLayout() {
         let previousSize = self.size
         self.size = self.childViewController.view.bounds.height
         if self.size != previousSize {
@@ -66,10 +80,41 @@ public class SheetContentViewController: UIViewController {
         self.updatePreferredHeight()
     }
     
+    private func updateNavigationControllerHeight() {
+        // UINavigationControllers don't set intrensic size, this is a workaround to fix that
+        guard self.options.setIntrensicHeightOnNavigationControllers, let navigationController = self.childViewController as? UINavigationController else { return }
+        self.navigationHeightConstraint?.isActive = false
+        self.contentTopConstraint?.isActive = false
+        
+        if let viewController = navigationController.visibleViewController {
+           let size = viewController.view.systemLayoutSizeFitting(CGSize(width: view.bounds.width, height: 0))
+        
+            if self.navigationHeightConstraint == nil {
+                self.navigationHeightConstraint = navigationController.view.heightAnchor.constraint(equalToConstant: size.height)
+            } else {
+                self.navigationHeightConstraint?.constant = size.height
+            }
+        }
+        self.navigationHeightConstraint?.isActive = true
+        self.contentTopConstraint?.isActive = true
+    }
+    
     private func updatePreferredHeight() {
+        self.updateNavigationControllerHeight()
         let width = self.view.bounds.width > 0 ? self.view.bounds.width : UIScreen.main.bounds.width
         let oldPreferredHeight = self.preferredHeight
-        self.preferredHeight = self.view.systemLayoutSizeFitting(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)).height
+        var fittingSize = UIView.layoutFittingCompressedSize;
+        fittingSize.width = width;
+        print("w\(fittingSize.width) h\(fittingSize.height)")
+        
+        self.contentTopConstraint?.isActive = false
+        //self.contentView.layoutIfNeeded()
+        
+        self.preferredHeight = self.contentView.systemLayoutSizeFitting(fittingSize, withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow).height
+        print("\(oldPreferredHeight) -> \(self.preferredHeight)")
+        self.contentTopConstraint?.isActive = true
+        //self.contentView.layoutIfNeeded()
+        
         if oldPreferredHeight != self.preferredHeight {
             self.delegate?.preferredHeightChanged(oldHeight: oldPreferredHeight, newSize: self.preferredHeight)
         }
@@ -78,23 +123,23 @@ public class SheetContentViewController: UIViewController {
     private func setupChildViewController() {
         self.childViewController.willMove(toParent: self)
         self.addChild(self.childViewController)
-        self.contentView.addSubview(self.childViewController.view)
+        self.roundedContainerView.addSubview(self.childViewController.view)
         Constraints(for: self.childViewController.view) { view in
             view.left.pin()
             view.right.pin()
             if #available(iOS 11.0, *) {
                 view.bottom.pin()
                 view.top.pin()
-            } else if let options = self.pullBarOptions, options.cornerRadius > 0 {
+            } else if self.options.cornerRadius > 0 {
                 view.bottom.pin(inset: options.cornerRadius)
-                view.top.pin(inset: options.height)
+                view.top.pin(inset: options.pullBarHeight)
             } else {
                 view.bottom.pin()
                 view.top.pin()
             }
         }
-        if #available(iOS 11.0, *), let pullBarOptions = self.pullBarOptions, pullBarOptions.shouldExtendBackground, pullBarOptions.height > 0 {
-            self.childViewController.additionalSafeAreaInsets = UIEdgeInsets(top: pullBarOptions.height, left: 0, bottom: 0, right: 0)
+        if #available(iOS 11.0, *), self.options.shouldExtendBackground, self.options.pullBarHeight > 0 {
+            self.childViewController.additionalSafeAreaInsets = UIEdgeInsets(top: self.options.pullBarHeight, left: 0, bottom: 0, right: 0)
         }
         
         self.childViewController.didMove(toParent: self)
@@ -102,41 +147,51 @@ public class SheetContentViewController: UIViewController {
 
     private func setupContentView() {
         self.view.addSubview(self.contentView)
+        Constraints(for: self.contentView) {
+            $0.left.pin()
+            $0.right.pin()
+            $0.bottom.pin()
+            self.contentTopConstraint = $0.top.pin()
+        }
+    }
+    
+    private func setupRoundedContainerView() {
+        self.contentView.addSubview(self.roundedContainerView)
         
-        Constraints(for: self.contentView) { view in
+        Constraints(for: self.roundedContainerView) { view in
             view.top.pin()
             view.left.pin()
             view.right.pin()
             if #available(iOS 11.0, *) {
                 view.bottom.pin()
-            } else if let options = self.pullBarOptions, options.cornerRadius > 0 {
+            } else if self.options.cornerRadius > 0 {
                 view.bottom.pin(inset: -options.cornerRadius)
             } else {
                 view.bottom.pin()
             }
         }
         
-        if let cornerRadius = self.pullBarOptions?.cornerRadius, cornerRadius > 0 {
-            self.contentView.layer.cornerRadius = cornerRadius
-            self.contentView.layer.masksToBounds = true
+        if self.options.cornerRadius > 0 {
+            self.roundedContainerView.layer.cornerRadius = self.options.cornerRadius
+            self.roundedContainerView.layer.masksToBounds = true
             // Corner radius support is only on iOS 11
             if #available(iOS 11.0, *) {
-                self.contentView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+                self.roundedContainerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             }
         }
     }
     
     private func setupPullBarView() {
         // If they didn't specify pull bar options, they don't want a pull bar
-        guard let options = self.pullBarOptions, options.height > 0 else { return }
+        guard self.options.pullBarHeight > 0 else { return }
         let pullBarView = UIView()
         pullBarView.backgroundColor = .clear
-        self.view.addSubview(pullBarView)
+        self.contentView.addSubview(pullBarView)
         Constraints(for: pullBarView) {
             $0.top.pin()
             $0.left.pin()
             $0.right.pin()
-            $0.height.equal(options.height)
+            $0.height.equal(options.pullBarHeight)
         }
         self.pullBarView = pullBarView
         
@@ -150,5 +205,12 @@ public class SheetContentViewController: UIViewController {
             $0.centerX.align()
             $0.size.equal(options.gripSize)
         }
+    }
+}
+
+extension SheetContentViewController: UINavigationControllerDelegate {
+    public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        self.navigationHeightConstraint?.isActive = true
+        self.updatePreferredHeight()
     }
 }

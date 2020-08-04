@@ -57,6 +57,9 @@ public class SheetContentViewController: UIViewController {
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIView.performWithoutAnimation {
+            self.view.layoutIfNeeded()
+        }
         self.updatePreferredHeight()
     }
     
@@ -72,10 +75,11 @@ public class SheetContentViewController: UIViewController {
     
     func updateAfterLayout() {
         self.size = self.childViewController.view.bounds.height
-        self.updatePreferredHeight()
+        //self.updatePreferredHeight()
     }
     
     func adjustForKeyboard(height: CGFloat) {
+        print("Keyboard height is now \(height)")
         self.updateChildViewControllerBottomConstraint(adjustment: -height)
     }
     
@@ -93,40 +97,36 @@ public class SheetContentViewController: UIViewController {
             } else {
                 self.navigationHeightConstraint?.constant = size.height
             }
+            print("Navigation height is now \(size.height)")
         }
         self.navigationHeightConstraint?.isActive = true
         self.contentTopConstraint?.isActive = true
     }
     
-    private func updatePreferredHeight() {
+    func updatePreferredHeight() {
         self.updateNavigationControllerHeight()
         let width = self.view.bounds.width > 0 ? self.view.bounds.width : UIScreen.main.bounds.width
         let oldPreferredHeight = self.preferredHeight
         var fittingSize = UIView.layoutFittingCompressedSize;
         fittingSize.width = width;
-        print("w\(fittingSize.width) h\(fittingSize.height)")
         
         self.contentTopConstraint?.isActive = false
-        //self.contentView.layoutIfNeeded()
+        UIView.performWithoutAnimation {
+            self.contentView.layoutSubviews()
+        }
         
         self.preferredHeight = self.contentView.systemLayoutSizeFitting(fittingSize, withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow).height
-        print("\(oldPreferredHeight) -> \(self.preferredHeight)")
         self.contentTopConstraint?.isActive = true
-        //self.contentView.layoutIfNeeded()
-        
-        if oldPreferredHeight != self.preferredHeight {
-            self.delegate?.preferredHeightChanged(oldHeight: oldPreferredHeight, newSize: self.preferredHeight)
+        UIView.performWithoutAnimation {
+            self.contentView.layoutSubviews()
         }
+        
+        print("Preffered height is now \(self.preferredHeight) - \(self.view.safeAreaInsets.bottom)")
+        self.delegate?.preferredHeightChanged(oldHeight: oldPreferredHeight, newSize: self.preferredHeight)
     }
     
     private func updateChildViewControllerBottomConstraint(adjustment: CGFloat) {
-        if #available(iOS 11.0, *) {
-            self.contentBottomConstraint?.constant = adjustment
-        } else if self.options.cornerRadius > 0 {
-            self.contentBottomConstraint?.constant = options.cornerRadius + adjustment
-        } else {
-            self.contentBottomConstraint?.constant = adjustment
-        }
+        self.contentBottomConstraint?.constant = adjustment
     }
     
     private func setupChildViewController() {
@@ -136,18 +136,10 @@ public class SheetContentViewController: UIViewController {
         Constraints(for: self.childViewController.view) { view in
             view.left.pinToSuperview()
             view.right.pinToSuperview()
-            if #available(iOS 11.0, *) {
-                self.contentBottomConstraint = view.bottom.pinToSuperview()
+            self.contentBottomConstraint = view.bottom.pinToSuperview()
                 view.top.pinToSuperview()
-            } else if self.options.cornerRadius > 0 {
-                self.contentBottomConstraint = view.bottom.pinToSuperview(inset: options.cornerRadius)
-                view.top.pinToSuperview(inset: options.pullBarHeight)
-            } else {
-                self.contentBottomConstraint = view.bottom.pinToSuperview()
-                view.top.pinToSuperview()
-            }
         }
-        if #available(iOS 11.0, *), self.options.shouldExtendBackground, self.options.pullBarHeight > 0 {
+        if self.options.shouldExtendBackground, self.options.pullBarHeight > 0 {
             self.childViewController.additionalSafeAreaInsets = UIEdgeInsets(top: self.options.pullBarHeight, left: 0, bottom: 0, right: 0)
         }
         
@@ -171,22 +163,13 @@ public class SheetContentViewController: UIViewController {
             view.top.pinToSuperview()
             view.left.pinToSuperview()
             view.right.pinToSuperview()
-            if #available(iOS 11.0, *) {
-                view.bottom.pinToSuperview()
-            } else if self.options.cornerRadius > 0 {
-                view.bottom.pinToSuperview(inset: -options.cornerRadius)
-            } else {
-                view.bottom.pinToSuperview()
-            }
+            view.bottom.pinToSuperview()
         }
         
         if self.options.cornerRadius > 0 {
             self.roundedContainerView.layer.cornerRadius = self.options.cornerRadius
             self.roundedContainerView.layer.masksToBounds = true
-            // Corner radius support is only on iOS 11
-            if #available(iOS 11.0, *) {
-                self.roundedContainerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-            }
+            self.roundedContainerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         }
     }
     
@@ -218,6 +201,10 @@ public class SheetContentViewController: UIViewController {
 }
 
 extension SheetContentViewController: UINavigationControllerDelegate {
+    public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        navigationController.view.endEditing(true)
+    }
+    
     public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         self.navigationHeightConstraint?.isActive = true
         self.updatePreferredHeight()

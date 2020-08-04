@@ -11,7 +11,7 @@ import FittedSheetsPod
 
 class NavigationDemo: Demoable {
     var name: String {
-        return "Self Resizing"
+        return "Pushing on Navigation"
     }
     
     func buildDemo() -> SheetViewController {

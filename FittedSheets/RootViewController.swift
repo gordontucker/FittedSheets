@@ -17,7 +17,16 @@ class RootViewController: UIViewController {
         EmbededIntrensicDemo(),
         IntrensicAndFullscreenDemo(),
         ResizingDemo(),
-        NavigationDemo()
+        NavigationDemo(),
+        KeyboardDemo(),
+        ScrollViewDemo(),
+        ScrollInNavigationDemo(),
+        TableViewDemo(),
+        TableViewControllerDemo(),
+        ColorDemo(),
+        NoPullBarDemo(),
+        ClearPullBarDemo(),
+        NoCloseDemo()
     ]
     
     override func viewDidLoad() {

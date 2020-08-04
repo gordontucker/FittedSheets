@@ -88,8 +88,10 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
         UIView.animate(
             withDuration: self.duration,
             animations: {
-                presentor.view.layer.transform = CATransform3DMakeScale(1, 1, 1)
-                presentor.view.layer.cornerRadius = 0
+                if self.options.shrinkPresentingViewController {
+                    presentor.view.layer.transform = CATransform3DMakeScale(1, 1, 1)
+                    presentor.view.layer.cornerRadius = 0
+                }
                 animations?()
             },
             completion: {

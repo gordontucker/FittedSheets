@@ -19,5 +19,5 @@
   "requires_arc": true,
   "source_files": "FittedSheetsPod/**/*.swift",
   "frameworks": [],
-  "swift_version": "5"
+  "swift_version": "5.0"
 }

@@ -11,5 +11,11 @@ import FittedSheetsPod
 
 protocol Demoable {
     var name: String { get }
-    func buildDemo() -> SheetViewController
+    func buildDemo(useInlineMode: Bool) -> SheetViewController
+}
+
+extension Demoable {
+    func buildDemo() -> SheetViewController {
+        self.buildDemo(useInlineMode: false)
+    }
 }

@@ -6,6 +6,7 @@
 //  Copyright © 2020 Gordon Tucker. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS) || os(watchOS)
 import UIKit
 
 public class SheetContentViewController: UIViewController {
@@ -79,7 +80,6 @@ public class SheetContentViewController: UIViewController {
     }
     
     func adjustForKeyboard(height: CGFloat) {
-        print("Keyboard height is now \(height)")
         self.updateChildViewControllerBottomConstraint(adjustment: -height)
     }
     
@@ -97,7 +97,6 @@ public class SheetContentViewController: UIViewController {
             } else {
                 self.navigationHeightConstraint?.constant = size.height
             }
-            print("Navigation height is now \(size.height)")
         }
         self.navigationHeightConstraint?.isActive = true
         self.contentTopConstraint?.isActive = true
@@ -121,7 +120,6 @@ public class SheetContentViewController: UIViewController {
             self.contentView.layoutSubviews()
         }
         
-        print("Preffered height is now \(self.preferredHeight) - \(self.view.safeAreaInsets.bottom)")
         self.delegate?.preferredHeightChanged(oldHeight: oldPreferredHeight, newSize: self.preferredHeight)
     }
     
@@ -210,3 +208,5 @@ extension SheetContentViewController: UINavigationControllerDelegate {
         self.updatePreferredHeight()
     }
 }
+
+#endif // os(iOS) || os(tvOS) || os(watchOS)

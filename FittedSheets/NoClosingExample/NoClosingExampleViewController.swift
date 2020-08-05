@@ -15,7 +15,11 @@ class NoClosingExampleViewController: UIViewController {
     }
 
     @IBAction func closeTapped(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        if self.sheetViewController?.options.useInlineMode == true {
+            self.sheetViewController?.attemptDismiss(animated: true)
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     static func instantiate() -> NoClosingExampleViewController {

@@ -14,8 +14,8 @@ class IntrensicDemo: Demoable {
         return "Intrensic Height"
     }
     
-    func buildDemo() -> SheetViewController {
+    func buildDemo(useInlineMode: Bool) -> SheetViewController {
         let controller = IntrinsicExampleViewController.instantiate()
-        return SheetViewController(controller: controller)
+        return SheetViewController(controller: controller, options: SheetOptions(useInlineMode: useInlineMode))
     }
 }

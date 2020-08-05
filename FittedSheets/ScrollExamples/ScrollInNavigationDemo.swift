@@ -14,10 +14,10 @@ class ScrollInNavigationDemo: Demoable {
         return "Scroll View In Navigation"
     }
     
-    func buildDemo() -> SheetViewController {
+    func buildDemo(useInlineMode: Bool) -> SheetViewController {
         let controller = ScrollViewExampleViewController.instantiate()
         
         let nav = UINavigationController(rootViewController: controller)
-        return SheetViewController(controller: nav, sizes: [.percent(0.25), .fullscreen])
+        return SheetViewController(controller: nav, sizes: [.percent(0.25), .fullscreen], options: SheetOptions(useInlineMode: useInlineMode))
     }
 }

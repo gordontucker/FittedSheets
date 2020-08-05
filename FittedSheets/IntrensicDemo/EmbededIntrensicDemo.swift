@@ -14,9 +14,9 @@ class EmbededIntrensicDemo: Demoable {
         return "Embeded Intrensic Height"
     }
     
-    func buildDemo() -> SheetViewController {
+    func buildDemo(useInlineMode: Bool) -> SheetViewController {
         let controller = IntrinsicExampleViewController.instantiate()
         let nav = UINavigationController(rootViewController: controller)
-        return SheetViewController(controller: nav)
+        return SheetViewController(controller: nav, options: SheetOptions(useInlineMode: useInlineMode))
     }
 }

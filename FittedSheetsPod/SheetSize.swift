@@ -6,6 +6,7 @@
 //  Copyright © 2018 Gordon Tucker. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS) || os(watchOS)
 import CoreGraphics
 
 public enum SheetSize: Equatable {
@@ -14,3 +15,5 @@ public enum SheetSize: Equatable {
     case fullscreen
     case percent(Float)
 }
+
+#endif // os(iOS) || os(tvOS) || os(watchOS)

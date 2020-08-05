@@ -14,12 +14,13 @@ class NoPullBarDemo: Demoable {
         return "No Pull Bar"
     }
     
-    func buildDemo() -> SheetViewController {
+    func buildDemo(useInlineMode: Bool) -> SheetViewController {
         let controller = UIStoryboard(name: "ColorExample", bundle: nil).instantiateViewController(withIdentifier: "customize")
         
         var options = SheetOptions()
         options.cornerRadius = 4
         options.pullBarHeight = 0
+        options.useInlineMode = useInlineMode
         
         let sheet = SheetViewController(controller: controller, sizes: [.percent(0.25), .fullscreen], options: options)
         

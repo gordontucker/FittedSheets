@@ -10,12 +10,10 @@ import UIKit
 import FittedSheetsPod
 
 class ResizingDemo: Demoable {
-    var name: String {
-        return "Self Resizing"
-    }
+    var name: String = "Self Resizing"
     
-    func buildDemo() -> SheetViewController {
+    func buildDemo(useInlineMode: Bool) -> SheetViewController {
         let controller = ResizingExampleViewController.instantiate()
-        return SheetViewController(controller: controller, sizes: [.fixed(150), .fixed(300), .fixed(450)])
+        return SheetViewController(controller: controller, sizes: [.fixed(150), .fixed(300), .fixed(450)], options: SheetOptions(useInlineMode: useInlineMode))
     }
 }

@@ -6,8 +6,11 @@
 //  Copyright © 2020 Gordon Tucker. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS) || os(watchOS)
 import UIKit
 
 protocol SheetContentViewDelegate: class {
     func preferredHeightChanged(oldHeight: CGFloat, newSize: CGFloat)
 }
+
+#endif // os(iOS) || os(tvOS) || os(watchOS)

@@ -14,12 +14,12 @@ class NavigationDemo: Demoable {
         return "Pushing on Navigation"
     }
     
-    func buildDemo() -> SheetViewController {
+    func buildDemo(useInlineMode: Bool) -> SheetViewController {
         let controller2 = UITextFieldExampleViewController.instantiate()
         
         let controller = NavigationRootViewController.instantiate(exampleViewController: controller2)
         
         let nav = UINavigationController(rootViewController: controller)
-        return SheetViewController(controller: nav, sizes: [.intrensic, .percent(0.5), .fullscreen])
+        return SheetViewController(controller: nav, sizes: [.intrensic, .percent(0.5), .fullscreen], options: SheetOptions(useInlineMode: useInlineMode))
     }
 }

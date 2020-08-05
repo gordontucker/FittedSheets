@@ -6,6 +6,7 @@
 //  Copyright © 2020 Gordon Tucker. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS) || os(watchOS)
 import UIKit
 
 extension UIColor {
@@ -54,3 +55,5 @@ extension UIColor {
         }
     }
 }
+
+#endif // os(iOS) || os(tvOS) || os(watchOS)

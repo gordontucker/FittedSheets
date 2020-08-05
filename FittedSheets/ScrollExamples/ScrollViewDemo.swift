@@ -14,9 +14,9 @@ class ScrollViewDemo: Demoable {
         return "Scroll View"
     }
     
-    func buildDemo() -> SheetViewController {
+    func buildDemo(useInlineMode: Bool) -> SheetViewController {
         let controller = ScrollViewExampleViewController.instantiate()
         
-        return SheetViewController(controller: controller, sizes: [.percent(0.25), .fullscreen])
+        return SheetViewController(controller: controller, sizes: [.percent(0.25), .fullscreen], options: SheetOptions(useInlineMode: useInlineMode))
     }
 }

@@ -14,9 +14,9 @@ class KeyboardDemo: Demoable {
         return "Keyboard"
     }
     
-    func buildDemo() -> SheetViewController {
+    func buildDemo(useInlineMode: Bool) -> SheetViewController {
         let controller = UITextFieldExampleViewController.instantiate()
         
-        return SheetViewController(controller: controller, sizes: [.percent(0.5), .fullscreen])
+        return SheetViewController(controller: controller, sizes: [.percent(0.5), .fullscreen], options: SheetOptions(useInlineMode: useInlineMode))
     }
 }

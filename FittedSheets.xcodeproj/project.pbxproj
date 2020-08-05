@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		F8034165212625DD00EAD717 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8034164212625DD00EAD717 /* AppDelegate.swift */; };
-		F8034167212625DD00EAD717 /* ExamplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8034166212625DD00EAD717 /* ExamplesViewController.swift */; };
 		F803416A212625DD00EAD717 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8034168212625DD00EAD717 /* Main.storyboard */; };
 		F803416C212625DF00EAD717 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F803416B212625DF00EAD717 /* Assets.xcassets */; };
 		F803416F212625DF00EAD717 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F803416D212625DF00EAD717 /* LaunchScreen.storyboard */; };
@@ -61,6 +60,12 @@
 		F8A42B8424DA022F005DE55B /* NoClosingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B8324DA022F005DE55B /* NoClosingExampleViewController.swift */; };
 		F8A42B8624DA028D005DE55B /* NoCloseDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B8524DA028D005DE55B /* NoCloseDemo.swift */; };
 		F8A42B8824DA1682005DE55B /* SheetTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B8724DA1682005DE55B /* SheetTransition.swift */; };
+		F8A42B8A24DA2846005DE55B /* NonFullScreenMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B8924DA2846005DE55B /* NonFullScreenMode.swift */; };
+		F8A42B8C24DB1A67005DE55B /* InlineExamplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B8B24DB1A67005DE55B /* InlineExamplesViewController.swift */; };
+		F8A42B8D24DB24F9005DE55B /* Yalta.swift in Sources */ = {isa = PBXBuildFile; fileRef = F803419C212F208300EAD717 /* Yalta.swift */; };
+		F8A42B9424DB2C04005DE55B /* MapDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B9324DB2C04005DE55B /* MapDemo.swift */; };
+		F8A42B9624DB3495005DE55B /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B9524DB3495005DE55B /* SheetView.swift */; };
+		F8A42B9824DB34E1005DE55B /* SheetViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B9724DB34E1005DE55B /* SheetViewDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,7 +110,6 @@
 		46334410249C041700F334E5 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		F8034161212625DD00EAD717 /* FittedSheets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FittedSheets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8034164212625DD00EAD717 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F8034166212625DD00EAD717 /* ExamplesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplesViewController.swift; sourceTree = "<group>"; };
 		F8034169212625DD00EAD717 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F803416B212625DF00EAD717 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F803416E212625DF00EAD717 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -164,6 +168,11 @@
 		F8A42B8324DA022F005DE55B /* NoClosingExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoClosingExampleViewController.swift; sourceTree = "<group>"; };
 		F8A42B8524DA028D005DE55B /* NoCloseDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCloseDemo.swift; sourceTree = "<group>"; };
 		F8A42B8724DA1682005DE55B /* SheetTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetTransition.swift; sourceTree = "<group>"; };
+		F8A42B8924DA2846005DE55B /* NonFullScreenMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonFullScreenMode.swift; sourceTree = "<group>"; };
+		F8A42B8B24DB1A67005DE55B /* InlineExamplesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineExamplesViewController.swift; sourceTree = "<group>"; };
+		F8A42B9324DB2C04005DE55B /* MapDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDemo.swift; sourceTree = "<group>"; };
+		F8A42B9524DB3495005DE55B /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
+		F8A42B9724DB34E1005DE55B /* SheetViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViewDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,7 +243,6 @@
 				F857D0AA2204D6E7004C862F /* ScrollExamples */,
 				F857D0A32204B813004C862F /* ColorExample */,
 				F8034164212625DD00EAD717 /* AppDelegate.swift */,
-				F8034166212625DD00EAD717 /* ExamplesViewController.swift */,
 				F8034168212625DD00EAD717 /* Main.storyboard */,
 				F803416B212625DF00EAD717 /* Assets.xcassets */,
 				F803416D212625DF00EAD717 /* LaunchScreen.storyboard */,
@@ -242,6 +250,7 @@
 				F857D0A82204C191004C862F /* UIClosureActionClosure.swift */,
 				F8A42B5924D36893005DE55B /* RootViewController.swift */,
 				F8A42B5B24D369A8005DE55B /* Demoable.swift */,
+				F8A42B8B24DB1A67005DE55B /* InlineExamplesViewController.swift */,
 			);
 			path = FittedSheets;
 			sourceTree = "<group>";
@@ -280,6 +289,8 @@
 				F8A42B5124D1F6D3005DE55B /* SheetContentViewDelegate.swift */,
 				F8A42B5524D20201005DE55B /* SheetDelegate.swift */,
 				F8A42B8724DA1682005DE55B /* SheetTransition.swift */,
+				F8A42B9524DB3495005DE55B /* SheetView.swift */,
+				F8A42B9724DB34E1005DE55B /* SheetViewDelegate.swift */,
 			);
 			path = FittedSheetsPod;
 			sourceTree = "<group>";
@@ -319,6 +330,7 @@
 				F8A42B5F24D36DE3005DE55B /* IntrensicDemo.swift */,
 				F8A42B6124D36EA7005DE55B /* EmbededIntrensicDemo.swift */,
 				F8A42B6324D371C7005DE55B /* IntrensicAndFullscreenDemo.swift */,
+				F8A42B8924DA2846005DE55B /* NonFullScreenMode.swift */,
 			);
 			path = IntrensicDemo;
 			sourceTree = "<group>";
@@ -359,6 +371,7 @@
 				F8A42B8124DA01B0005DE55B /* NoClosing.storyboard */,
 				F8A42B8324DA022F005DE55B /* NoClosingExampleViewController.swift */,
 				F8A42B8524DA028D005DE55B /* NoCloseDemo.swift */,
+				F8A42B9324DB2C04005DE55B /* MapDemo.swift */,
 			);
 			path = NoClosingExample;
 			sourceTree = "<group>";
@@ -548,6 +561,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F857D0A92204C191004C862F /* UIClosureActionClosure.swift in Sources */,
+				F8A42B8D24DB24F9005DE55B /* Yalta.swift in Sources */,
 				F857D0B22204D761004C862F /* ScrollViewExampleViewController.swift in Sources */,
 				F8A42B7924D9FDFB005DE55B /* ScrollInNavigationDemo.swift in Sources */,
 				F8A42B5A24D36893005DE55B /* RootViewController.swift in Sources */,
@@ -563,17 +577,19 @@
 				F8A42B7724D9FD3D005DE55B /* NoPullBarDemo.swift in Sources */,
 				F8A42B6B24D37BB1005DE55B /* NavigationDemo.swift in Sources */,
 				F857D0B92204DA4E004C862F /* IntrinsicExampleViewController.swift in Sources */,
-				F8034167212625DD00EAD717 /* ExamplesViewController.swift in Sources */,
 				F8A42B6424D371C7005DE55B /* IntrensicAndFullscreenDemo.swift in Sources */,
 				F8A42B6924D37890005DE55B /* ResizingDemo.swift in Sources */,
+				F8A42B8C24DB1A67005DE55B /* InlineExamplesViewController.swift in Sources */,
 				F8A42B7524D9FD11005DE55B /* ColorDemo.swift in Sources */,
 				F8A42B6024D36DE3005DE55B /* IntrensicDemo.swift in Sources */,
 				F8A42B8424DA022F005DE55B /* NoClosingExampleViewController.swift in Sources */,
 				F8A42B7324D9FCC1005DE55B /* ScrollViewDemo.swift in Sources */,
 				F857D0AE2204D709004C862F /* TableViewExampleViewController.swift in Sources */,
 				F857D0B02204D71E004C862F /* ExampleTableViewController.swift in Sources */,
+				F8A42B9424DB2C04005DE55B /* MapDemo.swift in Sources */,
 				F8A42B6D24D9FC15005DE55B /* KeyboardDemo.swift in Sources */,
 				F8034165212625DD00EAD717 /* AppDelegate.swift in Sources */,
+				F8A42B8A24DA2846005DE55B /* NonFullScreenMode.swift in Sources */,
 				F8A42B6224D36EA7005DE55B /* EmbededIntrensicDemo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -599,6 +615,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8A42B4A24D1E241005DE55B /* SheetViewController.swift in Sources */,
+				F8A42B9824DB34E1005DE55B /* SheetViewDelegate.swift in Sources */,
 				F857D0A12204B776004C862F /* UIViewControllerExtension.swift in Sources */,
 				F8A42B5624D20201005DE55B /* SheetDelegate.swift in Sources */,
 				F8A42B4C24D1E2EF005DE55B /* SheetContentViewController.swift in Sources */,
@@ -608,6 +625,7 @@
 				F857D09F2204B776004C862F /* Yalta.swift in Sources */,
 				F8A42B4E24D1E40A005DE55B /* SheetOptions.swift in Sources */,
 				F8A42B8824DA1682005DE55B /* SheetTransition.swift in Sources */,
+				F8A42B9624DB3495005DE55B /* SheetView.swift in Sources */,
 				F857D0A22204B776004C862F /* SheetSize.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

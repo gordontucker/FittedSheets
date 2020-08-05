@@ -14,9 +14,9 @@ class TableViewDemo: Demoable {
         return "Table View"
     }
     
-    func buildDemo() -> SheetViewController {
+    func buildDemo(useInlineMode: Bool) -> SheetViewController {
         let controller = TableViewExampleViewController.instantiate()
         
-        return SheetViewController(controller: controller, sizes: [.percent(0.25), .fullscreen])
+        return SheetViewController(controller: controller, sizes: [.percent(0.25), .fullscreen], options: SheetOptions(useInlineMode: useInlineMode))
     }
 }

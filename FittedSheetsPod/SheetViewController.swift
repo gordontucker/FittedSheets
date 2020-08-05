@@ -28,12 +28,17 @@ public class SheetViewController: UIViewController {
     public var dismissOnPull: Bool = true
     /// Dismisses the sheet by tapping on the background overlay
     public var dismissOnOverlayTap: Bool = true
-    ///
+    /// If true you can pull using UIControls (so you can grab and drag a button to control the sheet)
     public var shouldRecognizePanGestureWithUIControls: Bool = true
     /// The color of the overlay background
     public var overlayColor = UIColor(white: 0, alpha: 0.7) {
         didSet {
             self.overlayView.backgroundColor = self.overlayColor
+        }
+    }
+    public var allowGestureThroughOverlay: Bool = false {
+        didSet {
+            self.overlayTapView.isUserInteractionEnabled = !self.allowGestureThroughOverlay
         }
     }
     let transition: SheetTransition
@@ -42,6 +47,8 @@ public class SheetViewController: UIViewController {
     
     public private(set) var contentViewController: SheetContentViewController
     var overlayView = UIView()
+    var overlayTapView = UIView()
+    var overlayTapGesture: UITapGestureRecognizer?
     private var contentViewHeightConstraint: NSLayoutConstraint!
     
     /// The child view controller's scroll view we are watching so we can override the pull down/up to work on the sheet when needed
@@ -79,6 +86,16 @@ public class SheetViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    public override func loadView() {
+        if self.options.useInlineMode {
+            let sheetView = SheetView()
+            sheetView.delegate = self
+            self.view = sheetView
+        } else {
+            super.loadView()
+        }
+    }
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -102,8 +119,8 @@ public class SheetViewController: UIViewController {
     
     public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        if let presentor = self.transition.presentor, self.options.shrinkPresentingViewController {
-            self.transition.restorePresentor(presentor)
+        if let presenter = self.transition.presenter, self.options.shrinkPresentingViewController {
+            self.transition.restorePresentor(presenter)
         }
     }
     
@@ -136,13 +153,14 @@ public class SheetViewController: UIViewController {
         Constraints(for: self.overlayView) {
             $0.edges(.top, .left, .right, .bottom).pinToSuperview()
         }
+        self.overlayView.isUserInteractionEnabled = false
         self.overlayView.backgroundColor = self.overlayColor
     }
     
     private func addOverlayTapView() {
-        let overlayTapView = UIView()
+        let overlayTapView = self.overlayTapView
         overlayTapView.backgroundColor = .clear
-        overlayTapView.isUserInteractionEnabled = true
+        overlayTapView.isUserInteractionEnabled = !self.allowGestureThroughOverlay
         self.view.addSubview(overlayTapView)
         Constraints(for: overlayTapView, self.contentViewController.view) {
             $0.top.pinToSuperview()
@@ -152,12 +170,13 @@ public class SheetViewController: UIViewController {
         }
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(overlayTapped))
+        self.overlayTapGesture = tapGestureRecognizer
         overlayTapView.addGestureRecognizer(tapGestureRecognizer)
     }
     
     @objc func overlayTapped(_ gesture: UITapGestureRecognizer) {
         guard self.dismissOnOverlayTap else { return }
-        self.dismiss(animated: true, completion: nil)
+        self.attemptDismiss(animated: true)
     }
 
     private func addContentView() {
@@ -205,7 +224,7 @@ public class SheetViewController: UIViewController {
         } else {
             maxHeight = max(self.height(for: self.orderedSizes.last), self.prePanHeight)
         }
-        print("maxHeight: \(maxHeight), minHeight: \(minHeight)")
+        
         var newHeight = max(0, self.prePanHeight + (self.firstPanPoint.y - point.y))
         var offset: CGFloat = 0
         if newHeight < minHeight {
@@ -215,7 +234,7 @@ public class SheetViewController: UIViewController {
         if newHeight > maxHeight {
             newHeight = maxHeight
         }
-        print("newHeight: \(newHeight) with \(gesture.state)")
+        
         switch gesture.state {
             case .cancelled, .failed:
                 UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseOut], animations: {
@@ -256,7 +275,7 @@ public class SheetViewController: UIViewController {
                         self.transition.setPresentor(percentComplete: 1)
                         self.overlayView.alpha = 0
                     }, completion: { complete in
-                        self.dismiss(animated: false, completion: nil)
+                        self.attemptDismiss(animated: false)
                     })
                     return
                 }
@@ -286,16 +305,17 @@ public class SheetViewController: UIViewController {
                 let previousSize = self.currentSize
                 self.currentSize = newSize
                 
+                let newContentHeight = self.height(for: newSize)
                 UIView.animate(withDuration: animationDuration, delay: 0, options: [.curveEaseOut], animations: {
                     self.contentViewController.view.transform = CGAffineTransform.identity
-                    self.contentViewHeightConstraint.constant = self.height(for: newSize)
+                    self.contentViewHeightConstraint.constant = newContentHeight
                     self.transition.setPresentor(percentComplete: 0)
                     self.overlayView.alpha = 1
                     self.view.layoutIfNeeded()
                 }, completion: { complete in
                     self.isPanning = false
                     if previousSize != newSize {
-                        self.delegate?.sheetViewControllerChangedSize(from: previousSize, to: newSize)
+                        self.delegate?.sheetViewControllerChangedSize(to: newContentHeight)
                     }
                 })
             case .possible:
@@ -371,11 +391,9 @@ public class SheetViewController: UIViewController {
         let newHeight = self.height(for: size)
         
         guard oldConstraintHeight != newHeight else {
-            print("skip resizing")
             return
         }
         
-        print("Resized to \(newHeight)")
         if animated {
             UIView.animate(withDuration: duration, delay: 0, options: options, animations: { [weak self] in
                 guard let self = self, let constraint = self.contentViewHeightConstraint else { return }
@@ -383,7 +401,7 @@ public class SheetViewController: UIViewController {
                 self.view.layoutIfNeeded()
             }, completion: { _ in
                 if previousSize != size {
-                    self.delegate?.sheetViewControllerChangedSize(from: previousSize, to: size)
+                    self.delegate?.sheetViewControllerChangedSize(to: newHeight)
                 }
                 self.contentViewController.updateAfterLayout()
                 complete?()
@@ -399,8 +417,69 @@ public class SheetViewController: UIViewController {
     
     public override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         super.dismiss(animated: flag, completion: completion)
-        if !flag {
-            
+    }
+    
+    public func attemptDismiss(animated: Bool) {
+        if self.options.useInlineMode {
+            if self.delegate?.sheetViewControllerShouldDismiss() != false {
+                self.animateOut {
+                    self.delegate?.sheetViewControllerDidDismiss()
+                }
+            }
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    /// Animates the sheet in, but only if presenting using the inline mode
+    public func animateIn(duration: TimeInterval = 0.3, completion: (() -> Void)? = nil) {
+        guard self.options.useInlineMode else { return }
+        self.view.superview?.layoutIfNeeded()
+        self.contentViewController.updatePreferredHeight()
+        self.resize(to: self.currentSize, animated: false)
+        let contentView = self.contentViewController.contentView
+        contentView.transform = CGAffineTransform(translationX: 0, y: contentView.bounds.height)
+        self.overlayView.alpha = 0
+        
+        UIView.animate(
+            withDuration: duration,
+            animations: {
+                contentView.transform = .identity
+                self.overlayView.alpha = 1
+            },
+            completion: { _ in
+                completion?()
+            }
+        )
+    }
+    
+    /// Animates the sheet out, but only if presenting using the inline mode
+    public func animateOut(duration: TimeInterval = 0.3, completion: (() -> Void)? = nil) {
+        guard self.options.useInlineMode else { return }
+        let contentView = self.contentViewController.contentView
+        
+        UIView.animate(
+            withDuration: duration,
+            animations: {
+                contentView.transform = CGAffineTransform(translationX: 0, y: contentView.bounds.height)
+                self.overlayView.alpha = 0
+            },
+            completion: { _ in
+                self.view.removeFromSuperview()
+                self.removeFromParent()
+                completion?()
+            }
+        )
+    }
+}
+
+extension SheetViewController: SheetViewDelegate {
+    func sheetPoint(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let isInOverlay = self.overlayTapView.bounds.contains(point)
+        if self.allowGestureThroughOverlay, isInOverlay {
+            return false
+        } else {
+            return true
         }
     }
 }
@@ -447,9 +526,7 @@ extension SheetViewController: SheetContentViewDelegate {
             self.updateOrderedSizes()
         }
         // If our intrensic size changed and that is what we are sized to currently, use that
-        print("intrensic height changed to \(newSize)")
         if self.currentSize == .intrensic, !self.isPanning {
-            print("resizing intrensic")
             self.resize(to: .intrensic)
         }
     }

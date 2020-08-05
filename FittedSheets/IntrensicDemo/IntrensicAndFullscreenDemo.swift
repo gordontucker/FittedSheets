@@ -20,6 +20,6 @@ class IntrensicAndFullscreenDemo: Demoable {
             useFullScreenMode: false,
             useInlineMode: useInlineMode,
             minimumSpaceAbovePullBar: 44)
-        return SheetViewController(controller: controller, sizes: [.intrensic, .fullscreen], options: options)
+        return SheetViewController(controller: controller, sizes: [.intrinsic, .fullscreen], options: options)
     }
 }

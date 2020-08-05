@@ -20,6 +20,6 @@ class NavigationDemo: Demoable {
         let controller = NavigationRootViewController.instantiate(exampleViewController: controller2)
         
         let nav = UINavigationController(rootViewController: controller)
-        return SheetViewController(controller: nav, sizes: [.intrensic, .percent(0.5), .fullscreen], options: SheetOptions(useInlineMode: useInlineMode))
+        return SheetViewController(controller: nav, sizes: [.intrinsic, .percent(0.5), .fullscreen], options: SheetOptions(useInlineMode: useInlineMode))
     }
 }

@@ -10,7 +10,7 @@
 import CoreGraphics
 
 public enum SheetSize: Equatable {
-    case intrensic
+    case intrinsic
     case fixed(CGFloat)
     case fullscreen
     case percent(Float)

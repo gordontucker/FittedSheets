@@ -16,6 +16,6 @@ class IntrensicAndTrueFullscreenDemo: Demoable {
     
     func buildDemo(useInlineMode: Bool) -> SheetViewController {
         let controller = IntrinsicExampleViewController.instantiate()
-        return SheetViewController(controller: controller, sizes: [.intrensic, .fullscreen], options: SheetOptions(useInlineMode: useInlineMode))
+        return SheetViewController(controller: controller, sizes: [.intrinsic, .fullscreen], options: SheetOptions(useInlineMode: useInlineMode))
     }
 }

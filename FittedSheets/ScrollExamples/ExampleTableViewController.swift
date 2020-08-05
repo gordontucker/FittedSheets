@@ -12,7 +12,11 @@ class ExampleTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // viewDidLoad happens before being added as a subview
         self.sheetViewController?.handleScrollView(self.tableView)
     }
 

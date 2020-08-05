@@ -16,13 +16,15 @@ class NavigationRootViewController: UIViewController {
     }
     
     @IBAction func closeTapped(_ sender: Any) {
-        self.sheetViewController?.closeSheet() {
-            print("Closing sheet with toolbar button complete")
+        if self.sheetViewController?.options.useInlineMode == true {
+            self.sheetViewController?.attemptDismiss(animated: true)
+        } else {
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
     static func instantiate(exampleViewController: UIViewController) -> NavigationRootViewController {
-        let controller = UIStoryboard(name: "NavigationExample", bundle: nil).instantiateViewController(withIdentifier: "root") as! NavigationRootViewController
+        let controller = UIStoryboard(name: "NavigationDemo", bundle: nil).instantiateViewController(withIdentifier: "root") as! NavigationRootViewController
         controller.exampleViewController = exampleViewController
         return controller
     }

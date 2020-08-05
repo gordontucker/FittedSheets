@@ -15,7 +15,6 @@ class ScrollViewExampleViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.sheetViewController?.handleScrollView(self.scrollView)
     }
     

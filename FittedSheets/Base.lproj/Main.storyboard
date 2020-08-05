@@ -54,6 +54,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="scrollView" destination="E5b-WP-7ZL" id="dBf-ey-pU7"/>
                         <outlet property="stackView" destination="1di-QP-Fr8" id="6X2-R6-lE3"/>
                     </connections>
                 </viewController>

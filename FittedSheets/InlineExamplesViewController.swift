@@ -21,7 +21,6 @@ class InlineExamplesViewController: UIViewController {
         EmbededIntrensicDemo(),
         IntrensicAndFullscreenDemo(),
         IntrensicAndTrueFullscreenDemo(),
-        NonFullScreenMode(),
         ResizingDemo(),
         NavigationDemo(),
         KeyboardDemo(),
@@ -32,7 +31,8 @@ class InlineExamplesViewController: UIViewController {
         ColorDemo(),
         NoPullBarDemo(),
         ClearPullBarDemo(),
-        NoCloseDemo()
+        NoCloseDemo(),
+        RecursionDemo()
     ]
     
     override func viewDidLoad() {
@@ -65,8 +65,6 @@ class InlineExamplesViewController: UIViewController {
     func presentDemo(_ demo: Demoable) {
         let sheet = demo.buildDemo(useInlineMode: true)
         
-        sheet.delegate = self
-        
         // Add child
         sheet.willMove(toParent: self)
         self.addChild(sheet)
@@ -74,6 +72,17 @@ class InlineExamplesViewController: UIViewController {
         sheet.didMove(toParent: self)
         Constraints(for: sheet.view) {
             $0.edges(.top, .left, .bottom, .right).pinToSuperview()
+        }
+        
+        sheet.didDismiss = { [weak self] _ in
+            print("did dismiss")
+            self?.mapView?.removeFromSuperview()
+            self?.stackViewBottomConstraint.constant = 20
+        }
+        
+        sheet.shouldDismiss = { _ in
+            print("should dismiss")
+            return true
         }
         
         // animate in
@@ -97,18 +106,5 @@ class InlineExamplesViewController: UIViewController {
             $0.edges.pinToSuperview()
         }
         self.mapView = view
-    }
-}
-
-extension InlineExamplesViewController: SheetDelegate {
-    func sheetViewControllerDidDismiss() {
-        self.mapView?.removeFromSuperview()
-        self.stackViewBottomConstraint.constant = 20
-    }
-    
-    func sheetViewControllerChangedSize(to: CGFloat) {
-        if self.mapView != nil {
-            self.stackViewBottomConstraint.constant = to
-        }
     }
 }

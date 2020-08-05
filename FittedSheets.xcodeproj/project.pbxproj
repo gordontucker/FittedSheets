@@ -39,7 +39,6 @@
 		F8A42B4E24D1E40A005DE55B /* SheetOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B4D24D1E40A005DE55B /* SheetOptions.swift */; };
 		F8A42B5024D1E4C3005DE55B /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B4F24D1E4C3005DE55B /* UIColorExtension.swift */; };
 		F8A42B5224D1F6D3005DE55B /* SheetContentViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B5124D1F6D3005DE55B /* SheetContentViewDelegate.swift */; };
-		F8A42B5624D20201005DE55B /* SheetDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B5524D20201005DE55B /* SheetDelegate.swift */; };
 		F8A42B5A24D36893005DE55B /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B5924D36893005DE55B /* RootViewController.swift */; };
 		F8A42B5C24D369A8005DE55B /* Demoable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B5B24D369A8005DE55B /* Demoable.swift */; };
 		F8A42B6024D36DE3005DE55B /* IntrensicDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B5F24D36DE3005DE55B /* IntrensicDemo.swift */; };
@@ -60,13 +59,13 @@
 		F8A42B8424DA022F005DE55B /* NoClosingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B8324DA022F005DE55B /* NoClosingExampleViewController.swift */; };
 		F8A42B8624DA028D005DE55B /* NoCloseDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B8524DA028D005DE55B /* NoCloseDemo.swift */; };
 		F8A42B8824DA1682005DE55B /* SheetTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B8724DA1682005DE55B /* SheetTransition.swift */; };
-		F8A42B8A24DA2846005DE55B /* NonFullScreenMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B8924DA2846005DE55B /* NonFullScreenMode.swift */; };
 		F8A42B8C24DB1A67005DE55B /* InlineExamplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B8B24DB1A67005DE55B /* InlineExamplesViewController.swift */; };
 		F8A42B8D24DB24F9005DE55B /* Yalta.swift in Sources */ = {isa = PBXBuildFile; fileRef = F803419C212F208300EAD717 /* Yalta.swift */; };
 		F8A42B9424DB2C04005DE55B /* MapDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B9324DB2C04005DE55B /* MapDemo.swift */; };
 		F8A42B9624DB3495005DE55B /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B9524DB3495005DE55B /* SheetView.swift */; };
 		F8A42B9824DB34E1005DE55B /* SheetViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B9724DB34E1005DE55B /* SheetViewDelegate.swift */; };
 		F8A42B9A24DB4577005DE55B /* IntrensicAndTrueFullscreenDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B9924DB4577005DE55B /* IntrensicAndTrueFullscreenDemo.swift */; };
+		F8A42B9E24DB58A6005DE55B /* RecursionDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B9D24DB58A6005DE55B /* RecursionDemo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,7 +147,6 @@
 		F8A42B4D24D1E40A005DE55B /* SheetOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetOptions.swift; sourceTree = "<group>"; };
 		F8A42B4F24D1E4C3005DE55B /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		F8A42B5124D1F6D3005DE55B /* SheetContentViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetContentViewDelegate.swift; sourceTree = "<group>"; };
-		F8A42B5524D20201005DE55B /* SheetDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetDelegate.swift; sourceTree = "<group>"; };
 		F8A42B5924D36893005DE55B /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		F8A42B5B24D369A8005DE55B /* Demoable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demoable.swift; sourceTree = "<group>"; };
 		F8A42B5F24D36DE3005DE55B /* IntrensicDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrensicDemo.swift; sourceTree = "<group>"; };
@@ -169,12 +167,14 @@
 		F8A42B8324DA022F005DE55B /* NoClosingExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoClosingExampleViewController.swift; sourceTree = "<group>"; };
 		F8A42B8524DA028D005DE55B /* NoCloseDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCloseDemo.swift; sourceTree = "<group>"; };
 		F8A42B8724DA1682005DE55B /* SheetTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetTransition.swift; sourceTree = "<group>"; };
-		F8A42B8924DA2846005DE55B /* NonFullScreenMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonFullScreenMode.swift; sourceTree = "<group>"; };
 		F8A42B8B24DB1A67005DE55B /* InlineExamplesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineExamplesViewController.swift; sourceTree = "<group>"; };
 		F8A42B9324DB2C04005DE55B /* MapDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDemo.swift; sourceTree = "<group>"; };
 		F8A42B9524DB3495005DE55B /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		F8A42B9724DB34E1005DE55B /* SheetViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViewDelegate.swift; sourceTree = "<group>"; };
 		F8A42B9924DB4577005DE55B /* IntrensicAndTrueFullscreenDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrensicAndTrueFullscreenDemo.swift; sourceTree = "<group>"; };
+		F8A42B9B24DB496E005DE55B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F8A42B9C24DB49B5005DE55B /* Screens */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Screens; sourceTree = "<group>"; };
+		F8A42B9D24DB58A6005DE55B /* RecursionDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecursionDemo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,11 +215,13 @@
 			children = (
 				F8034192212628FE00EAD717 /* FittedSheets.podspec.json */,
 				46334410249C041700F334E5 /* Package.swift */,
+				F8A42B9B24DB496E005DE55B /* README.md */,
 				F8034163212625DD00EAD717 /* FittedSheets */,
 				F8034178212625DF00EAD717 /* FittedSheetsTests */,
 				F8034183212625DF00EAD717 /* FittedSheetsUITests */,
 				F857D0922204B71F004C862F /* FittedSheetsPod */,
 				F8034162212625DD00EAD717 /* Products */,
+				F8A42B9C24DB49B5005DE55B /* Screens */,
 			);
 			sourceTree = "<group>";
 		};
@@ -253,6 +255,7 @@
 				F8A42B5924D36893005DE55B /* RootViewController.swift */,
 				F8A42B5B24D369A8005DE55B /* Demoable.swift */,
 				F8A42B8B24DB1A67005DE55B /* InlineExamplesViewController.swift */,
+				F8A42B9D24DB58A6005DE55B /* RecursionDemo.swift */,
 			);
 			path = FittedSheets;
 			sourceTree = "<group>";
@@ -289,7 +292,6 @@
 				F8A42B4D24D1E40A005DE55B /* SheetOptions.swift */,
 				F8A42B4F24D1E4C3005DE55B /* UIColorExtension.swift */,
 				F8A42B5124D1F6D3005DE55B /* SheetContentViewDelegate.swift */,
-				F8A42B5524D20201005DE55B /* SheetDelegate.swift */,
 				F8A42B8724DA1682005DE55B /* SheetTransition.swift */,
 				F8A42B9524DB3495005DE55B /* SheetView.swift */,
 				F8A42B9724DB34E1005DE55B /* SheetViewDelegate.swift */,
@@ -333,7 +335,6 @@
 				F8A42B6124D36EA7005DE55B /* EmbededIntrensicDemo.swift */,
 				F8A42B6324D371C7005DE55B /* IntrensicAndFullscreenDemo.swift */,
 				F8A42B9924DB4577005DE55B /* IntrensicAndTrueFullscreenDemo.swift */,
-				F8A42B8924DA2846005DE55B /* NonFullScreenMode.swift */,
 			);
 			path = IntrensicDemo;
 			sourceTree = "<group>";
@@ -576,6 +577,7 @@
 				F8A42B6F24D9FC82005DE55B /* TableViewDemo.swift in Sources */,
 				F8A42B5C24D369A8005DE55B /* Demoable.swift in Sources */,
 				F857D0C02204DD00004C862F /* NavigationRootViewController.swift in Sources */,
+				F8A42B9E24DB58A6005DE55B /* RecursionDemo.swift in Sources */,
 				F8A42B7B24D9FFBE005DE55B /* ClearPullBarDemo.swift in Sources */,
 				F8A42B8624DA028D005DE55B /* NoCloseDemo.swift in Sources */,
 				F8A42B7724D9FD3D005DE55B /* NoPullBarDemo.swift in Sources */,
@@ -593,7 +595,6 @@
 				F8A42B9424DB2C04005DE55B /* MapDemo.swift in Sources */,
 				F8A42B6D24D9FC15005DE55B /* KeyboardDemo.swift in Sources */,
 				F8034165212625DD00EAD717 /* AppDelegate.swift in Sources */,
-				F8A42B8A24DA2846005DE55B /* NonFullScreenMode.swift in Sources */,
 				F8A42B6224D36EA7005DE55B /* EmbededIntrensicDemo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -621,7 +622,6 @@
 				F8A42B4A24D1E241005DE55B /* SheetViewController.swift in Sources */,
 				F8A42B9824DB34E1005DE55B /* SheetViewDelegate.swift in Sources */,
 				F857D0A12204B776004C862F /* UIViewControllerExtension.swift in Sources */,
-				F8A42B5624D20201005DE55B /* SheetDelegate.swift in Sources */,
 				F8A42B4C24D1E2EF005DE55B /* SheetContentViewController.swift in Sources */,
 				F857D0A02204B776004C862F /* InitialTouchPanGestureRecognizer.swift in Sources */,
 				F8A42B5224D1F6D3005DE55B /* SheetContentViewDelegate.swift in Sources */,

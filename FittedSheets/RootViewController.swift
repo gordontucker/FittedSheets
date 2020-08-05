@@ -11,13 +11,13 @@ import UIKit
 class RootViewController: UIViewController {
 
     @IBOutlet var stackView: UIStackView!
+    @IBOutlet var scrollView: UIScrollView!
     
     var demos: [Demoable] = [
         IntrensicDemo(),
         EmbededIntrensicDemo(),
         IntrensicAndFullscreenDemo(),
         IntrensicAndTrueFullscreenDemo(),
-        NonFullScreenMode(),
         ResizingDemo(),
         NavigationDemo(),
         KeyboardDemo(),
@@ -28,7 +28,8 @@ class RootViewController: UIViewController {
         ColorDemo(),
         NoPullBarDemo(),
         ClearPullBarDemo(),
-        NoCloseDemo()
+        NoCloseDemo(),
+        RecursionDemo()
     ]
     
     override func viewDidLoad() {
@@ -37,6 +38,8 @@ class RootViewController: UIViewController {
         for demo in demos {
             self.addButton(demo: demo)
         }
+        
+        self.sheetViewController?.handleScrollView(self.scrollView)
     }
     
     func addButton(demo: Demoable) {
@@ -49,6 +52,16 @@ class RootViewController: UIViewController {
         }
         button.onTap { [weak self] in
             let sheet = demo.buildDemo()
+
+            sheet.didDismiss = { _ in
+                print("did dismiss")
+            }
+            
+            sheet.shouldDismiss = { _ in
+                print("should dismiss")
+                return true
+            }
+            
             self?.present(sheet, animated: true, completion: nil)
         }
         self.stackView.addArrangedSubview(button)

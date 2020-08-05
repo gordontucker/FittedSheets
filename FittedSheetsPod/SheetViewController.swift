@@ -43,7 +43,9 @@ public class SheetViewController: UIViewController {
     }
     let transition: SheetTransition
     
-    public var delegate: SheetDelegate?
+    public var shouldDismiss: ((SheetViewController) -> Bool)?
+    public var didDismiss: ((SheetViewController) -> Void)?
+    public var sizeChanged: ((SheetViewController, CGFloat) -> Void)?
     
     public private(set) var contentViewController: SheetContentViewController
     var overlayView = UIView()
@@ -95,7 +97,7 @@ public class SheetViewController: UIViewController {
             super.loadView()
         }
     }
-
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -117,10 +119,18 @@ public class SheetViewController: UIViewController {
         self.resize(to: self.currentSize, animated: false)
     }
     
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
     public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         if let presenter = self.transition.presenter, self.options.shrinkPresentingViewController {
-            self.transition.restorePresentor(presenter)
+            self.transition.restorePresentor(presenter, completion: { _ in
+                self.didDismiss?(self)
+            })
+        } else if !self.options.useInlineMode {
+            self.didDismiss?(self)
         }
     }
     
@@ -315,7 +325,7 @@ public class SheetViewController: UIViewController {
                 }, completion: { complete in
                     self.isPanning = false
                     if previousSize != newSize {
-                        self.delegate?.sheetViewControllerChangedSize(to: newContentHeight)
+                        self.sizeChanged?(self, newContentHeight)
                     }
                 })
             case .possible:
@@ -401,7 +411,7 @@ public class SheetViewController: UIViewController {
                 self.view.layoutIfNeeded()
             }, completion: { _ in
                 if previousSize != size {
-                    self.delegate?.sheetViewControllerChangedSize(to: newHeight)
+                    self.sizeChanged?(self, newHeight)
                 }
                 self.contentViewController.updateAfterLayout()
                 complete?()
@@ -415,19 +425,21 @@ public class SheetViewController: UIViewController {
         }
     }
     
-    public override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        super.dismiss(animated: flag, completion: completion)
-    }
-    
     public func attemptDismiss(animated: Bool) {
-        if self.options.useInlineMode {
-            if self.delegate?.sheetViewControllerShouldDismiss() != false {
-                self.animateOut {
-                    self.delegate?.sheetViewControllerDidDismiss()
+        if self.shouldDismiss?(self) != false {
+            if self.options.useInlineMode {
+                if animated {
+                    self.animateOut {
+                        self.didDismiss?(self)
+                    }
+                } else {
+                    self.view.removeFromSuperview()
+                    self.removeFromParent()
+                    self.didDismiss?(self)
                 }
+            } else {
+                self.dismiss(animated: animated, completion: nil)
             }
-        } else {
-            self.dismiss(animated: true, completion: nil)
         }
     }
     

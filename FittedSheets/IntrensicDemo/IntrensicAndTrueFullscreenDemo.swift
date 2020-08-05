@@ -9,17 +9,13 @@
 import UIKit
 import FittedSheetsPod
 
-class IntrensicAndFullscreenDemo: Demoable {
+class IntrensicAndTrueFullscreenDemo: Demoable {
     var name: String {
-        return "Intrensic And Fullscreen"
+        return "Intrensic And True Fullscreen"
     }
     
     func buildDemo(useInlineMode: Bool) -> SheetViewController {
         let controller = IntrinsicExampleViewController.instantiate()
-        let options = SheetOptions(
-            useFullScreenMode: false,
-            useInlineMode: useInlineMode,
-            minimumSpaceAbovePullBar: 44)
-        return SheetViewController(controller: controller, sizes: [.intrensic, .fullscreen], options: options)
+        return SheetViewController(controller: controller, sizes: [.intrensic, .fullscreen], options: SheetOptions(useInlineMode: useInlineMode))
     }
 }

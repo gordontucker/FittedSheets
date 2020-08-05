@@ -365,9 +365,9 @@ public class SheetViewController: UIViewController {
                 contentHeight = pullBarHeight + self.keyboardHeight
             case .fullscreen:
                 if self.options.useFullScreenMode {
-                    contentHeight = self.view.bounds.height
+                    contentHeight = self.view.bounds.height - self.options.minimumSpaceAbovePullBar
                 } else {
-                    contentHeight = self.view.bounds.height - self.view.safeAreaInsets.top
+                    contentHeight = self.view.bounds.height - self.view.safeAreaInsets.top - self.options.minimumSpaceAbovePullBar
                 }
             case .intrensic:
                 contentHeight = self.contentViewController.preferredHeight + self.keyboardHeight

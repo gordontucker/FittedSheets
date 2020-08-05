@@ -20,6 +20,7 @@ class InlineExamplesViewController: UIViewController {
         IntrensicDemo(),
         EmbededIntrensicDemo(),
         IntrensicAndFullscreenDemo(),
+        IntrensicAndTrueFullscreenDemo(),
         NonFullScreenMode(),
         ResizingDemo(),
         NavigationDemo(),

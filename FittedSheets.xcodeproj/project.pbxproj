@@ -66,6 +66,7 @@
 		F8A42B9424DB2C04005DE55B /* MapDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B9324DB2C04005DE55B /* MapDemo.swift */; };
 		F8A42B9624DB3495005DE55B /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B9524DB3495005DE55B /* SheetView.swift */; };
 		F8A42B9824DB34E1005DE55B /* SheetViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B9724DB34E1005DE55B /* SheetViewDelegate.swift */; };
+		F8A42B9A24DB4577005DE55B /* IntrensicAndTrueFullscreenDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B9924DB4577005DE55B /* IntrensicAndTrueFullscreenDemo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -173,6 +174,7 @@
 		F8A42B9324DB2C04005DE55B /* MapDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDemo.swift; sourceTree = "<group>"; };
 		F8A42B9524DB3495005DE55B /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		F8A42B9724DB34E1005DE55B /* SheetViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViewDelegate.swift; sourceTree = "<group>"; };
+		F8A42B9924DB4577005DE55B /* IntrensicAndTrueFullscreenDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrensicAndTrueFullscreenDemo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,6 +332,7 @@
 				F8A42B5F24D36DE3005DE55B /* IntrensicDemo.swift */,
 				F8A42B6124D36EA7005DE55B /* EmbededIntrensicDemo.swift */,
 				F8A42B6324D371C7005DE55B /* IntrensicAndFullscreenDemo.swift */,
+				F8A42B9924DB4577005DE55B /* IntrensicAndTrueFullscreenDemo.swift */,
 				F8A42B8924DA2846005DE55B /* NonFullScreenMode.swift */,
 			);
 			path = IntrensicDemo;
@@ -569,6 +572,7 @@
 				F8A42B7124D9FCAE005DE55B /* TableViewControllerDemo.swift in Sources */,
 				F857D0C52204DFDA004C862F /* UITextFieldExampleViewController.swift in Sources */,
 				F857D0B72204DA2E004C862F /* ResizingExampleViewController.swift in Sources */,
+				F8A42B9A24DB4577005DE55B /* IntrensicAndTrueFullscreenDemo.swift in Sources */,
 				F8A42B6F24D9FC82005DE55B /* TableViewDemo.swift in Sources */,
 				F8A42B5C24D369A8005DE55B /* Demoable.swift in Sources */,
 				F857D0C02204DD00004C862F /* NavigationRootViewController.swift in Sources */,

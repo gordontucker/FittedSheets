@@ -16,6 +16,7 @@ class RootViewController: UIViewController {
         IntrensicDemo(),
         EmbededIntrensicDemo(),
         IntrensicAndFullscreenDemo(),
+        IntrensicAndTrueFullscreenDemo(),
         NonFullScreenMode(),
         ResizingDemo(),
         NavigationDemo(),

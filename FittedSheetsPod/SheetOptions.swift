@@ -12,6 +12,7 @@ import UIKit
 public struct SheetOptions {
     public static var `default` = SheetOptions()
     
+    public var minimumSpaceAbovePullBar: CGFloat = 0
     public var pullBarHeight: CGFloat = 24
     public var gripSize = CGSize (width: 50, height: 6)
     public var gripColor = UIColor(white: 0.868, black: 0.1)
@@ -35,7 +36,8 @@ public struct SheetOptions {
                 setIntrensicHeightOnNavigationControllers: Bool? = nil,
                 useFullScreenMode: Bool? = nil,
                 shrinkPresentingViewController: Bool? = nil,
-                useInlineMode: Bool? = nil) {
+                useInlineMode: Bool? = nil,
+                minimumSpaceAbovePullBar: CGFloat? = nil) {
         let defaultOptions = SheetOptions.default
         self.pullBarHeight = pullBarHeight ?? defaultOptions.pullBarHeight
         self.gripSize = gripSize ?? defaultOptions.gripSize
@@ -47,6 +49,7 @@ public struct SheetOptions {
         self.useFullScreenMode = useFullScreenMode ?? defaultOptions.useFullScreenMode
         self.shrinkPresentingViewController = shrinkPresentingViewController ?? defaultOptions.shrinkPresentingViewController
         self.useInlineMode = useInlineMode ?? defaultOptions.useInlineMode
+        self.minimumSpaceAbovePullBar = minimumSpaceAbovePullBar ?? defaultOptions.minimumSpaceAbovePullBar
     }
 }
 

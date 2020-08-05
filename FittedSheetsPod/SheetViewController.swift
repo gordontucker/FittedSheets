@@ -45,7 +45,7 @@ public class SheetViewController: UIViewController {
     
     public var shouldDismiss: ((SheetViewController) -> Bool)?
     public var didDismiss: ((SheetViewController) -> Void)?
-    public var sizeChanged: ((SheetViewController, CGFloat) -> Void)?
+    public var sizeChanged: ((SheetViewController, SheetSize, CGFloat) -> Void)?
     
     public private(set) var contentViewController: SheetContentViewController
     var overlayView = UIView()
@@ -325,7 +325,7 @@ public class SheetViewController: UIViewController {
                 }, completion: { complete in
                     self.isPanning = false
                     if previousSize != newSize {
-                        self.sizeChanged?(self, newContentHeight)
+                        self.sizeChanged?(self, newSize, newContentHeight)
                     }
                 })
             case .possible:
@@ -411,7 +411,7 @@ public class SheetViewController: UIViewController {
                 self.view.layoutIfNeeded()
             }, completion: { _ in
                 if previousSize != size {
-                    self.sizeChanged?(self, newHeight)
+                    self.sizeChanged?(self, size, newHeight)
                 }
                 self.contentViewController.updateAfterLayout()
                 complete?()

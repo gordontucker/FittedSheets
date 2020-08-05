@@ -158,7 +158,12 @@ public class SheetContentViewController: UIViewController {
         self.contentView.addSubview(self.roundedContainerView)
         
         Constraints(for: self.roundedContainerView) { view in
-            view.top.pinToSuperview()
+            
+            if self.options.shouldExtendBackground {
+                view.top.pinToSuperview()
+            } else {
+                view.top.pinToSuperview(inset: self.options.pullBarHeight)
+            }
             view.left.pinToSuperview()
             view.right.pinToSuperview()
             view.bottom.pinToSuperview()
@@ -178,7 +183,7 @@ public class SheetContentViewController: UIViewController {
         pullBarView.backgroundColor = .clear
         self.contentView.addSubview(pullBarView)
         Constraints(for: pullBarView) {
-            $0.top.pinToSuperview(inset: self.options.minimumSpaceAbovePullBar)
+            $0.top.pinToSuperview()
             $0.left.pinToSuperview()
             $0.right.pinToSuperview()
             $0.height.set(options.pullBarHeight)

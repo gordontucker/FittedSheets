@@ -13,7 +13,7 @@ The bottom sheet tries to be smart about the height it takes. If the view contro
 
 | Intrensic Heights | Fullscreen Modal | True Fullscreen | Scrolling | Inline |
 |:-:|:-:|:-:|:-:|:-:|
-| ![Intrensid Heights](IntrensicHeight.gif) | ![Fullscreen Modal](FullscreenHeight.gif) | ![True Fullscreen](TrueFullscreenHeight.gif) | ![Scrolling](Scrolling.gif) | ![Inline](Inline.gif) | 
+| ![Intrensid Heights](./Screens/IntrensicHeight.gif) | ![Fullscreen Modal](./Screens/FullscreenHeight.gif) | ![True Fullscreen](./Screens/TrueFullscreenHeight.gif) | ![Scrolling](./Screens/Scrolling.gif) | ![Inline](./Screens/Inline.gif) | 
 
 ## Usage
 

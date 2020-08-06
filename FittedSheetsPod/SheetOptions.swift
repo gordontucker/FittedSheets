@@ -21,7 +21,7 @@ public struct SheetOptions {
     public var shouldExtendBackground = true
     public var setIntrensicHeightOnNavigationControllers = true
     /// Allow the sheet to become full screen if pulled all the way to the top and not larger than the maximum size specified in sizes. Defaults to false.
-    public var useFullScreenMode = false
+    public var useFullScreenMode = true
     public var shrinkPresentingViewController = true
     /// Set true to be able to use the sheet view controller as a subview instead of a modal. Defaults to false.
     public var useInlineMode = false

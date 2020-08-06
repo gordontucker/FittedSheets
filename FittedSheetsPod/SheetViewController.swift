@@ -68,7 +68,8 @@ public class SheetViewController: UIViewController {
         set { self.contentViewController.contentBackgroundColor = newValue }
     }
     
-    public init(controller: UIViewController, sizes: [SheetSize] = [.intrinsic], options: SheetOptions = SheetOptions()) {
+    public init(controller: UIViewController, sizes: [SheetSize] = [.intrinsic], options: SheetOptions? = nil) {
+        let options = options ?? SheetOptions.default
         self.contentViewController = SheetContentViewController(childViewController: controller, options: options)
         if #available(iOS 13.0, *) {
             self.contentViewController.contentBackgroundColor = UIColor.systemBackground
@@ -370,21 +371,23 @@ public class SheetViewController: UIViewController {
     private func height(for size: SheetSize?) -> CGFloat {
         guard let size = size else { return 0 }
         let contentHeight: CGFloat
+        let fullscreenHeight: CGFloat
+        if self.options.useFullScreenMode {
+            fullscreenHeight = self.view.bounds.height - self.options.minimumSpaceAbovePullBar
+        } else {
+            fullscreenHeight = self.view.bounds.height - self.view.safeAreaInsets.top - self.options.minimumSpaceAbovePullBar
+        }
         switch (size) {
             case .fixed(let pullBarHeight):
                 contentHeight = pullBarHeight + self.keyboardHeight
             case .fullscreen:
-                if self.options.useFullScreenMode {
-                    contentHeight = self.view.bounds.height - self.options.minimumSpaceAbovePullBar
-                } else {
-                    contentHeight = self.view.bounds.height - self.view.safeAreaInsets.top - self.options.minimumSpaceAbovePullBar
-                }
+                contentHeight = fullscreenHeight
             case .intrinsic:
                 contentHeight = self.contentViewController.preferredHeight + self.keyboardHeight
             case .percent(let percent):
                 contentHeight = (self.view.bounds.height) * CGFloat(percent) + self.keyboardHeight
         }
-        return contentHeight
+        return min(fullscreenHeight, contentHeight)
     }
     
     public func resize(to size: SheetSize,

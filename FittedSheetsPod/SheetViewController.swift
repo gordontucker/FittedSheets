@@ -31,7 +31,7 @@ public class SheetViewController: UIViewController {
     /// If true you can pull using UIControls (so you can grab and drag a button to control the sheet)
     public var shouldRecognizePanGestureWithUIControls: Bool = true
     /// The color of the overlay background
-    public var overlayColor = UIColor(white: 0, alpha: 0.7) {
+    public var overlayColor = UIColor(white: 0, alpha: 0.25) {
         didSet {
             self.overlayView.backgroundColor = self.overlayColor
         }
@@ -205,7 +205,7 @@ public class SheetViewController: UIViewController {
             if (self.options.useFullScreenMode) {
                 top = 0
             } else {
-                top = max(20, UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 20)
+                top = max(12, UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 12)
             }
             $0.bottom.pinToSuperview()
             $0.top.pinToSuperview(inset: top, relation: .greaterThanOrEqual).priority = UILayoutPriority(999)

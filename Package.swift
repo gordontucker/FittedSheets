@@ -1,4 +1,4 @@
-// swift-tools-version:5
+// swift-tools-version:5.2
 //
 //  Package.swift
 //  FittedSheets

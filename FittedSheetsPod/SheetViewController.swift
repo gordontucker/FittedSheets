@@ -378,8 +378,8 @@ public class SheetViewController: UIViewController {
             fullscreenHeight = self.view.bounds.height - self.view.safeAreaInsets.top - self.options.minimumSpaceAbovePullBar
         }
         switch (size) {
-            case .fixed(let pullBarHeight):
-                contentHeight = pullBarHeight + self.keyboardHeight
+            case .fixed(let height):
+                contentHeight = height + self.keyboardHeight
             case .fullscreen:
                 contentHeight = fullscreenHeight
             case .intrinsic:

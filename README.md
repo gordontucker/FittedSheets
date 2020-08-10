@@ -2,7 +2,7 @@
 Bottom sheets for iOS
 
 Minimum requirement:  
-![iOSVersion](https://img.shields.io/badge/iOS-9-green.svg) 
+![iOSVersion](https://img.shields.io/badge/iOS-11-green.svg) 
 ![SwiftVersion](https://img.shields.io/badge/Swift-4.2-green.svg) 
 ![XcodeVersion](https://img.shields.io/badge/Xcode-10-green.svg)  
 

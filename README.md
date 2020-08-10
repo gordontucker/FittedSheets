@@ -3,8 +3,8 @@ Bottom sheets for iOS
 
 Minimum requirement:  
 ![iOSVersion](https://img.shields.io/badge/iOS-11-green.svg) 
-![SwiftVersion](https://img.shields.io/badge/Swift-4.2-green.svg) 
-![XcodeVersion](https://img.shields.io/badge/Xcode-10-green.svg)  
+![SwiftVersion](https://img.shields.io/badge/Swift-5-green.svg) 
+![XcodeVersion](https://img.shields.io/badge/Xcode-11-green.svg)  
 
 ## About
 This project is to enable easily presenting view controllers in a bottom sheet that supports scrollviews and multiple sizes. Contributions and feedback are very welcome.  

@@ -180,6 +180,7 @@ public class SheetContentViewController: UIViewController {
         // If they didn't specify pull bar options, they don't want a pull bar
         guard self.options.pullBarHeight > 0 else { return }
         let pullBarView = UIView()
+        pullBarView.isUserInteractionEnabled = true
         pullBarView.backgroundColor = .clear
         self.contentView.addSubview(pullBarView)
         Constraints(for: pullBarView) {
@@ -200,6 +201,19 @@ public class SheetContentViewController: UIViewController {
             $0.centerX.alignWithSuperview()
             $0.size.set(options.gripSize)
         }
+        
+        pullBarView.isAccessibilityElement = true
+        pullBarView.accessibilityIdentifier = "pull-bar"
+        // This will be overriden whenever the sizes property is changed on SheetViewController
+        pullBarView.accessibilityLabel = Localize.dismissPresentation.localized
+        pullBarView.accessibilityTraits = [.button]
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pullBarTapped))
+        pullBarView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func pullBarTapped(_ gesture: UITapGestureRecognizer) {
+        self.delegate?.pullBarTapped()
     }
 }
 

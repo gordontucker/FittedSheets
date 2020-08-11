@@ -66,6 +66,8 @@
 		F8A42B9824DB34E1005DE55B /* SheetViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B9724DB34E1005DE55B /* SheetViewDelegate.swift */; };
 		F8A42B9A24DB4577005DE55B /* IntrensicAndTrueFullscreenDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B9924DB4577005DE55B /* IntrensicAndTrueFullscreenDemo.swift */; };
 		F8A42B9E24DB58A6005DE55B /* RecursionDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B9D24DB58A6005DE55B /* RecursionDemo.swift */; };
+		F8C1A06D24E2FF6B00807078 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8C1A06B24E2FF6B00807078 /* Localizable.strings */; };
+		F8C1A07024E3017F00807078 /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C1A06F24E3017F00807078 /* Localize.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -175,6 +177,8 @@
 		F8A42B9B24DB496E005DE55B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F8A42B9C24DB49B5005DE55B /* Screens */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Screens; sourceTree = "<group>"; };
 		F8A42B9D24DB58A6005DE55B /* RecursionDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecursionDemo.swift; sourceTree = "<group>"; };
+		F8C1A06C24E2FF6B00807078 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F8C1A06F24E3017F00807078 /* Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localize.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -281,6 +285,7 @@
 		F857D0922204B71F004C862F /* FittedSheetsPod */ = {
 			isa = PBXGroup;
 			children = (
+				F8C1A06A24E2FF4600807078 /* Localization */,
 				F8A42B4924D1E241005DE55B /* SheetViewController.swift */,
 				F8A42B4B24D1E2EF005DE55B /* SheetContentViewController.swift */,
 				F803419C212F208300EAD717 /* Yalta.swift */,
@@ -378,6 +383,15 @@
 				F8A42B9324DB2C04005DE55B /* MapDemo.swift */,
 			);
 			path = NoClosingExample;
+			sourceTree = "<group>";
+		};
+		F8C1A06A24E2FF4600807078 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				F8C1A06B24E2FF6B00807078 /* Localizable.strings */,
+				F8C1A06F24E3017F00807078 /* Localize.swift */,
+			);
+			path = Localization;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -554,6 +568,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8C1A06D24E2FF6B00807078 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -630,6 +645,7 @@
 				F8A42B4E24D1E40A005DE55B /* SheetOptions.swift in Sources */,
 				F8A42B8824DA1682005DE55B /* SheetTransition.swift in Sources */,
 				F8A42B9624DB3495005DE55B /* SheetView.swift in Sources */,
+				F8C1A07024E3017F00807078 /* Localize.swift in Sources */,
 				F857D0A22204B776004C862F /* SheetSize.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -669,6 +685,14 @@
 				F803416E212625DF00EAD717 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		F8C1A06B24E2FF6B00807078 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F8C1A06C24E2FF6B00807078 /* Base */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -25,9 +25,17 @@ public class SheetViewController: UIViewController {
     public var orderedSizes: [SheetSize] = []
     public private(set) var currentSize: SheetSize = .intrinsic
     /// Allows dismissing of the sheet by pulling down
-    public var dismissOnPull: Bool = true
+    public var dismissOnPull: Bool = true {
+        didSet {
+            self.updateAccessibility()
+        }
+    }
     /// Dismisses the sheet by tapping on the background overlay
-    public var dismissOnOverlayTap: Bool = true
+    public var dismissOnOverlayTap: Bool = true {
+       didSet {
+           self.updateAccessibility()
+       }
+   }
     /// If true you can pull using UIControls (so you can grab and drag a button to control the sheet)
     public var shouldRecognizePanGestureWithUIControls: Bool = true
     /// The color of the overlay background
@@ -157,6 +165,22 @@ public class SheetViewController: UIViewController {
         }
         concreteSizes.sort { $0.1 < $1.1 }
         self.orderedSizes = concreteSizes.map({ size, _ in size })
+        self.updateAccessibility()
+    }
+    
+    private func updateAccessibility() {
+        let isOverlayAccessable = !self.allowGestureThroughOverlay && (self.dismissOnOverlayTap || self.dismissOnPull)
+        self.overlayTapView.isAccessibilityElement = isOverlayAccessable
+        
+        var pullBarLabel = ""
+        if !isOverlayAccessable && (self.dismissOnOverlayTap || self.dismissOnPull) {
+            pullBarLabel = Localize.dismissPresentation.localized
+        } else if self.orderedSizes.count > 1 {
+            pullBarLabel = Localize.changeSizeOfPresentation.localized
+        }
+        
+        self.contentViewController.pullBarView?.isAccessibilityElement = !pullBarLabel.isEmpty
+        self.contentViewController.pullBarView?.accessibilityLabel = pullBarLabel
     }
     
     private func addOverlay() {
@@ -173,6 +197,7 @@ public class SheetViewController: UIViewController {
         overlayTapView.backgroundColor = .clear
         overlayTapView.isUserInteractionEnabled = !self.allowGestureThroughOverlay
         self.view.addSubview(overlayTapView)
+        self.overlayTapView.accessibilityLabel = Localize.dismissPresentation.localized
         Constraints(for: overlayTapView, self.contentViewController.view) {
             $0.top.pinToSuperview()
             $0.left.pinToSuperview()
@@ -536,6 +561,25 @@ extension SheetViewController: UIGestureRecognizerDelegate {
 }
 
 extension SheetViewController: SheetContentViewDelegate {
+    func pullBarTapped() {
+        // Tapping the pull bar is just for accessibility
+        guard UIAccessibility.isVoiceOverRunning else { return }
+        let shouldDismiss = self.allowGestureThroughOverlay && (self.dismissOnOverlayTap || self.dismissOnPull)
+        guard !shouldDismiss else {
+            self.attemptDismiss(animated: true)
+            return
+        }
+        
+        if self.sizes.count > 1 {
+            let index = (self.sizes.firstIndex(of: self.currentSize) ?? 0) + 1
+            if index >= self.sizes.count {
+                self.resize(to: self.sizes[0])
+            } else {
+                self.resize(to: self.sizes[index])
+            }
+        }
+    }
+    
     func preferredHeightChanged(oldHeight: CGFloat, newSize: CGFloat) {
         if self.sizes.contains(.intrinsic) {
             self.updateOrderedSizes()

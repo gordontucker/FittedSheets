@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  FittedSheets
+
+  Created by Gordon Tucker on 8/11/20.
+  Copyright © 2020 Gordon Tucker. All rights reserved.
+*/
+
+"dismissPresentation" = "Tap to Dismiss Presentation.";
+"changeSizeOfPresentation" = "Tap to switch between presentation sizes.";

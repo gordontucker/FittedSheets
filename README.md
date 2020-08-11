@@ -2,9 +2,9 @@
 Bottom sheets for iOS
 
 Minimum requirement:  
-![iOSVersion](https://img.shields.io/badge/iOS-9-green.svg) 
-![SwiftVersion](https://img.shields.io/badge/Swift-4.2-green.svg) 
-![XcodeVersion](https://img.shields.io/badge/Xcode-10-green.svg)  
+![iOSVersion](https://img.shields.io/badge/iOS-11-green.svg) 
+![SwiftVersion](https://img.shields.io/badge/Swift-5-green.svg) 
+![XcodeVersion](https://img.shields.io/badge/Xcode-11-green.svg)  
 
 ## About
 This project is to enable easily presenting view controllers in a bottom sheet that supports scrollviews and multiple sizes. Contributions and feedback are very welcome.  
@@ -130,6 +130,14 @@ sheetController.willMove(toParent: self)
 self.addChild(sheetController)
 self.view.addSubview(sheetController.view)
 sheetController.didMove(toParent: self)
+
+NSLayoutConstraint.activate([
+    sheet.view.topAnchor.constraint(equalTo: self.view.topAnchor),
+    sheet.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+    sheet.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+    sheet.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+])
+
 Constraints(for: sheet.view) {
     $0.edges(.top, .left, .bottom, .right).pinToSuperview()
 }

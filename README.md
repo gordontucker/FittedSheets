@@ -130,6 +130,14 @@ sheetController.willMove(toParent: self)
 self.addChild(sheetController)
 self.view.addSubview(sheetController.view)
 sheetController.didMove(toParent: self)
+
+NSLayoutConstraint.activate([
+    sheet.view.topAnchor.constraint(equalTo: self.view.topAnchor),
+    sheet.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+    sheet.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+    sheet.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+])
+
 Constraints(for: sheet.view) {
     $0.edges(.top, .left, .bottom, .right).pinToSuperview()
 }

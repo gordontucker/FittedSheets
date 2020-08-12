@@ -68,6 +68,7 @@
 		F8A42B9E24DB58A6005DE55B /* RecursionDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B9D24DB58A6005DE55B /* RecursionDemo.swift */; };
 		F8C1A06D24E2FF6B00807078 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8C1A06B24E2FF6B00807078 /* Localizable.strings */; };
 		F8C1A07024E3017F00807078 /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C1A06F24E3017F00807078 /* Localize.swift */; };
+		F8C1A07224E4929900807078 /* RecycledDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C1A07124E4929900807078 /* RecycledDemo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,6 +180,7 @@
 		F8A42B9D24DB58A6005DE55B /* RecursionDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecursionDemo.swift; sourceTree = "<group>"; };
 		F8C1A06C24E2FF6B00807078 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F8C1A06F24E3017F00807078 /* Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localize.swift; sourceTree = "<group>"; };
+		F8C1A07124E4929900807078 /* RecycledDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecycledDemo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -340,6 +342,7 @@
 				F8A42B6124D36EA7005DE55B /* EmbededIntrensicDemo.swift */,
 				F8A42B6324D371C7005DE55B /* IntrensicAndFullscreenDemo.swift */,
 				F8A42B9924DB4577005DE55B /* IntrensicAndTrueFullscreenDemo.swift */,
+				F8C1A07124E4929900807078 /* RecycledDemo.swift */,
 			);
 			path = IntrensicDemo;
 			sourceTree = "<group>";
@@ -583,6 +586,7 @@
 				F8A42B8D24DB24F9005DE55B /* Yalta.swift in Sources */,
 				F857D0B22204D761004C862F /* ScrollViewExampleViewController.swift in Sources */,
 				F8A42B7924D9FDFB005DE55B /* ScrollInNavigationDemo.swift in Sources */,
+				F8C1A07224E4929900807078 /* RecycledDemo.swift in Sources */,
 				F8A42B5A24D36893005DE55B /* RootViewController.swift in Sources */,
 				F857D0A72204B856004C862F /* ColorExampleViewController.swift in Sources */,
 				F8A42B7124D9FCAE005DE55B /* TableViewControllerDemo.swift in Sources */,

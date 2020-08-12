@@ -18,6 +18,7 @@ class RootViewController: UIViewController {
         EmbededIntrensicDemo(),
         IntrensicAndFullscreenDemo(),
         IntrensicAndTrueFullscreenDemo(),
+        RecycledDemo(),
         ResizingDemo(),
         NavigationDemo(),
         KeyboardDemo(),

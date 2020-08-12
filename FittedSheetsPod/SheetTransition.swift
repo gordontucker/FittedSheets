@@ -35,6 +35,7 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
             }
             self.presenter = presenter
             
+            sheet.contentViewController.view.transform = .identity
             containerView.addSubview(sheet.view)
             sheet.view.setNeedsLayout()
             sheet.view.layoutIfNeeded()

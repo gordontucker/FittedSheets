@@ -16,49 +16,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EdM-4H-OeL">
-                                <rect key="frame" x="0.0" y="44" width="414" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Fvv-iq-odA"/>
-                                </constraints>
-                                <state key="normal" title="Resize to 150 px"/>
-                                <connections>
-                                    <action selector="resizeTo150:" destination="dui-vS-nsA" eventType="touchUpInside" id="I7a-To-Iik"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wzt-CU-6gY">
-                                <rect key="frame" x="0.0" y="84" width="414" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="uV7-z8-vYa"/>
-                                </constraints>
-                                <state key="normal" title="Resize to 300 px"/>
-                                <connections>
-                                    <action selector="resizeTo300:" destination="dui-vS-nsA" eventType="touchUpInside" id="WjE-GK-Qea"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UN6-Gy-nzW">
-                                <rect key="frame" x="0.0" y="124" width="414" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="AcQ-Q6-xc8"/>
-                                </constraints>
-                                <state key="normal" title="Resize to 450 px"/>
-                                <connections>
-                                    <action selector="resizeTo450:" destination="dui-vS-nsA" eventType="touchUpInside" id="rkl-M7-bDm"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XBn-WL-XJV">
+                                <rect key="frame" x="0.0" y="44" width="414" height="160"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EdM-4H-OeL">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="Fvv-iq-odA"/>
+                                        </constraints>
+                                        <state key="normal" title="Resize to 150 px"/>
+                                        <connections>
+                                            <action selector="resizeTo150:" destination="dui-vS-nsA" eventType="touchUpInside" id="I7a-To-Iik"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wzt-CU-6gY">
+                                        <rect key="frame" x="0.0" y="40" width="414" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="uV7-z8-vYa"/>
+                                        </constraints>
+                                        <state key="normal" title="Resize to 300 px"/>
+                                        <connections>
+                                            <action selector="resizeTo300:" destination="dui-vS-nsA" eventType="touchUpInside" id="WjE-GK-Qea"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UN6-Gy-nzW">
+                                        <rect key="frame" x="0.0" y="80" width="414" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="AcQ-Q6-xc8"/>
+                                        </constraints>
+                                        <state key="normal" title="Resize to 450 px"/>
+                                        <connections>
+                                            <action selector="resizeTo450:" destination="dui-vS-nsA" eventType="touchUpInside" id="rkl-M7-bDm"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QdP-xd-5cF">
+                                        <rect key="frame" x="0.0" y="120" width="414" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="92t-Y3-eea"/>
+                                        </constraints>
+                                        <state key="normal" title="Resize to 50 px margin from top"/>
+                                        <connections>
+                                            <action selector="resizeToMargin50:" destination="dui-vS-nsA" eventType="touchUpInside" id="gIc-O4-LRl"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="oEc-QV-aOy" firstAttribute="bottom" secondItem="UN6-Gy-nzW" secondAttribute="bottom" priority="700" constant="20" id="7Xm-7O-a1H"/>
-                            <constraint firstItem="oEc-QV-aOy" firstAttribute="trailing" secondItem="EdM-4H-OeL" secondAttribute="trailing" id="CKh-mq-kK4"/>
-                            <constraint firstItem="Wzt-CU-6gY" firstAttribute="trailing" secondItem="oEc-QV-aOy" secondAttribute="trailing" id="Kdf-yW-UO3"/>
-                            <constraint firstAttribute="trailing" secondItem="UN6-Gy-nzW" secondAttribute="trailing" id="OFC-ZT-h2e"/>
-                            <constraint firstItem="EdM-4H-OeL" firstAttribute="leading" secondItem="oEc-QV-aOy" secondAttribute="leading" id="PUx-cg-4sT"/>
-                            <constraint firstItem="UN6-Gy-nzW" firstAttribute="top" secondItem="Wzt-CU-6gY" secondAttribute="bottom" id="TmN-uX-g3g"/>
-                            <constraint firstItem="Wzt-CU-6gY" firstAttribute="top" secondItem="EdM-4H-OeL" secondAttribute="bottom" id="Zml-kN-EGI"/>
-                            <constraint firstItem="Wzt-CU-6gY" firstAttribute="leading" secondItem="oEc-QV-aOy" secondAttribute="leading" id="oYl-7Q-2hT"/>
-                            <constraint firstItem="UN6-Gy-nzW" firstAttribute="leading" secondItem="oEc-QV-aOy" secondAttribute="leading" id="s65-gt-qzH"/>
-                            <constraint firstItem="EdM-4H-OeL" firstAttribute="top" secondItem="oEc-QV-aOy" secondAttribute="top" id="tWS-hP-lkc"/>
+                            <constraint firstItem="oEc-QV-aOy" firstAttribute="trailing" secondItem="XBn-WL-XJV" secondAttribute="trailing" id="37G-Ja-cMq"/>
+                            <constraint firstItem="XBn-WL-XJV" firstAttribute="top" secondItem="oEc-QV-aOy" secondAttribute="top" id="3aP-Fw-Txn"/>
+                            <constraint firstItem="XBn-WL-XJV" firstAttribute="leading" secondItem="oEc-QV-aOy" secondAttribute="leading" id="NrZ-mq-o9t"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="oEc-QV-aOy"/>
                     </view>

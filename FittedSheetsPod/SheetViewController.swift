@@ -175,7 +175,7 @@ public class SheetViewController: UIViewController {
         self.resize(to: sizes[0], animated: animated)
     }
     
-    private func updateOrderedSizes() {
+    func updateOrderedSizes() {
         var concreteSizes: [(SheetSize, CGFloat)] = self.sizes.map {
             return ($0, self.height(for: $0))
         }
@@ -506,6 +506,7 @@ public class SheetViewController: UIViewController {
         let contentView = self.contentViewController.contentView
         contentView.transform = CGAffineTransform(translationX: 0, y: contentView.bounds.height)
         self.overlayView.alpha = 0
+        self.updateOrderedSizes()
         
         UIView.animate(
             withDuration: duration,

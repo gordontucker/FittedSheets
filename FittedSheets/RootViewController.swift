@@ -30,6 +30,7 @@ class RootViewController: UIViewController {
         NoPullBarDemo(),
         ClearPullBarDemo(),
         NoCloseDemo(),
+        BlurDemo(),
         RecursionDemo()
     ]
     

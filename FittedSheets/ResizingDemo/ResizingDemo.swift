@@ -14,6 +14,6 @@ class ResizingDemo: Demoable {
     
     func buildDemo(useInlineMode: Bool) -> SheetViewController {
         let controller = ResizingExampleViewController.instantiate()
-        return SheetViewController(controller: controller, sizes: [.fixed(150), .fixed(300), .fixed(450)], options: SheetOptions(useInlineMode: useInlineMode))
+        return SheetViewController(controller: controller, sizes: [.fixed(200), .fixed(300), .fixed(450), .margin(50)], options: SheetOptions(useInlineMode: useInlineMode))
     }
 }

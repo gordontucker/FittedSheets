@@ -437,6 +437,8 @@ public class SheetViewController: UIViewController {
                 contentHeight = self.contentViewController.preferredHeight + self.keyboardHeight
             case .percent(let percent):
                 contentHeight = (self.view.bounds.height) * CGFloat(percent) + self.keyboardHeight
+            case .margin(let margin):
+                contentHeight = (self.view.bounds.height) - margin + self.keyboardHeight
         }
         return min(fullscreenHeight, contentHeight)
     }

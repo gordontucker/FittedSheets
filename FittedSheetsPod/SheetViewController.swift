@@ -38,10 +38,23 @@ public class SheetViewController: UIViewController {
    }
     /// If true you can pull using UIControls (so you can grab and drag a button to control the sheet)
     public var shouldRecognizePanGestureWithUIControls: Bool = true
+    
+    public var hasBlurBackground = false {
+        didSet {
+            blurView.isHidden = !hasBlurBackground
+            overlayView.isHidden = hasBlurBackground
+        }
+    }
+    
     /// The color of the overlay background
     public var overlayColor = UIColor(white: 0, alpha: 0.25) {
         didSet {
             self.overlayView.backgroundColor = self.overlayColor
+        }
+    }
+    public var blurEffect = UIBlurEffect(style: .light) {
+        didSet {
+            self.blurView.effect = blurEffect
         }
     }
     public var allowGestureThroughOverlay: Bool = false {
@@ -57,6 +70,7 @@ public class SheetViewController: UIViewController {
     
     public private(set) var contentViewController: SheetContentViewController
     var overlayView = UIView()
+    var blurView = UIVisualEffectView()
     var overlayTapView = UIView()
     var overlayTapGesture: UITapGestureRecognizer?
     private var contentViewHeightConstraint: NSLayoutConstraint!
@@ -115,6 +129,7 @@ public class SheetViewController: UIViewController {
         self.view.backgroundColor = UIColor.clear
         self.addPanGestureRecognizer()
         self.addOverlay()
+        self.addBlurBackground()
         self.addContentView()
         self.addOverlayTapView()
         self.registerKeyboardObservers()
@@ -190,6 +205,16 @@ public class SheetViewController: UIViewController {
         }
         self.overlayView.isUserInteractionEnabled = false
         self.overlayView.backgroundColor = self.overlayColor
+    }
+    
+    private func addBlurBackground() {
+        self.view.addSubview(self.blurView)
+        blurView.effect = blurEffect
+        Constraints(for: self.blurView) {
+            $0.edges(.top, .left, .right, .bottom).pinToSuperview()
+        }
+        self.blurView.isUserInteractionEnabled = false
+        self.blurView.isHidden = true
     }
     
     private func addOverlayTapView() {

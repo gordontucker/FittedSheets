@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4E231E524E55E4E00D367FD /* BlurDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E231E424E55E4E00D367FD /* BlurDemo.swift */; };
 		F8034165212625DD00EAD717 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8034164212625DD00EAD717 /* AppDelegate.swift */; };
 		F803416A212625DD00EAD717 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8034168212625DD00EAD717 /* Main.storyboard */; };
 		F803416C212625DF00EAD717 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F803416B212625DF00EAD717 /* Assets.xcassets */; };
@@ -111,6 +112,7 @@
 
 /* Begin PBXFileReference section */
 		46334410249C041700F334E5 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		C4E231E424E55E4E00D367FD /* BlurDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurDemo.swift; sourceTree = "<group>"; };
 		F8034161212625DD00EAD717 /* FittedSheets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FittedSheets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8034164212625DD00EAD717 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8034169212625DD00EAD717 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 				F8A42B7424D9FD11005DE55B /* ColorDemo.swift */,
 				F8A42B7624D9FD3D005DE55B /* NoPullBarDemo.swift */,
 				F8A42B7A24D9FFBE005DE55B /* ClearPullBarDemo.swift */,
+				C4E231E424E55E4E00D367FD /* BlurDemo.swift */,
 			);
 			path = ColorExample;
 			sourceTree = "<group>";
@@ -603,6 +606,7 @@
 				F8A42B6B24D37BB1005DE55B /* NavigationDemo.swift in Sources */,
 				F857D0B92204DA4E004C862F /* IntrinsicExampleViewController.swift in Sources */,
 				F8A42B6424D371C7005DE55B /* IntrensicAndFullscreenDemo.swift in Sources */,
+				C4E231E524E55E4E00D367FD /* BlurDemo.swift in Sources */,
 				F8A42B6924D37890005DE55B /* ResizingDemo.swift in Sources */,
 				F8A42B8C24DB1A67005DE55B /* InlineExamplesViewController.swift in Sources */,
 				F8A42B7524D9FD11005DE55B /* ColorDemo.swift in Sources */,

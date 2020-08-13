@@ -42,16 +42,17 @@ public class SheetViewController: UIViewController {
     public var hasBlurBackground = false {
         didSet {
             blurView.isHidden = !hasBlurBackground
-            overlayView.isHidden = hasBlurBackground
+            overlayView.backgroundColor = hasBlurBackground ? .clear : self.overlayColor
         }
     }
     
     /// The color of the overlay background
     public var overlayColor = UIColor(white: 0, alpha: 0.25) {
         didSet {
-            self.overlayView.backgroundColor = self.overlayColor
+            self.overlayView.backgroundColor = self.hasBlurBackground ? .clear : self.overlayColor
         }
     }
+    
     public var blurEffect = UIBlurEffect(style: .light) {
         didSet {
             self.blurView.effect = blurEffect
@@ -204,17 +205,17 @@ public class SheetViewController: UIViewController {
             $0.edges(.top, .left, .right, .bottom).pinToSuperview()
         }
         self.overlayView.isUserInteractionEnabled = false
-        self.overlayView.backgroundColor = self.overlayColor
+        self.overlayView.backgroundColor = self.hasBlurBackground ? .clear : self.overlayColor
     }
     
     private func addBlurBackground() {
-        self.view.addSubview(self.blurView)
+        self.overlayView.addSubview(self.blurView)
         blurView.effect = blurEffect
         Constraints(for: self.blurView) {
             $0.edges(.top, .left, .right, .bottom).pinToSuperview()
         }
         self.blurView.isUserInteractionEnabled = false
-        self.blurView.isHidden = true
+        self.blurView.isHidden = !self.hasBlurBackground
     }
     
     private func addOverlayTapView() {

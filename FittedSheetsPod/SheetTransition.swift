@@ -13,7 +13,7 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
     public static var transitionDuration: TimeInterval = 0.3
     
     var presenting = true
-    var presenter: UIViewController?
+    weak var presenter: UIViewController?
     var options: SheetOptions
     var duration = SheetTransition.transitionDuration
     

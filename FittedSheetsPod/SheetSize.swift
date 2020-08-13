@@ -14,7 +14,7 @@ public enum SheetSize: Equatable {
     case fixed(CGFloat)
     case fullscreen
     case percent(Float)
-    case margin(CGFloat)
+    case marginFromTop(CGFloat)
 }
 
 #endif // os(iOS) || os(tvOS) || os(watchOS)

@@ -28,7 +28,7 @@ class ResizingExampleViewController: UIViewController {
     }
     
     @IBAction func resizeToMargin50(_ sender: Any) {
-        self.sheetViewController?.resize(to: .margin(50))
+        self.sheetViewController?.resize(to: .marginFromTop(50))
     }
     
     static func instantiate() -> ResizingExampleViewController {

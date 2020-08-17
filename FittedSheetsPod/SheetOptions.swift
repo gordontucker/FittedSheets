@@ -16,6 +16,7 @@ public struct SheetOptions {
     public var pullBarHeight: CGFloat = 24
     public var gripSize = CGSize (width: 50, height: 6)
     public var gripColor = UIColor(white: 0.868, black: 0.1)
+    public var pullBarBackgroundColor = UIColor.clear
     public var cornerRadius: CGFloat = 12
     public var presentingViewCornerRadius: CGFloat = 12
     public var shouldExtendBackground = true

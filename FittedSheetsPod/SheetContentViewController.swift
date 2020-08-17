@@ -181,7 +181,7 @@ public class SheetContentViewController: UIViewController {
         guard self.options.pullBarHeight > 0 else { return }
         let pullBarView = UIView()
         pullBarView.isUserInteractionEnabled = true
-        pullBarView.backgroundColor = .clear
+        pullBarView.backgroundColor = self.options.pullBarBackgroundColor
         self.contentView.addSubview(pullBarView)
         Constraints(for: pullBarView) {
             $0.top.pinToSuperview()

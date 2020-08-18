@@ -10,12 +10,18 @@
 import UIKit
 
 public class SheetViewController: UIViewController {
-    
     public private(set) var options: SheetOptions
+    
+    /// Default value for autoAdjustToKeyboard. Defaults to false.
+    public static var autoAdjustToKeyboard = false
     /// Automatically grow/move the sheet to accomidate the keyboard. Defaults to false.
-    public var autoAdjustToKeyboard = false
+    public var autoAdjustToKeyboard = SheetViewController.autoAdjustToKeyboard
+    
+    /// Default value for allowPullingPastMaxHeight. Defaults to true.
+    public static var allowPullingPastMaxHeight = true
     /// Allow pulling past the maximum height and bounce back. Defaults to true.
-    public var allowPullingPastMaxHeight = true
+    public var allowPullingPastMaxHeight = SheetViewController.allowPullingPastMaxHeight
+    
     /// The sizes that the sheet will attempt to pin to. Defaults to intrensic only.
     public var sizes: [SheetSize] = [.intrinsic] {
         didSet {
@@ -39,26 +45,34 @@ public class SheetViewController: UIViewController {
     /// If true you can pull using UIControls (so you can grab and drag a button to control the sheet)
     public var shouldRecognizePanGestureWithUIControls: Bool = true
     
-    public var hasBlurBackground = false {
+    public static var hasBlurBackground = false
+    public var hasBlurBackground = SheetViewController.hasBlurBackground {
         didSet {
             blurView.isHidden = !hasBlurBackground
             overlayView.backgroundColor = hasBlurBackground ? .clear : self.overlayColor
         }
     }
     
+    /// The default color of the overlay background
+    public static var overlayColor = UIColor(white: 0, alpha: 0.25)
     /// The color of the overlay background
-    public var overlayColor = UIColor(white: 0, alpha: 0.25) {
+    public var overlayColor = SheetViewController.overlayColor {
         didSet {
             self.overlayView.backgroundColor = self.hasBlurBackground ? .clear : self.overlayColor
         }
     }
     
-    public var blurEffect = UIBlurEffect(style: .light) {
+    public static var blurEffect: UIBlurEffect = {
+        return UIBlurEffect(style: .prominent)
+    }()
+    
+    public var blurEffect = SheetViewController.blurEffect {
         didSet {
             self.blurView.effect = blurEffect
         }
     }
-    public var allowGestureThroughOverlay: Bool = false {
+    public static var allowGestureThroughOverlay: Bool = false
+    public var allowGestureThroughOverlay: Bool = SheetViewController.allowGestureThroughOverlay {
         didSet {
             self.overlayTapView.isUserInteractionEnabled = !self.allowGestureThroughOverlay
         }

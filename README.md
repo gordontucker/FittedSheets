@@ -42,15 +42,6 @@ let options = SheetOptions(
     // The full height of the pull bar. The presented view controller will treat this area as a safearea inset on the top
     pullBarHeight: 24,
     
-    // The size of the grip in the pull bar
-    gripSize: CGSize(width: 50, height: 6),
-    
-    // The color of the grip on the pull bar
-    gripColor: UIColor(white: 0.868, alpha: 1),
-    
-    // The corner radius of the sheet
-    cornerRadius: 20,
-    
     // The corner radius of the shrunken presenting view controller
     presentingViewCornerRadius: 20, 
     
@@ -67,16 +58,32 @@ let options = SheetOptions(
     shrinkPresentingViewController: true,
     
     // Determines if using inline mode or not
-    useInlineMode: false, 
-    
-    // minimum distance above the pull bar, prevents bar from coming right up to the edge of the screen
-    minimumSpaceAbovePullBar: 0 
+    useInlineMode: false
 )
 
 let sheetController = SheetViewController(
     controller: controller, 
     sizes: [.intrensic, .percent(0.25), .fixed(200), .fullScreen])
     
+    
+// The size of the grip in the pull bar
+sheetController.gripSize = CGSize(width: 50, height: 6)
+
+// The color of the grip on the pull bar
+sheetController.gripColor = UIColor(white: 0.868, alpha: 1)
+
+// The corner radius of the sheet
+sheetController.cornerRadius = 20
+    
+// minimum distance above the pull bar, prevents bar from coming right up to the edge of the screen
+sheetController.minimumSpaceAbovePullBar = 0 
+
+// Set the pullbar's background explicitly
+sheetController.pullBarBackgroundColor = UIColor.blue
+
+// Determine if the rounding should happen on the pullbar or the presented controller only (should only be true when the pull bar's background color is .clear)
+sheetController.treatPullBarAsClear = false
+
 // Disable the dismiss on background tap functionality
 sheetController.dismissOnOverlayTap = false
 
@@ -172,12 +179,6 @@ Add this to your podfile to add FittedSheets to your project.
 ```
 pod 'FittedSheets'
 ```
-
-**Carthage**
-`TODO: Add carthage instructions`
-
-**SPM**
-`TODO: Add swift package manager instructions`
 
 ## License
 FittedSheets uses the MIT License:

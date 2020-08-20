@@ -17,10 +17,13 @@ class ColorDemo: Demoable {
     func buildDemo(useInlineMode: Bool) -> SheetViewController {
         let controller = ColorExampleViewController.instantiate()
         var options = SheetOptions()
-        options.gripColor = UIColor.purple
         options.useInlineMode = useInlineMode
+        options.shouldExtendBackground = false
         let sheet = SheetViewController(controller: controller, sizes: [.intrinsic, .percent(0.75), .fullscreen], options: options)
         sheet.overlayColor = UIColor(red: 0.933, green: 0.314, blue: 0.349, alpha: 0.3)
+        sheet.gripColor = .purple
+        sheet.pullBarBackgroundColor = .orange
+        sheet.cornerRadius = 40
         
         return sheet
     }

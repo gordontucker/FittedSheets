@@ -45,11 +45,24 @@ public class SheetViewController: UIViewController {
     /// If true you can pull using UIControls (so you can grab and drag a button to control the sheet)
     public var shouldRecognizePanGestureWithUIControls: Bool = true
     
+    /// The view controller being presented by the sheet currently
+    public var childViewController: UIViewController {
+        return self.contentViewController.childViewController
+    }
+    
     public static var hasBlurBackground = false
     public var hasBlurBackground = SheetViewController.hasBlurBackground {
         didSet {
             blurView.isHidden = !hasBlurBackground
             overlayView.backgroundColor = hasBlurBackground ? .clear : self.overlayColor
+        }
+    }
+    
+    public var minimumSpaceAbovePullBar: CGFloat {
+        didSet {
+            if self.isViewLoaded {
+                self.resize(to: self.currentSize)
+            }
         }
     }
     
@@ -77,6 +90,49 @@ public class SheetViewController: UIViewController {
             self.overlayTapView.isUserInteractionEnabled = !self.allowGestureThroughOverlay
         }
     }
+    
+    public static var cornerRadius: CGFloat {
+        get { return SheetOptions.default._cornerRadius }
+        set { SheetOptions.default._cornerRadius = newValue }
+    }
+    public var cornerRadius: CGFloat {
+        get { return self.contentViewController.cornerRadius }
+        set { self.contentViewController.cornerRadius = newValue }
+    }
+    
+    public static var gripSize: CGSize {
+        get { return SheetOptions.default._gripSize }
+        set { SheetOptions.default._gripSize = newValue }
+    }
+    public var gripSize: CGSize {
+        get { return self.contentViewController.gripSize }
+        set { self.contentViewController.gripSize = newValue }
+    }
+    
+    public static var gripColor: UIColor {
+        get { return SheetOptions.default._gripColor }
+        set { SheetOptions.default._gripColor = newValue }
+    }
+    public var gripColor: UIColor? {
+        get { return self.contentViewController.gripColor }
+        set { self.contentViewController.gripColor = newValue }
+    }
+    
+    public static var pullBarBackgroundColor: UIColor {
+        get { return SheetOptions.default._pullBarBackgroundColor }
+        set { SheetOptions.default._pullBarBackgroundColor = newValue }
+    }
+    public var pullBarBackgroundColor: UIColor? {
+        get { return self.contentViewController.pullBarBackgroundColor }
+        set { self.contentViewController.pullBarBackgroundColor = newValue }
+    }
+    
+    public static var treatPullBarAsClear: Bool = false
+    public var treatPullBarAsClear: Bool {
+        get { return self.contentViewController.treatPullBarAsClear }
+        set { self.contentViewController.treatPullBarAsClear = newValue }
+    }
+    
     let transition: SheetTransition
     
     public var shouldDismiss: ((SheetViewController) -> Bool)?
@@ -116,7 +172,12 @@ public class SheetViewController: UIViewController {
         self.sizes = sizes.count > 0 ? sizes : [.intrinsic]
         self.options = options
         self.transition = SheetTransition(options: options)
+        self.minimumSpaceAbovePullBar = options._minimumSpaceAbovePullBar
         super.init(nibName: nil, bundle: nil)
+        self.gripColor = options._gripColor
+        self.gripSize = options._gripSize
+        self.pullBarBackgroundColor = options._pullBarBackgroundColor
+        self.cornerRadius = options._cornerRadius
         self.updateOrderedSizes()
         self.modalPresentationStyle = .custom
         self.transitioningDelegate = self
@@ -209,8 +270,8 @@ public class SheetViewController: UIViewController {
             pullBarLabel = Localize.changeSizeOfPresentation.localized
         }
         
-        self.contentViewController.pullBarView?.isAccessibilityElement = !pullBarLabel.isEmpty
-        self.contentViewController.pullBarView?.accessibilityLabel = pullBarLabel
+        self.contentViewController.pullBarView.isAccessibilityElement = !pullBarLabel.isEmpty
+        self.contentViewController.pullBarView.accessibilityLabel = pullBarLabel
     }
     
     private func addOverlay() {
@@ -438,9 +499,9 @@ public class SheetViewController: UIViewController {
         let contentHeight: CGFloat
         let fullscreenHeight: CGFloat
         if self.options.useFullScreenMode {
-            fullscreenHeight = self.view.bounds.height - self.options.minimumSpaceAbovePullBar
+            fullscreenHeight = self.view.bounds.height - self.minimumSpaceAbovePullBar
         } else {
-            fullscreenHeight = self.view.bounds.height - self.view.safeAreaInsets.top - self.options.minimumSpaceAbovePullBar
+            fullscreenHeight = self.view.bounds.height - self.view.safeAreaInsets.top - self.minimumSpaceAbovePullBar
         }
         switch (size) {
             case .fixed(let height):

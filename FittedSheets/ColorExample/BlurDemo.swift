@@ -18,14 +18,14 @@ class BlurDemo: Demoable {
         let controller = UIStoryboard(name: "ColorExample", bundle: nil).instantiateViewController(withIdentifier: "customize")
         
         var options = SheetOptions()
-        options.cornerRadius = 30
         options.pullBarHeight = 30
-        options.gripSize = CGSize(width: 100, height: 12)
         options.useInlineMode = useInlineMode
         
         let sheet = SheetViewController(controller: controller, sizes: [.percent(0.25), .fullscreen], options: options)
         sheet.hasBlurBackground = true
         
+        sheet.cornerRadius = 30
+        sheet.gripSize = CGSize(width: 100, height: 12)
         return sheet
     }
 }

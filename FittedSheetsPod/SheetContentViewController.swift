@@ -18,18 +18,53 @@ public class SheetContentViewController: UIViewController {
     private (set) var preferredHeight: CGFloat
     
     public var contentBackgroundColor: UIColor? {
-        get { self.roundedContainerView.backgroundColor }
-        set { self.roundedContainerView.backgroundColor = newValue }
+        get { self.childContainerView.backgroundColor }
+        set { self.childContainerView.backgroundColor = newValue }
     }
+    
+    public var cornerRadius: CGFloat = 0 {
+        didSet {
+            self.updateCornerRadius()
+        }
+    }
+    
+    public var gripSize: CGSize = CGSize(width: 50, height: 6) {
+        didSet {
+            self.gripSizeConstraints.forEach({ $0.isActive = false })
+            Constraints(for: self.gripView) {
+                self.gripSizeConstraints = $0.size.set(self.gripSize)
+            }
+            self.gripView.layer.cornerRadius = self.gripSize.height / 2
+        }
+    }
+    
+    public var gripColor: UIColor? {
+        get { return self.gripView.backgroundColor }
+        set { self.gripView.backgroundColor = newValue }
+    }
+    
+    public var pullBarBackgroundColor: UIColor? {
+        get { return self.pullBarView.backgroundColor }
+        set { self.pullBarView.backgroundColor = newValue }
+    }
+    public var treatPullBarAsClear: Bool = SheetViewController.treatPullBarAsClear {
+        didSet {
+            if self.isViewLoaded {
+                self.updateCornerRadius()
+            }
+        }
+    }
+    
     weak var delegate: SheetContentViewDelegate?
     
     public var contentView = UIView()
     private var contentTopConstraint: NSLayoutConstraint?
     private var contentBottomConstraint: NSLayoutConstraint?
     private var navigationHeightConstraint: NSLayoutConstraint?
-    public var roundedContainerView = UIView()
-    public var pullBarView: UIView?
-    public var gripView: UIView?
+    private var gripSizeConstraints: [NSLayoutConstraint] = []
+    public var childContainerView = UIView()
+    public var pullBarView = UIView()
+    public var gripView = UIView()
     
     public init(childViewController: UIViewController, options: SheetOptions) {
         self.options = options
@@ -50,10 +85,11 @@ public class SheetContentViewController: UIViewController {
         super.viewDidLoad()
         
         self.setupContentView()
-        self.setupRoundedContainerView()
+        self.setupChildContainerView()
         self.setupPullBarView()
         self.setupChildViewController()
         self.updatePreferredHeight()
+        self.updateCornerRadius()
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -81,6 +117,11 @@ public class SheetContentViewController: UIViewController {
     
     func adjustForKeyboard(height: CGFloat) {
         self.updateChildViewControllerBottomConstraint(adjustment: -height)
+    }
+    
+    private func updateCornerRadius() {
+        self.contentView.layer.cornerRadius = self.treatPullBarAsClear ? 0 : self.cornerRadius
+        self.childContainerView.layer.cornerRadius = self.treatPullBarAsClear ? self.cornerRadius : 0
     }
     
     private func updateNavigationControllerHeight() {
@@ -130,7 +171,7 @@ public class SheetContentViewController: UIViewController {
     private func setupChildViewController() {
         self.childViewController.willMove(toParent: self)
         self.addChild(self.childViewController)
-        self.roundedContainerView.addSubview(self.childViewController.view)
+        self.childContainerView.addSubview(self.childViewController.view)
         Constraints(for: self.childViewController.view) { view in
             view.left.pinToSuperview()
             view.right.pinToSuperview()
@@ -142,6 +183,9 @@ public class SheetContentViewController: UIViewController {
         }
         
         self.childViewController.didMove(toParent: self)
+        
+        self.childContainerView.layer.masksToBounds = true
+        self.childContainerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
     }
 
     private func setupContentView() {
@@ -152,12 +196,15 @@ public class SheetContentViewController: UIViewController {
             $0.bottom.pinToSuperview()
             self.contentTopConstraint = $0.top.pinToSuperview()
         }
+        
+        self.contentView.layer.masksToBounds = true
+        self.contentView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
     }
     
-    private func setupRoundedContainerView() {
-        self.contentView.addSubview(self.roundedContainerView)
+    private func setupChildContainerView() {
+        self.contentView.addSubview(self.childContainerView)
         
-        Constraints(for: self.roundedContainerView) { view in
+        Constraints(for: self.childContainerView) { view in
             
             if self.options.shouldExtendBackground {
                 view.top.pinToSuperview()
@@ -168,20 +215,14 @@ public class SheetContentViewController: UIViewController {
             view.right.pinToSuperview()
             view.bottom.pinToSuperview()
         }
-        
-        if self.options.cornerRadius > 0 {
-            self.roundedContainerView.layer.cornerRadius = self.options.cornerRadius
-            self.roundedContainerView.layer.masksToBounds = true
-            self.roundedContainerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        }
     }
     
     private func setupPullBarView() {
         // If they didn't specify pull bar options, they don't want a pull bar
         guard self.options.pullBarHeight > 0 else { return }
-        let pullBarView = UIView()
+        let pullBarView = self.pullBarView
         pullBarView.isUserInteractionEnabled = true
-        pullBarView.backgroundColor = self.options.pullBarBackgroundColor
+        pullBarView.backgroundColor = self.pullBarBackgroundColor
         self.contentView.addSubview(pullBarView)
         Constraints(for: pullBarView) {
             $0.top.pinToSuperview()
@@ -191,15 +232,16 @@ public class SheetContentViewController: UIViewController {
         }
         self.pullBarView = pullBarView
         
-        let gripView = UIView()
-        gripView.backgroundColor = options.gripColor
-        gripView.layer.cornerRadius = options.gripSize.height / 2
+        let gripView = self.gripView
+        gripView.backgroundColor = self.gripColor
+        gripView.layer.cornerRadius = self.gripSize.height / 2
         gripView.layer.masksToBounds = true
         pullBarView.addSubview(gripView)
+        self.gripSizeConstraints.forEach({ $0.isActive = false })
         Constraints(for: gripView) {
             $0.centerY.alignWithSuperview()
             $0.centerX.alignWithSuperview()
-            $0.size.set(options.gripSize)
+            self.gripSizeConstraints = $0.size.set(self.gripSize)
         }
         
         pullBarView.isAccessibilityElement = true

@@ -18,12 +18,12 @@ class NoPullBarDemo: Demoable {
         let controller = UIStoryboard(name: "ColorExample", bundle: nil).instantiateViewController(withIdentifier: "customize")
         
         var options = SheetOptions()
-        options.cornerRadius = 4
         options.pullBarHeight = 0
         options.useInlineMode = useInlineMode
         
         let sheet = SheetViewController(controller: controller, sizes: [.percent(0.25), .fullscreen], options: options)
         
+        sheet.cornerRadius = 4
         sheet.allowPullingPastMaxHeight = false
         sheet.overlayColor = .clear
         sheet.contentViewController.view.layer.shadowColor = UIColor.black.cgColor

@@ -58,6 +58,10 @@ public class SheetViewController: UIViewController {
         }
     }
     
+    public static var minimumSpaceAbovePullBar: CGFloat {
+        get { return SheetOptions.default._minimumSpaceAbovePullBar }
+        set { SheetOptions.default._minimumSpaceAbovePullBar = newValue }
+    }
     public var minimumSpaceAbovePullBar: CGFloat {
         didSet {
             if self.isViewLoaded {

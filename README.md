@@ -137,19 +137,16 @@ let sheetController = SheetViewController(controller: controller, sizes: [.perce
 // Add child
 sheetController.willMove(toParent: self)
 self.addChild(sheetController)
-self.view.addSubview(sheetController.view)
+view.addSubview(sheetController.view)
 sheetController.didMove(toParent: self)
 
+sheetController.view.translatesAutoresizingMaskIntoConstraints = false
 NSLayoutConstraint.activate([
-    sheet.view.topAnchor.constraint(equalTo: self.view.topAnchor),
-    sheet.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-    sheet.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-    sheet.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+    sheetController.view.topAnchor.constraint(equalTo: view.topAnchor),
+    sheetController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+    sheetController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+    sheetController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
 ])
-
-Constraints(for: sheet.view) {
-    $0.edges(.top, .left, .bottom, .right).pinToSuperview()
-}
 
 // animate in
 sheet.animateIn()

@@ -70,9 +70,14 @@ class InlineExamplesViewController: UIViewController {
         self.addChild(sheet)
         self.containerView.addSubview(sheet.view)
         sheet.didMove(toParent: self)
-        Constraints(for: sheet.view) {
-            $0.edges(.top, .left, .bottom, .right).pinToSuperview()
-        }
+        
+        sheet.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            sheet.view.topAnchor.constraint(equalTo: self.containerView.topAnchor),
+            sheet.view.bottomAnchor.constraint(equalTo: self.containerView.bottomAnchor),
+            sheet.view.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor),
+            sheet.view.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor)
+        ])
         
         sheet.didDismiss = { [weak self] _ in
             print("did dismiss")

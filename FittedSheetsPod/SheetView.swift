@@ -6,6 +6,7 @@
 //  Copyright © 2020 Gordon Tucker. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS) || os(watchOS)
 import UIKit
 
 class SheetView: UIView {
@@ -16,3 +17,5 @@ class SheetView: UIView {
         return self.delegate?.sheetPoint(inside: point, with: event) ?? true
     }
 }
+
+#endif // os(iOS) || os(tvOS) || os(watchOS)

@@ -1,7 +1,7 @@
 # FittedSheets
 Bottom sheets for iOS
 
-[Bitrise Status](https://app.bitrise.io/app/13f283bd401bbe1c.svg?token=MGSP3TGNYPSgB5gWq4MEQg)
+![Bitrise Status](https://app.bitrise.io/app/13f283bd401bbe1c.svg?token=MGSP3TGNYPSgB5gWq4MEQg)
 
 Minimum requirement:  
 ![iOSVersion](https://img.shields.io/badge/iOS-11-green.svg) 

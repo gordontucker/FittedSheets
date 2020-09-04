@@ -9,6 +9,7 @@
 #if os(iOS) || os(tvOS) || os(watchOS)
 import UIKit
 
+@available(iOS 11.0, tvOS 11.0, *)
 public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
     public static var transitionDuration: TimeInterval = 0.3
     

@@ -10,17 +10,12 @@
 import UIKit
 
 public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
-    public static var showRransitionDuration: TimeInterval = 0.3
-    public static var hideRransitionDuration: TimeInterval = 0.2
+    public static var transitionDuration: TimeInterval = 0.3
     
     var presenting = true
     weak var presenter: UIViewController?
     var options: SheetOptions
-    var showDuration = SheetTransition.showRransitionDuration
-    var hideDuration = SheetTransition.hideRransitionDuration
-    var duration: TimeInterval {
-        return self.presenting ? self.showDuration : self.hideDuration
-    }
+    var duration = SheetTransition.transitionDuration
     
     init(options: SheetOptions) {
         self.options = options

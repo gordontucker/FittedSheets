@@ -10,12 +10,17 @@
 import UIKit
 
 public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
-    public static var transitionDuration: TimeInterval = 0.3
+    public static var showRransitionDuration: TimeInterval = 0.3
+    public static var hideRransitionDuration: TimeInterval = 0.2
     
     var presenting = true
     weak var presenter: UIViewController?
     var options: SheetOptions
-    var duration = SheetTransition.transitionDuration
+    var showDuration = SheetTransition.showRransitionDuration
+    var hideDuration = SheetTransition.hideRransitionDuration
+    var duration: TimeInterval {
+        return self.presenting ? self.showDuration : self.hideDuration
+    }
     
     init(options: SheetOptions) {
         self.options = options
@@ -60,8 +65,6 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
                     sheet.overlayView.alpha = 1
                 },
                 completion: { _ in
-                    presenter.endAppearanceTransition()
-                    sheet.endAppearanceTransition()
                     transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                 }
             )
@@ -81,8 +84,6 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
                     contentView.transform = CGAffineTransform(translationX: 0, y: contentView.bounds.height)
                     sheet.overlayView.alpha = 0
                 }, completion: { _ in
-                    sheet.endAppearanceTransition()
-                    presenter.endAppearanceTransition()
                     transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                 }
             )

@@ -17,10 +17,14 @@ public class SheetViewController: UIViewController {
     /// Automatically grow/move the sheet to accomidate the keyboard. Defaults to false.
     public var autoAdjustToKeyboard = SheetViewController.autoAdjustToKeyboard
     
-    /// Default value for allowPullingPastMaxHeight. Defaults to true.
-    public static var allowPullingPastMaxHeight = true
-    /// Allow pulling past the maximum height and bounce back. Defaults to true.
-    public var allowPullingPastMaxHeight = SheetViewController.allowPullingPastMaxHeight
+	/// Default value for allowPullingPastMaxHeight. Defaults to true.
+	public static var allowPullingPastMaxHeight = true
+	/// Default value for allowPullingPastMinHeight. Defaults to true.
+	public static var allowPullingPastMinHeight = true
+	/// Allow pulling past the maximum height and bounce back. Defaults to true.
+	public var allowPullingPastMaxHeight = SheetViewController.allowPullingPastMaxHeight
+	/// Allow pulling past the minimum height and bounce back. Defaults to true.
+	public var allowPullingPastMinHeight = SheetViewController.allowPullingPastMaxHeight
     
     /// The sizes that the sheet will attempt to pin to. Defaults to intrensic only.
     public var sizes: [SheetSize] = [.intrinsic] {
@@ -358,23 +362,31 @@ public class SheetViewController: UIViewController {
             self.isPanning = true
         }
         
-        let minHeight: CGFloat = self.height(for: self.orderedSizes.first)
-        let maxHeight: CGFloat
-        if self.allowPullingPastMaxHeight {
-            maxHeight = self.height(for: .fullscreen) // self.view.bounds.height
-        } else {
-            maxHeight = max(self.height(for: self.orderedSizes.last), self.prePanHeight)
-        }
-        
-        var newHeight = max(0, self.prePanHeight + (self.firstPanPoint.y - point.y))
-        var offset: CGFloat = 0
-        if newHeight < minHeight {
-            offset = minHeight - newHeight
-            newHeight = minHeight
-        }
-        if newHeight > maxHeight {
-            newHeight = maxHeight
-        }
+		let minHeight: CGFloat
+		let maxHeight: CGFloat
+		if self.allowPullingPastMaxHeight {
+			maxHeight = self.height(for: .fullscreen) // self.view.bounds.height
+		} else {
+			maxHeight = max(self.height(for: self.orderedSizes.last), self.prePanHeight)
+		}
+		if self.allowPullingPastMinHeight {
+			minHeight = self.height(for: .fixed(0))
+		} else {
+			minHeight = self.height(for: self.orderedSizes.first)
+		}
+		
+		var newHeight = max(0, self.prePanHeight + (self.firstPanPoint.y - point.y))
+		var offset: CGFloat = 0
+		if newHeight < minHeight {
+			if self.allowPullingPastMinHeight {
+				offset = minHeight - newHeight
+				
+			}
+			newHeight = minHeight
+		}
+		if newHeight > maxHeight {
+			newHeight = maxHeight
+		}
         
         switch gesture.state {
             case .cancelled, .failed:

@@ -32,7 +32,8 @@ class InlineExamplesViewController: UIViewController {
         NoPullBarDemo(),
         ClearPullBarDemo(),
         NoCloseDemo(),
-        RecursionDemo()
+        RecursionDemo(),
+        MaxMinHeightDemo()
     ]
     
     override func viewDidLoad() {

@@ -35,6 +35,7 @@
 		F857D0C02204DD00004C862F /* NavigationRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857D0BF2204DD00004C862F /* NavigationRootViewController.swift */; };
 		F857D0C32204DFC7004C862F /* KeyboardExample.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F857D0C22204DFC7004C862F /* KeyboardExample.storyboard */; };
 		F857D0C52204DFDA004C862F /* UITextFieldExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857D0C42204DFDA004C862F /* UITextFieldExampleViewController.swift */; };
+		F89C6247251A86A6008CBC68 /* IntrensicDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C6246251A86A6008CBC68 /* IntrensicDemo.swift */; };
 		F8A42B4A24D1E241005DE55B /* SheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B4924D1E241005DE55B /* SheetViewController.swift */; };
 		F8A42B4C24D1E2EF005DE55B /* SheetContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B4B24D1E2EF005DE55B /* SheetContentViewController.swift */; };
 		F8A42B4E24D1E40A005DE55B /* SheetOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B4D24D1E40A005DE55B /* SheetOptions.swift */; };
@@ -42,7 +43,7 @@
 		F8A42B5224D1F6D3005DE55B /* SheetContentViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B5124D1F6D3005DE55B /* SheetContentViewDelegate.swift */; };
 		F8A42B5A24D36893005DE55B /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B5924D36893005DE55B /* RootViewController.swift */; };
 		F8A42B5C24D369A8005DE55B /* Demoable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B5B24D369A8005DE55B /* Demoable.swift */; };
-		F8A42B6024D36DE3005DE55B /* IntrensicDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B5F24D36DE3005DE55B /* IntrensicDemo.swift */; };
+		F8A42B6024D36DE3005DE55B /* MaxMinHeightDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B5F24D36DE3005DE55B /* MaxMinHeightDemo.swift */; };
 		F8A42B6224D36EA7005DE55B /* EmbededIntrensicDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B6124D36EA7005DE55B /* EmbededIntrensicDemo.swift */; };
 		F8A42B6424D371C7005DE55B /* IntrensicAndFullscreenDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A42B6324D371C7005DE55B /* IntrensicAndFullscreenDemo.swift */; };
 		F8A42B6724D3784B005DE55B /* ResizingDemo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8A42B6624D3784B005DE55B /* ResizingDemo.storyboard */; };
@@ -147,6 +148,7 @@
 		F857D0BF2204DD00004C862F /* NavigationRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRootViewController.swift; sourceTree = "<group>"; };
 		F857D0C22204DFC7004C862F /* KeyboardExample.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = KeyboardExample.storyboard; sourceTree = "<group>"; };
 		F857D0C42204DFDA004C862F /* UITextFieldExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExampleViewController.swift; sourceTree = "<group>"; };
+		F89C6246251A86A6008CBC68 /* IntrensicDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrensicDemo.swift; sourceTree = "<group>"; };
 		F8A42B4924D1E241005DE55B /* SheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViewController.swift; sourceTree = "<group>"; };
 		F8A42B4B24D1E2EF005DE55B /* SheetContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetContentViewController.swift; sourceTree = "<group>"; };
 		F8A42B4D24D1E40A005DE55B /* SheetOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetOptions.swift; sourceTree = "<group>"; };
@@ -154,7 +156,7 @@
 		F8A42B5124D1F6D3005DE55B /* SheetContentViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetContentViewDelegate.swift; sourceTree = "<group>"; };
 		F8A42B5924D36893005DE55B /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		F8A42B5B24D369A8005DE55B /* Demoable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demoable.swift; sourceTree = "<group>"; };
-		F8A42B5F24D36DE3005DE55B /* IntrensicDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrensicDemo.swift; sourceTree = "<group>"; };
+		F8A42B5F24D36DE3005DE55B /* MaxMinHeightDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxMinHeightDemo.swift; sourceTree = "<group>"; };
 		F8A42B6124D36EA7005DE55B /* EmbededIntrensicDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbededIntrensicDemo.swift; sourceTree = "<group>"; };
 		F8A42B6324D371C7005DE55B /* IntrensicAndFullscreenDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrensicAndFullscreenDemo.swift; sourceTree = "<group>"; };
 		F8A42B6624D3784B005DE55B /* ResizingDemo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ResizingDemo.storyboard; sourceTree = "<group>"; };
@@ -341,7 +343,8 @@
 			children = (
 				F857D0B42204DA22004C862F /* IntrensicDemo.storyboard */,
 				F857D0B82204DA4E004C862F /* IntrinsicExampleViewController.swift */,
-				F8A42B5F24D36DE3005DE55B /* IntrensicDemo.swift */,
+				F8A42B5F24D36DE3005DE55B /* MaxMinHeightDemo.swift */,
+				F89C6246251A86A6008CBC68 /* IntrensicDemo.swift */,
 				F8A42B6124D36EA7005DE55B /* EmbededIntrensicDemo.swift */,
 				F8A42B6324D371C7005DE55B /* IntrensicAndFullscreenDemo.swift */,
 				F8A42B9924DB4577005DE55B /* IntrensicAndTrueFullscreenDemo.swift */,
@@ -610,7 +613,8 @@
 				F8A42B6924D37890005DE55B /* ResizingDemo.swift in Sources */,
 				F8A42B8C24DB1A67005DE55B /* InlineExamplesViewController.swift in Sources */,
 				F8A42B7524D9FD11005DE55B /* ColorDemo.swift in Sources */,
-				F8A42B6024D36DE3005DE55B /* IntrensicDemo.swift in Sources */,
+				F89C6247251A86A6008CBC68 /* IntrensicDemo.swift in Sources */,
+				F8A42B6024D36DE3005DE55B /* MaxMinHeightDemo.swift in Sources */,
 				F8A42B8424DA022F005DE55B /* NoClosingExampleViewController.swift in Sources */,
 				F8A42B7324D9FCC1005DE55B /* ScrollViewDemo.swift in Sources */,
 				F857D0AE2204D709004C862F /* TableViewExampleViewController.swift in Sources */,

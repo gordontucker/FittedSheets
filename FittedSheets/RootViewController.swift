@@ -31,7 +31,8 @@ class RootViewController: UIViewController {
         ClearPullBarDemo(),
         NoCloseDemo(),
         BlurDemo(),
-        RecursionDemo()
+        RecursionDemo(),
+        MaxMinHeightDemo()
     ]
     
     override func viewDidLoad() {

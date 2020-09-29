@@ -14,6 +14,7 @@
 		F803416F212625DF00EAD717 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F803416D212625DF00EAD717 /* LaunchScreen.storyboard */; };
 		F803417A212625DF00EAD717 /* FittedSheetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8034179212625DF00EAD717 /* FittedSheetsTests.swift */; };
 		F8034185212625DF00EAD717 /* FittedSheetsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8034184212625DF00EAD717 /* FittedSheetsUITests.swift */; };
+		F846406D2523AB9900A8A5C4 /* SafeAreaInlineExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F846406C2523AB9900A8A5C4 /* SafeAreaInlineExampleViewController.swift */; };
 		F857D0952204B71F004C862F /* FittedSheetsPod.h in Headers */ = {isa = PBXBuildFile; fileRef = F857D0932204B71F004C862F /* FittedSheetsPod.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F857D0982204B71F004C862F /* FittedSheetsPod.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F857D0912204B71F004C862F /* FittedSheetsPod.framework */; };
 		F857D0992204B71F004C862F /* FittedSheetsPod.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F857D0912204B71F004C862F /* FittedSheetsPod.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -128,6 +129,7 @@
 		F8034186212625DF00EAD717 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8034192212628FE00EAD717 /* FittedSheets.podspec.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FittedSheets.podspec.json; sourceTree = "<group>"; };
 		F803419C212F208300EAD717 /* Yalta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Yalta.swift; sourceTree = "<group>"; };
+		F846406C2523AB9900A8A5C4 /* SafeAreaInlineExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaInlineExampleViewController.swift; sourceTree = "<group>"; };
 		F84FF4AA21348A2900248951 /* SheetSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetSize.swift; sourceTree = "<group>"; };
 		F84FF4AE2134A95300248951 /* InitialTouchPanGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialTouchPanGestureRecognizer.swift; sourceTree = "<group>"; };
 		F84FF4B02135BE1A00248951 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				F8A42B5B24D369A8005DE55B /* Demoable.swift */,
 				F8A42B8B24DB1A67005DE55B /* InlineExamplesViewController.swift */,
 				F8A42B9D24DB58A6005DE55B /* RecursionDemo.swift */,
+				F846406C2523AB9900A8A5C4 /* SafeAreaInlineExampleViewController.swift */,
 			);
 			path = FittedSheets;
 			sourceTree = "<group>";
@@ -598,6 +601,7 @@
 				F8A42B7124D9FCAE005DE55B /* TableViewControllerDemo.swift in Sources */,
 				F857D0C52204DFDA004C862F /* UITextFieldExampleViewController.swift in Sources */,
 				F857D0B72204DA2E004C862F /* ResizingExampleViewController.swift in Sources */,
+				F846406D2523AB9900A8A5C4 /* SafeAreaInlineExampleViewController.swift in Sources */,
 				F8A42B9A24DB4577005DE55B /* IntrensicAndTrueFullscreenDemo.swift in Sources */,
 				F8A42B6F24D9FC82005DE55B /* TableViewDemo.swift in Sources */,
 				F8A42B5C24D369A8005DE55B /* Demoable.swift in Sources */,

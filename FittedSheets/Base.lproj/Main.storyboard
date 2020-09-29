@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Km3-vg-lm2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Km3-vg-lm2">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment version="4352" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -37,14 +38,14 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="W9u-5l-eT8"/>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Wiw-uX-x9H"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Wiw-uX-x9H" firstAttribute="trailing" secondItem="E5b-WP-7ZL" secondAttribute="trailing" id="ErM-ML-bXa"/>
                             <constraint firstItem="E5b-WP-7ZL" firstAttribute="bottom" secondItem="Wiw-uX-x9H" secondAttribute="bottom" id="Jac-oL-QLW"/>
                             <constraint firstItem="E5b-WP-7ZL" firstAttribute="leading" secondItem="bDC-zY-nqc" secondAttribute="leading" id="qx6-6s-aqi"/>
                             <constraint firstItem="E5b-WP-7ZL" firstAttribute="top" secondItem="Wiw-uX-x9H" secondAttribute="top" id="tCk-ct-duS"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Wiw-uX-x9H"/>
                     </view>
                     <navigationItem key="navigationItem" title="Examples" id="tZn-87-4lJ">
                         <barButtonItem key="rightBarButtonItem" title="Inline" id="rYa-0m-ayW">
@@ -94,7 +95,7 @@
                                         <viewLayoutGuide key="frameLayoutGuide" id="m3u-FA-pfr"/>
                                     </scrollView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="i9m-pZ-Mzl" secondAttribute="trailing" id="Jfb-k7-Pi5"/>
                                     <constraint firstItem="i9m-pZ-Mzl" firstAttribute="top" secondItem="SPD-Z7-4Ev" secondAttribute="top" id="bdi-ta-nL6"/>
@@ -103,6 +104,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="m1t-NZ-vLQ"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="SPD-Z7-4Ev" firstAttribute="top" secondItem="m1t-NZ-vLQ" secondAttribute="top" constant="60" id="5GQ-3e-WsJ"/>
@@ -110,9 +112,14 @@
                             <constraint firstItem="SPD-Z7-4Ev" firstAttribute="leading" secondItem="m1t-NZ-vLQ" secondAttribute="leading" constant="60" id="TXh-YJ-NBN"/>
                             <constraint firstItem="m1t-NZ-vLQ" firstAttribute="trailing" secondItem="SPD-Z7-4Ev" secondAttribute="trailing" constant="60" id="oAl-BN-x8V"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="m1t-NZ-vLQ"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Inline Examples" id="jtX-ZY-h64"/>
+                    <navigationItem key="navigationItem" title="Inline Examples" id="jtX-ZY-h64">
+                        <barButtonItem key="rightBarButtonItem" title="SafeArea" id="EgF-oO-nbD">
+                            <connections>
+                                <segue destination="LVW-sP-rVE" kind="show" id="CSR-3H-m20"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="containerView" destination="SPD-Z7-4Ev" id="GwS-4z-HGw"/>
                         <outlet property="stackView" destination="pjm-3e-2fw" id="o0x-tP-1TF"/>
@@ -122,6 +129,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tel-n5-HGM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2749.5999999999999" y="19.340329835082461"/>
+        </scene>
+        <!--Safe Area Inline Example View Controller-->
+        <scene sceneID="ab1-F5-2un">
+            <objects>
+                <viewController id="LVW-sP-rVE" customClass="SafeAreaInlineExampleViewController" customModule="FittedSheets" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gri-Z1-XMf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="10t-r8-OMH">
+                                <rect key="frame" x="146.5" y="54" width="82" height="30"/>
+                                <state key="normal" title="Show Sheet">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="showSheetTapped:" destination="LVW-sP-rVE" eventType="touchUpInside" id="GVb-jc-ZCW"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ddX-du-O0x"/>
+                        <color key="backgroundColor" systemColor="systemBlueColor"/>
+                        <constraints>
+                            <constraint firstItem="10t-r8-OMH" firstAttribute="centerX" secondItem="ddX-du-O0x" secondAttribute="centerX" id="Lza-Br-qZV"/>
+                            <constraint firstItem="10t-r8-OMH" firstAttribute="top" secondItem="ddX-du-O0x" secondAttribute="top" constant="10" id="cVD-HY-HBx"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="aec-C2-KNM"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J4Q-ex-gyv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3662" y="19"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3Vr-0S-Nmk">
@@ -142,4 +180,12 @@
             <point key="canvasLocation" x="956" y="19.340329835082461"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

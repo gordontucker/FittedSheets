@@ -110,7 +110,7 @@ self.present(sheetController, animated: false, completion: nil)
 **Handling dismiss events**
 ```swift
 let sheet = SheetViewController(controller: controller, sizes: [.fixed(420), .fullScreen])
-sheet.willDismiss = { _ in
+sheet.shouldDismiss = { _ in
 // This is called just before the sheet is dismissed. Return false to prevent the build in dismiss events
     return true
 }

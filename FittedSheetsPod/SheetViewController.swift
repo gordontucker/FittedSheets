@@ -12,8 +12,8 @@ import UIKit
 public class SheetViewController: UIViewController {
     public private(set) var options: SheetOptions
     
-    /// Default value for autoAdjustToKeyboard. Defaults to false.
-    public static var autoAdjustToKeyboard = false
+    /// Default value for autoAdjustToKeyboard. Defaults to true.
+    public static var autoAdjustToKeyboard = true
     /// Automatically grow/move the sheet to accomidate the keyboard. Defaults to false.
     public var autoAdjustToKeyboard = SheetViewController.autoAdjustToKeyboard
     
@@ -491,7 +491,7 @@ public class SheetViewController: UIViewController {
     }
     
     private func adjustForKeyboard(height: CGFloat, from notification: Notification) {
-        guard let info:[AnyHashable: Any] = notification.userInfo else { return }
+        guard self.autoAdjustToKeyboard, let info:[AnyHashable: Any] = notification.userInfo else { return }
         self.keyboardHeight = height
         
         let duration:TimeInterval = (info[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0

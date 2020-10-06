@@ -95,8 +95,8 @@ sheetController.dismissOnPull = false
 /// Allow pulling past the maximum height and bounce back. Defaults to true.
 sheetController.allowPullingPastMaxHeight = false
 
-/// Automatically grow/move the sheet to accomidate the keyboard. Defaults to false.
-sheetController.autoAdjustToKeyboard = false
+/// Automatically grow/move the sheet to accomidate the keyboard. Defaults to true.
+sheetController.autoAdjustToKeyboard = true
 
 // Color of the sheet anywhere the child view controller may not show (or is transparent), such as behind the keyboard currently
 sheetController.contentBackgroundColor

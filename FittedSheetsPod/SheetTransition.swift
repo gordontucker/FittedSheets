@@ -10,22 +10,20 @@
 import UIKit
 
 public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
-    public static var transitionDuration: TimeInterval = 0.3
-    
+
     var presenting = true
     weak var presenter: UIViewController?
     var options: SheetOptions
-    var duration = SheetTransition.transitionDuration
-    
+
     init(options: SheetOptions) {
         self.options = options
         super.init()
     }
-    
+
     public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return self.duration
+        return self.options.transitionDuration
     }
-    
+
     public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         let containerView = transitionContext.containerView
         if self.presenting {
@@ -44,9 +42,13 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
             let contentView = sheet.contentViewController.contentView
             contentView.transform = CGAffineTransform(translationX: 0, y: contentView.bounds.height)
             sheet.overlayView.alpha = 0
-            
+
             UIView.animate(
-                withDuration: self.duration,
+                withDuration: self.options.transitionDuration,
+                delay: 0,
+                usingSpringWithDamping: self.options.transitionDampening,
+                initialSpringVelocity: self.options.transitionVelocity,
+                options: self.options.transitionAnimationOptions,
                 animations: {
                     if self.options.shrinkPresentingViewController {
 
@@ -69,10 +71,10 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
                 transitionContext.completeTransition(true)
                 return
             }
-            
+
             containerView.addSubview(sheet.view)
             let contentView = sheet.contentViewController.contentView
-            
+
             self.restorePresentor(
                 presenter,
                 animations: {
@@ -84,10 +86,14 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
             )
         }
     }
-    
+
     func restorePresentor(_ presenter: UIViewController, animated: Bool = true, animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
         UIView.animate(
-            withDuration: self.duration,
+            withDuration: self.options.transitionDuration,
+            delay: 0,
+            usingSpringWithDamping: self.options.transitionDampening,
+            initialSpringVelocity: self.options.transitionVelocity,
+            options: self.options.transitionAnimationOptions,
             animations: {
                 if self.options.shrinkPresentingViewController {
                     presenter.view.layer.transform = CATransform3DMakeScale(1, 1, 1)
@@ -100,13 +106,13 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
             }
         )
     }
-    
+
     func setPresentor(percentComplete: CGFloat) {
         guard self.options.shrinkPresentingViewController, let presenter = self.presenter else { return }
         let scale: CGFloat = min(1, 0.92 + (0.08 * percentComplete))
-        
+
         let topSafeArea = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.safeAreaInsets.top ?? 0
-        
+
         presenter.view.layer.transform = CATransform3DConcat(CATransform3DMakeTranslation(0, (1 - percentComplete) * topSafeArea/2, 0), CATransform3DMakeScale(scale, scale, 1))
         presenter.view.layer.cornerRadius = self.options.presentingViewCornerRadius * (1 - percentComplete)
     }

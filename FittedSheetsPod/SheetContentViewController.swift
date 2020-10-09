@@ -57,6 +57,7 @@ public class SheetContentViewController: UIViewController {
     
     weak var delegate: SheetContentViewDelegate?
     
+    public var contentWrapperView = UIView()
     public var contentView = UIView()
     private var contentTopConstraint: NSLayoutConstraint?
     private var contentBottomConstraint: NSLayoutConstraint?
@@ -120,7 +121,7 @@ public class SheetContentViewController: UIViewController {
     }
     
     private func updateCornerRadius() {
-        self.contentView.layer.cornerRadius = self.treatPullBarAsClear ? 0 : self.cornerRadius
+        self.contentWrapperView.layer.cornerRadius = self.treatPullBarAsClear ? 0 : self.cornerRadius
         self.childContainerView.layer.cornerRadius = self.treatPullBarAsClear ? self.cornerRadius : 0
     }
     
@@ -196,13 +197,37 @@ public class SheetContentViewController: UIViewController {
             $0.bottom.pinToSuperview()
             self.contentTopConstraint = $0.top.pinToSuperview()
         }
+        self.contentView.addSubview(self.contentWrapperView) {
+            $0.edges.pinToSuperview()
+        }
         
-        self.contentView.layer.masksToBounds = true
-        self.contentView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        self.contentWrapperView.layer.masksToBounds = true
+        self.contentWrapperView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        
+        let overflowView = UIView()
+        switch (self.options.transitionOverflowType) {
+            case .view(view: let view):
+                overflowView.backgroundColor = .clear
+                overflowView.addSubview(view) {
+                    $0.edges.pinToSuperview()
+                }
+            case .automatic:
+                overflowView.backgroundColor = self.childViewController.view.backgroundColor
+            case .color(color: let color):
+                overflowView.backgroundColor = color
+            case .none:
+                overflowView.backgroundColor = .clear
+        }
+        
+        self.contentView.addSubview(overflowView) {
+            $0.edges(.left, .right).pinToSuperview()
+            $0.height.set(200)
+            $0.top.align(with: self.contentView.al.bottom - 1)
+        }
     }
     
     private func setupChildContainerView() {
-        self.contentView.addSubview(self.childContainerView)
+        self.contentWrapperView.addSubview(self.childContainerView)
         
         Constraints(for: self.childContainerView) { view in
             
@@ -223,7 +248,7 @@ public class SheetContentViewController: UIViewController {
         let pullBarView = self.pullBarView
         pullBarView.isUserInteractionEnabled = true
         pullBarView.backgroundColor = self.pullBarBackgroundColor
-        self.contentView.addSubview(pullBarView)
+        self.contentWrapperView.addSubview(pullBarView)
         Constraints(for: pullBarView) {
             $0.top.pinToSuperview()
             $0.left.pinToSuperview()

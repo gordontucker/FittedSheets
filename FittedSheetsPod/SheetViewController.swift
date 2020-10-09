@@ -152,6 +152,7 @@ public class SheetViewController: UIViewController {
     var overlayView = UIView()
     var blurView = UIVisualEffectView()
     var overlayTapView = UIView()
+    var overflowView = UIView()
     var overlayTapGesture: UITapGestureRecognizer?
     private var contentViewHeightConstraint: NSLayoutConstraint!
     

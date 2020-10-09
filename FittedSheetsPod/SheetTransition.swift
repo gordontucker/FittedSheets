@@ -10,11 +10,10 @@
 import UIKit
 
 public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
-
     var presenting = true
     weak var presenter: UIViewController?
     var options: SheetOptions
-
+    
     init(options: SheetOptions) {
         self.options = options
         super.init()
@@ -42,24 +41,31 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
             let contentView = sheet.contentViewController.contentView
             contentView.transform = CGAffineTransform(translationX: 0, y: contentView.bounds.height)
             sheet.overlayView.alpha = 0
+            
+            let heightPercent = contentView.bounds.height / UIScreen.main.bounds.height
+            
+            // Use a normal animation to animate the shadown and background view
+            UIView.animate(withDuration: self.options.transitionDuration * 0.6, delay: 0, options: [.curveEaseOut]) {
+                if self.options.shrinkPresentingViewController {
 
+                    let topSafeArea = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.safeAreaInsets.top ?? 0
+                    
+                    presenter.view.layer.transform = CATransform3DConcat(CATransform3DMakeTranslation(0, topSafeArea/2, 0), CATransform3DMakeScale(0.92, 0.92, 1))
+                    presenter.view.layer.cornerRadius = self.options.presentingViewCornerRadius
+                    presenter.view.layer.masksToBounds = true
+                }
+                sheet.overlayView.alpha = 1
+            } completion: { _ in }
+
+            // Use a bounce effect to animate the view in
             UIView.animate(
                 withDuration: self.options.transitionDuration,
                 delay: 0,
-                usingSpringWithDamping: self.options.transitionDampening,
-                initialSpringVelocity: self.options.transitionVelocity,
+                usingSpringWithDamping: self.options.transitionDampening + ((heightPercent - 0.2) * 1.25 * 0.17),
+                initialSpringVelocity: self.options.transitionVelocity * heightPercent,
                 options: self.options.transitionAnimationOptions,
                 animations: {
-                    if self.options.shrinkPresentingViewController {
-
-                        let topSafeArea = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.safeAreaInsets.top ?? 0
-                        
-                        presenter.view.layer.transform = CATransform3DConcat(CATransform3DMakeTranslation(0, topSafeArea/2, 0), CATransform3DMakeScale(0.92, 0.92, 1))
-                        presenter.view.layer.cornerRadius = self.options.presentingViewCornerRadius
-                        presenter.view.layer.masksToBounds = true
-                    }
                     contentView.transform = .identity
-                    sheet.overlayView.alpha = 1
                 },
                 completion: { _ in
                     transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
@@ -90,10 +96,6 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
     func restorePresentor(_ presenter: UIViewController, animated: Bool = true, animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
         UIView.animate(
             withDuration: self.options.transitionDuration,
-            delay: 0,
-            usingSpringWithDamping: self.options.transitionDampening,
-            initialSpringVelocity: self.options.transitionVelocity,
-            options: self.options.transitionAnimationOptions,
             animations: {
                 if self.options.shrinkPresentingViewController {
                     presenter.view.layer.transform = CATransform3DMakeScale(1, 1, 1)

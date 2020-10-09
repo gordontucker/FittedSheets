@@ -19,7 +19,7 @@ class IntrensicAndFullscreenDemo: Demoable {
         let options = SheetOptions(
             useFullScreenMode: false,
             useInlineMode: useInlineMode)
-        let sheet = SheetViewController(controller: controller, sizes: [.intrinsic, .fullscreen], options: options)
+        let sheet = SheetViewController(controller: controller, sizes: [.fullscreen, .intrinsic], options: options)
         sheet.minimumSpaceAbovePullBar = 44
         return sheet
     }

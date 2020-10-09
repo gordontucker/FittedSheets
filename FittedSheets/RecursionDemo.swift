@@ -19,6 +19,7 @@ class RecursionDemo: Demoable {
         var options = SheetOptions()
         options.useInlineMode = useInlineMode
         options.useFullScreenMode = false
+        options.transitionOverflowType = .color(color: .blue)
         let sheet = SheetViewController(controller: controller, sizes: [.percent(0.50), .fullscreen], options: options)
         
         return sheet

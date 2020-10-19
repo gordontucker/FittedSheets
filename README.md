@@ -149,7 +149,7 @@ NSLayoutConstraint.activate([
 ])
 
 // animate in
-sheet.animateIn()
+sheetController.animateIn()
 ```
 
 ## Scrolling

@@ -46,16 +46,15 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
             
             // Use a normal animation to animate the shadown and background view
             UIView.animate(withDuration: self.options.transitionDuration * 0.6, delay: 0, options: [.curveEaseOut], animations: {
-                 if self.options.shrinkPresentingViewController {
-
-                                   let topSafeArea = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.safeAreaInsets.top ?? 0
-                                   
-                                   presenter.view.layer.transform = CATransform3DConcat(CATransform3DMakeTranslation(0, topSafeArea/2, 0), CATransform3DMakeScale(0.92, 0.92, 1))
-                                   presenter.view.layer.cornerRadius = self.options.presentingViewCornerRadius
-                                   presenter.view.layer.masksToBounds = true
-                               }
-                               sheet.overlayView.alpha = 1
-            })
+                if self.options.shrinkPresentingViewController {
+                    let topSafeArea = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.safeAreaInsets.top ?? 0
+                    
+                    presenter.view.layer.transform = CATransform3DConcat(CATransform3DMakeTranslation(0, topSafeArea/2, 0), CATransform3DMakeScale(0.92, 0.92, 1))
+                    presenter.view.layer.cornerRadius = self.options.presentingViewCornerRadius
+                    presenter.view.layer.masksToBounds = true
+                }
+                sheet.overlayView.alpha = 1
+            }, completion: nil)
 
             // Use a bounce effect to animate the view in
             UIView.animate(

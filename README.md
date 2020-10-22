@@ -133,6 +133,7 @@ let options = SheetOptions(
 )
 
 let sheetController = SheetViewController(controller: controller, sizes: [.percent(0.3), .fullscreen], options: options)
+sheetController.allowGestureThroughOverlay = true
 
 // Add child
 sheetController.willMove(toParent: self)

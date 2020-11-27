@@ -66,6 +66,7 @@ public class SheetContentViewController: UIViewController {
     public var childContainerView = UIView()
     public var pullBarView = UIView()
     public var gripView = UIView()
+    private let overflowView = UIView()
     
     public init(childViewController: UIViewController, options: SheetOptions) {
         self.options = options
@@ -91,6 +92,7 @@ public class SheetContentViewController: UIViewController {
         self.setupChildViewController()
         self.updatePreferredHeight()
         self.updateCornerRadius()
+        self.setupOverflowView()
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -123,6 +125,22 @@ public class SheetContentViewController: UIViewController {
     private func updateCornerRadius() {
         self.contentWrapperView.layer.cornerRadius = self.treatPullBarAsClear ? 0 : self.cornerRadius
         self.childContainerView.layer.cornerRadius = self.treatPullBarAsClear ? self.cornerRadius : 0
+    }
+    
+    private func setupOverflowView() {
+        switch (self.options.transitionOverflowType) {
+            case .view(view: let view):
+                overflowView.backgroundColor = .clear
+                overflowView.addSubview(view) {
+                    $0.edges.pinToSuperview()
+                }
+            case .automatic:
+                overflowView.backgroundColor = self.childViewController.view.backgroundColor
+            case .color(color: let color):
+                overflowView.backgroundColor = color
+            case .none:
+                overflowView.backgroundColor = .clear
+        }
     }
     
     private func updateNavigationControllerHeight() {
@@ -203,22 +221,7 @@ public class SheetContentViewController: UIViewController {
         
         self.contentWrapperView.layer.masksToBounds = true
         self.contentWrapperView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        
-        let overflowView = UIView()
-        switch (self.options.transitionOverflowType) {
-            case .view(view: let view):
-                overflowView.backgroundColor = .clear
-                overflowView.addSubview(view) {
-                    $0.edges.pinToSuperview()
-                }
-            case .automatic:
-                overflowView.backgroundColor = self.childViewController.view.backgroundColor
-            case .color(color: let color):
-                overflowView.backgroundColor = color
-            case .none:
-                overflowView.backgroundColor = .clear
-        }
-        
+                
         self.contentView.addSubview(overflowView) {
             $0.edges(.left, .right).pinToSuperview()
             $0.height.set(200)

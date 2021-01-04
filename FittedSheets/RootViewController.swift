@@ -32,7 +32,9 @@ class RootViewController: UIViewController {
         NoCloseDemo(),
         BlurDemo(),
         RecursionDemo(),
-        MaxMinHeightDemo()
+        MaxMinHeightDemo(),
+        HorizontalPaddingDemo(),
+        MaxWidthDemo()
     ]
     
     override func viewDidLoad() {

@@ -60,7 +60,13 @@ let options = SheetOptions(
     shrinkPresentingViewController: true,
     
     // Determines if using inline mode or not
-    useInlineMode: false
+    useInlineMode: false,
+    
+    // Adds a padding on the left and right of the sheet with this amount. Defaults to zero (no padding)
+    horizontalPadding: 0,
+    
+    // Sets the maximum width allowed for the sheet. This defaults to nil and doesn't limit the width.
+    maxWidth: nil
 )
 
 let sheetController = SheetViewController(

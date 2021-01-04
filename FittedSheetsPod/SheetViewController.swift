@@ -63,10 +63,7 @@ public class SheetViewController: UIViewController {
         }
     }
     
-    public static var minimumSpaceAbovePullBar: CGFloat {
-        get { return SheetOptions.default._minimumSpaceAbovePullBar }
-        set { SheetOptions.default._minimumSpaceAbovePullBar = newValue }
-    }
+    public static var minimumSpaceAbovePullBar: CGFloat = 0
     public var minimumSpaceAbovePullBar: CGFloat {
         didSet {
             if self.isViewLoaded {
@@ -100,37 +97,25 @@ public class SheetViewController: UIViewController {
         }
     }
     
-    public static var cornerRadius: CGFloat {
-        get { return SheetOptions.default._cornerRadius }
-        set { SheetOptions.default._cornerRadius = newValue }
-    }
+    public static var cornerRadius: CGFloat = 12
     public var cornerRadius: CGFloat {
         get { return self.contentViewController.cornerRadius }
         set { self.contentViewController.cornerRadius = newValue }
     }
     
-    public static var gripSize: CGSize {
-        get { return SheetOptions.default._gripSize }
-        set { SheetOptions.default._gripSize = newValue }
-    }
+    public static var gripSize: CGSize = CGSize (width: 50, height: 6)
     public var gripSize: CGSize {
         get { return self.contentViewController.gripSize }
         set { self.contentViewController.gripSize = newValue }
     }
     
-    public static var gripColor: UIColor {
-        get { return SheetOptions.default._gripColor }
-        set { SheetOptions.default._gripColor = newValue }
-    }
+    public static var gripColor: UIColor = UIColor(white: 0.868, black: 0.1)
     public var gripColor: UIColor? {
         get { return self.contentViewController.gripColor }
         set { self.contentViewController.gripColor = newValue }
     }
     
-    public static var pullBarBackgroundColor: UIColor {
-        get { return SheetOptions.default._pullBarBackgroundColor }
-        set { SheetOptions.default._pullBarBackgroundColor = newValue }
-    }
+    public static var pullBarBackgroundColor: UIColor = UIColor.clear
     public var pullBarBackgroundColor: UIColor? {
         get { return self.contentViewController.pullBarBackgroundColor }
         set { self.contentViewController.pullBarBackgroundColor = newValue }
@@ -182,12 +167,12 @@ public class SheetViewController: UIViewController {
         self.sizes = sizes.count > 0 ? sizes : [.intrinsic]
         self.options = options
         self.transition = SheetTransition(options: options)
-        self.minimumSpaceAbovePullBar = options._minimumSpaceAbovePullBar
+        self.minimumSpaceAbovePullBar = SheetViewController.minimumSpaceAbovePullBar
         super.init(nibName: nil, bundle: nil)
-        self.gripColor = options._gripColor
-        self.gripSize = options._gripSize
-        self.pullBarBackgroundColor = options._pullBarBackgroundColor
-        self.cornerRadius = options._cornerRadius
+        self.gripColor = SheetViewController.gripColor
+        self.gripSize = SheetViewController.gripSize
+        self.pullBarBackgroundColor = SheetViewController.pullBarBackgroundColor
+        self.cornerRadius = SheetViewController.cornerRadius
         self.updateOrderedSizes()
         self.modalPresentationStyle = .custom
         self.transitioningDelegate = self
@@ -334,7 +319,11 @@ public class SheetViewController: UIViewController {
         self.contentViewController.delegate = self
         Constraints(for: self.contentViewController.view) {
             $0.left.pinToSuperview().priority = UILayoutPriority(999)
-            $0.left.pinToSuperview(inset: 0, relation: .greaterThanOrEqual)
+            $0.left.pinToSuperview(inset: self.options.horizontalPadding, relation: .greaterThanOrEqual)
+            if let maxWidth = self.options.maxWidth {
+                $0.width.set(maxWidth, relation: .lessThanOrEqual)
+            }
+            
             $0.centerX.alignWithSuperview()
             self.contentViewHeightConstraint = $0.height.set(self.height(for: self.currentSize))
             
@@ -342,7 +331,7 @@ public class SheetViewController: UIViewController {
             if (self.options.useFullScreenMode) {
                 top = 0
             } else {
-                top = max(12, UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 12)
+                top = max(12, UIApplication.shared.windows.first(where:  { $0.isKeyWindow })?.safeAreaInsets.top ?? 12)
             }
             $0.bottom.pinToSuperview()
             $0.top.pinToSuperview(inset: top, relation: .greaterThanOrEqual).priority = UILayoutPriority(999)

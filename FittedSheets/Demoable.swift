@@ -16,6 +16,6 @@ protocol Demoable {
 
 extension Demoable {
     func buildDemo() -> SheetViewController {
-        self.buildDemo(useInlineMode: false)
+        return self.buildDemo(useInlineMode: false)
     }
 }

@@ -72,6 +72,8 @@
 		F8C1A06D24E2FF6B00807078 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8C1A06B24E2FF6B00807078 /* Localizable.strings */; };
 		F8C1A07024E3017F00807078 /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C1A06F24E3017F00807078 /* Localize.swift */; };
 		F8C1A07224E4929900807078 /* RecycledDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C1A07124E4929900807078 /* RecycledDemo.swift */; };
+		F8FAC6B425A38D570042A307 /* HorizontalPaddingDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FAC6B325A38D570042A307 /* HorizontalPaddingDemo.swift */; };
+		F8FAC6B925A3930F0042A307 /* MaxWidthDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FAC6B825A3930F0042A307 /* MaxWidthDemo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,6 +189,8 @@
 		F8C1A06C24E2FF6B00807078 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F8C1A06F24E3017F00807078 /* Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localize.swift; sourceTree = "<group>"; };
 		F8C1A07124E4929900807078 /* RecycledDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecycledDemo.swift; sourceTree = "<group>"; };
+		F8FAC6B325A38D570042A307 /* HorizontalPaddingDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalPaddingDemo.swift; sourceTree = "<group>"; };
+		F8FAC6B825A3930F0042A307 /* MaxWidthDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxWidthDemo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -352,6 +356,8 @@
 				F8A42B6324D371C7005DE55B /* IntrensicAndFullscreenDemo.swift */,
 				F8A42B9924DB4577005DE55B /* IntrensicAndTrueFullscreenDemo.swift */,
 				F8C1A07124E4929900807078 /* RecycledDemo.swift */,
+				F8FAC6B325A38D570042A307 /* HorizontalPaddingDemo.swift */,
+				F8FAC6B825A3930F0042A307 /* MaxWidthDemo.swift */,
 			);
 			path = IntrensicDemo;
 			sourceTree = "<group>";
@@ -613,6 +619,7 @@
 				F8A42B6B24D37BB1005DE55B /* NavigationDemo.swift in Sources */,
 				F857D0B92204DA4E004C862F /* IntrinsicExampleViewController.swift in Sources */,
 				F8A42B6424D371C7005DE55B /* IntrensicAndFullscreenDemo.swift in Sources */,
+				F8FAC6B425A38D570042A307 /* HorizontalPaddingDemo.swift in Sources */,
 				C4E231E524E55E4E00D367FD /* BlurDemo.swift in Sources */,
 				F8A42B6924D37890005DE55B /* ResizingDemo.swift in Sources */,
 				F8A42B8C24DB1A67005DE55B /* InlineExamplesViewController.swift in Sources */,
@@ -622,6 +629,7 @@
 				F8A42B8424DA022F005DE55B /* NoClosingExampleViewController.swift in Sources */,
 				F8A42B7324D9FCC1005DE55B /* ScrollViewDemo.swift in Sources */,
 				F857D0AE2204D709004C862F /* TableViewExampleViewController.swift in Sources */,
+				F8FAC6B925A3930F0042A307 /* MaxWidthDemo.swift in Sources */,
 				F857D0B02204D71E004C862F /* ExampleTableViewController.swift in Sources */,
 				F8A42B9424DB2C04005DE55B /* MapDemo.swift in Sources */,
 				F8A42B6D24D9FC15005DE55B /* KeyboardDemo.swift in Sources */,

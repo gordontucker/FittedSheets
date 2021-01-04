@@ -11,15 +11,21 @@ import FittedSheetsPod
 
 class RecycledDemo: Demoable {
     static var shared: SheetViewController?
+    static var inlineShared: SheetViewController?
     var name: String {
         return "Recycled Sheet"
     }
     
     func buildDemo(useInlineMode: Bool) -> SheetViewController {
-        guard let shared = RecycledDemo.shared else {
+        guard let shared = useInlineMode ? RecycledDemo.inlineShared : RecycledDemo.shared else {
             let controller = IntrinsicExampleViewController.instantiate()
             let sheet = SheetViewController(controller: controller, options: SheetOptions(useInlineMode: useInlineMode))
-            RecycledDemo.shared = sheet
+            
+            if useInlineMode {
+                RecycledDemo.inlineShared = sheet
+            } else {
+                RecycledDemo.shared = sheet
+            }
             return sheet
         }
         return shared

@@ -588,6 +588,23 @@ public class SheetViewController: UIViewController {
     }
     
     /// Animates the sheet in, but only if presenting using the inline mode
+    public func animateIn(to view: UIView, in parent: UIViewController, size: SheetSize? = nil, duration: TimeInterval = 0.3, completion: (() -> Void)? = nil) {
+        
+        self.willMove(toParent: parent)
+        parent.addChild(self)
+        view.addSubview(self.view)
+        self.didMove(toParent: parent)
+        
+        self.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.view.topAnchor.constraint(equalTo: view.topAnchor),
+            self.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            self.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            self.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        self.animateIn(size: size, duration: duration, completion: completion)
+    }
+    
     public func animateIn(size: SheetSize? = nil, duration: TimeInterval = 0.3, completion: (() -> Void)? = nil) {
         guard self.options.useInlineMode else { return }
         guard self.view.superview != nil else {

@@ -141,22 +141,8 @@ let options = SheetOptions(
 let sheetController = SheetViewController(controller: controller, sizes: [.percent(0.3), .fullscreen], options: options)
 sheetController.allowGestureThroughOverlay = true
 
-// Add child
-sheetController.willMove(toParent: self)
-self.addChild(sheetController)
-view.addSubview(sheetController.view)
-sheetController.didMove(toParent: self)
-
-sheetController.view.translatesAutoresizingMaskIntoConstraints = false
-NSLayoutConstraint.activate([
-    sheetController.view.topAnchor.constraint(equalTo: view.topAnchor),
-    sheetController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-    sheetController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-    sheetController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-])
-
 // animate in
-sheetController.animateIn()
+sheetController.animateIn(to: view, in: self)
 ```
 
 ## Scrolling

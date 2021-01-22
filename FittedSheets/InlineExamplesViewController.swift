@@ -69,20 +69,6 @@ class InlineExamplesViewController: UIViewController {
     func presentDemo(_ demo: Demoable) {
         let sheet = demo.buildDemo(useInlineMode: true)
         
-        // Add child
-        sheet.willMove(toParent: self)
-        self.addChild(sheet)
-        self.containerView.addSubview(sheet.view)
-        sheet.didMove(toParent: self)
-        
-        sheet.view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            sheet.view.topAnchor.constraint(equalTo: self.containerView.topAnchor),
-            sheet.view.bottomAnchor.constraint(equalTo: self.containerView.bottomAnchor),
-            sheet.view.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor),
-            sheet.view.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor)
-        ])
-        
         sheet.didDismiss = { [weak self] _ in
             print("did dismiss")
             self?.mapView?.removeFromSuperview()
@@ -95,7 +81,7 @@ class InlineExamplesViewController: UIViewController {
         }
         
         // animate in
-        sheet.animateIn()
+        sheet.animateIn(to: self.containerView, in: self)
     }
     
     func addMapView() {

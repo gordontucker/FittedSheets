@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="akz-bf-O9l">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Only Close With Button Demo-->
+        <scene sceneID="HA1-y0-qQq">
+            <objects>
+                <viewController storyboardIdentifier="noclose" id="akz-bf-O9l" customClass="OnlyCloseWithButtonDemo" customModule="Demos" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Rbp-8G-b5w">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOy-az-SxU">
+                                <rect key="frame" x="20" y="103.5" width="374" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Ici-Eb-eXM"/>
+                                </constraints>
+                                <state key="normal" title="Close by tapping this button"/>
+                                <connections>
+                                    <action selector="closeTapped:" destination="akz-bf-O9l" eventType="touchUpInside" id="QCC-DP-JhY"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="900" text="Pulling and background don't dismiss this sheet." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LOd-CH-8YE">
+                                <rect key="frame" x="20" y="64" width="374" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="yp4-hv-cSk"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="LOd-CH-8YE" secondAttribute="trailing" constant="20" id="3hs-x5-5up"/>
+                            <constraint firstItem="yp4-hv-cSk" firstAttribute="trailing" secondItem="XOy-az-SxU" secondAttribute="trailing" constant="20" id="APh-f6-bFP"/>
+                            <constraint firstItem="XOy-az-SxU" firstAttribute="top" secondItem="LOd-CH-8YE" secondAttribute="bottom" constant="20" id="WzM-ya-eSv"/>
+                            <constraint firstItem="yp4-hv-cSk" firstAttribute="bottom" secondItem="XOy-az-SxU" secondAttribute="bottom" priority="899" constant="20" id="ZxJ-cA-nqB"/>
+                            <constraint firstItem="LOd-CH-8YE" firstAttribute="top" secondItem="yp4-hv-cSk" secondAttribute="top" constant="20" id="qwW-sX-kSS"/>
+                            <constraint firstItem="XOy-az-SxU" firstAttribute="leading" secondItem="yp4-hv-cSk" secondAttribute="leading" constant="20" id="sdI-T5-xgk"/>
+                            <constraint firstItem="LOd-CH-8YE" firstAttribute="leading" secondItem="yp4-hv-cSk" secondAttribute="leading" constant="20" id="vHo-QB-uAF"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ys4-LC-aXi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="163.768115942029" y="120.53571428571428"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

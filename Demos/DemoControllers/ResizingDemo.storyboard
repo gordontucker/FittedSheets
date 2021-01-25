@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dui-vS-nsA">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Resizing Demo-->
+        <scene sceneID="HkI-mH-NJO">
+            <objects>
+                <viewController storyboardIdentifier="resizing" id="dui-vS-nsA" customClass="ResizingDemo" customModule="Demos" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VpH-vC-AhW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XBn-WL-XJV">
+                                <rect key="frame" x="0.0" y="44" width="414" height="160"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EdM-4H-OeL">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="Fvv-iq-odA"/>
+                                        </constraints>
+                                        <state key="normal" title="Resize to 150 px"/>
+                                        <connections>
+                                            <action selector="resizeTo150:" destination="dui-vS-nsA" eventType="touchUpInside" id="I7a-To-Iik"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wzt-CU-6gY">
+                                        <rect key="frame" x="0.0" y="40" width="414" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="uV7-z8-vYa"/>
+                                        </constraints>
+                                        <state key="normal" title="Resize to 300 px"/>
+                                        <connections>
+                                            <action selector="resizeTo300:" destination="dui-vS-nsA" eventType="touchUpInside" id="WjE-GK-Qea"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UN6-Gy-nzW">
+                                        <rect key="frame" x="0.0" y="80" width="414" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="AcQ-Q6-xc8"/>
+                                        </constraints>
+                                        <state key="normal" title="Resize to 450 px"/>
+                                        <connections>
+                                            <action selector="resizeTo450:" destination="dui-vS-nsA" eventType="touchUpInside" id="rkl-M7-bDm"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QdP-xd-5cF">
+                                        <rect key="frame" x="0.0" y="120" width="414" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="92t-Y3-eea"/>
+                                        </constraints>
+                                        <state key="normal" title="Resize to 50 px margin from top"/>
+                                        <connections>
+                                            <action selector="resizeToMargin50:" destination="dui-vS-nsA" eventType="touchUpInside" id="gIc-O4-LRl"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="oEc-QV-aOy"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="oEc-QV-aOy" firstAttribute="trailing" secondItem="XBn-WL-XJV" secondAttribute="trailing" id="37G-Ja-cMq"/>
+                            <constraint firstItem="XBn-WL-XJV" firstAttribute="top" secondItem="oEc-QV-aOy" secondAttribute="top" id="3aP-Fw-Txn"/>
+                            <constraint firstItem="XBn-WL-XJV" firstAttribute="leading" secondItem="oEc-QV-aOy" secondAttribute="leading" id="NrZ-mq-o9t"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dsb-Z9-7TZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="417" y="-222"/>
+        </scene>
+    </scenes>
+</document>

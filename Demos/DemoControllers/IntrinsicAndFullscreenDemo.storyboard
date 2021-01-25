@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9wQ-Wl-U2O">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Embeded Intrinsic Height-->
+        <scene sceneID="Akz-ua-MZs">
+            <objects>
+                <viewController storyboardIdentifier="intrinsic" id="9wQ-Wl-U2O" customClass="IntrinsicAndFullscreenDemo" customModule="Demos" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3GG-Nu-il3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="666"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This label is a fixed height of 180. There should be an 8px red border above and below the label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8X9-c1-hKv">
+                                <rect key="frame" x="16" y="8" width="343" height="650"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" priority="999" constant="180" id="5kw-kx-Jpn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8vH-Si-Xvj">
+                                <rect key="frame" x="0.0" y="658" width="375" height="8"/>
+                                <color key="backgroundColor" red="0.93333333330000001" green="0.31372549020000001" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="8" id="oy3-eT-wfC"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SK0-9W-2v0">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="8"/>
+                                <color key="backgroundColor" red="0.93333333330000001" green="0.31372549020000001" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="8" id="5Ga-IU-264"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="wfz-E6-9Vs"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="8X9-c1-hKv" firstAttribute="top" secondItem="SK0-9W-2v0" secondAttribute="bottom" id="9FK-nu-1t1"/>
+                            <constraint firstItem="SK0-9W-2v0" firstAttribute="leading" secondItem="wfz-E6-9Vs" secondAttribute="leading" id="DOe-OB-sac"/>
+                            <constraint firstAttribute="trailing" secondItem="8X9-c1-hKv" secondAttribute="trailing" constant="16" id="RRf-0z-j97"/>
+                            <constraint firstItem="8vH-Si-Xvj" firstAttribute="top" secondItem="8X9-c1-hKv" secondAttribute="bottom" id="Zdh-zh-aYb"/>
+                            <constraint firstItem="SK0-9W-2v0" firstAttribute="top" secondItem="wfz-E6-9Vs" secondAttribute="top" id="ZwU-ok-JXg"/>
+                            <constraint firstItem="8X9-c1-hKv" firstAttribute="leading" secondItem="wfz-E6-9Vs" secondAttribute="leading" constant="16" id="cTL-2Q-KbH"/>
+                            <constraint firstItem="wfz-E6-9Vs" firstAttribute="trailing" secondItem="8vH-Si-Xvj" secondAttribute="trailing" id="m9F-yP-IKp"/>
+                            <constraint firstItem="wfz-E6-9Vs" firstAttribute="bottom" secondItem="8vH-Si-Xvj" secondAttribute="bottom" id="p0O-00-8n0"/>
+                            <constraint firstAttribute="trailing" secondItem="SK0-9W-2v0" secondAttribute="trailing" id="sq2-rL-7sd"/>
+                            <constraint firstItem="8vH-Si-Xvj" firstAttribute="leading" secondItem="wfz-E6-9Vs" secondAttribute="leading" id="vyg-ds-BWa"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Embeded Intrinsic Height" id="OTM-vZ-9m0"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="666"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ceb-A9-wfo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-342" y="-218"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

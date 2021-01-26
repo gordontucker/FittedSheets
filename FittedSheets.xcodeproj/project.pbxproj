@@ -12,7 +12,7 @@
 		F803416A212625DD00EAD717 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8034168212625DD00EAD717 /* Main.storyboard */; };
 		F803416C212625DF00EAD717 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F803416B212625DF00EAD717 /* Assets.xcassets */; };
 		F803416F212625DF00EAD717 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F803416D212625DF00EAD717 /* LaunchScreen.storyboard */; };
-		F83058DA25BF688300EE17E1 /* NoPullBarDemo copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83058D925BF688300EE17E1 /* NoPullBarDemo copy.swift */; };
+		F83058DA25BF688300EE17E1 /* NoPullBarDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83058D925BF688300EE17E1 /* NoPullBarDemo.swift */; };
 		F83058DE25BF6A2F00EE17E1 /* TableViewDemo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8799C8625BF59D60095F24F /* TableViewDemo.storyboard */; };
 		F83058E025BF6A3100EE17E1 /* TableViewControllerDemo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8799C8D25BF5A820095F24F /* TableViewControllerDemo.storyboard */; };
 		F83058E225BF6A3600EE17E1 /* ScrollViewDemo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8799C8125BF59230095F24F /* ScrollViewDemo.storyboard */; };
@@ -111,7 +111,7 @@
 		F803419C212F208300EAD717 /* Yalta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Yalta.swift; sourceTree = "<group>"; };
 		F83058D025BF64B900EE17E1 /* IntrinsicInNavigationDemo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IntrinsicInNavigationDemo.storyboard; sourceTree = "<group>"; };
 		F83058D625BF65DE00EE17E1 /* IntrinsicAndFullscreenDemo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IntrinsicAndFullscreenDemo.storyboard; sourceTree = "<group>"; };
-		F83058D925BF688300EE17E1 /* NoPullBarDemo copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoPullBarDemo copy.swift"; sourceTree = "<group>"; };
+		F83058D925BF688300EE17E1 /* NoPullBarDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPullBarDemo.swift; sourceTree = "<group>"; };
 		F83058ED25BF706F00EE17E1 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		F83058F125BF710E00EE17E1 /* MaxMinHeightDemo copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MaxMinHeightDemo copy.swift"; sourceTree = "<group>"; };
 		F83058F925BF777400EE17E1 /* SlideInAnimationBug118ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInAnimationBug118ViewController.swift; sourceTree = "<group>"; };
@@ -302,7 +302,7 @@
 				F857D0A62204B856004C862F /* SimpleDemo.swift */,
 				F8799C9925BF5EB70095F24F /* ColorDemo.swift */,
 				F8A42B7624D9FD3D005DE55B /* NestedSheetsDemo.swift */,
-				F83058D925BF688300EE17E1 /* NoPullBarDemo copy.swift */,
+				F83058D925BF688300EE17E1 /* NoPullBarDemo.swift */,
 				F8A42B7A24D9FFBE005DE55B /* ClearPullBarDemo.swift */,
 				F8A42B5F24D36DE3005DE55B /* MapDemo.swift */,
 				F83058F125BF710E00EE17E1 /* MaxMinHeightDemo copy.swift */,
@@ -472,7 +472,7 @@
 				F8A42B6424D371C7005DE55B /* IntrinsicAndFullscreenDemo.swift in Sources */,
 				F8FAC6B425A38D570042A307 /* HorizontalPaddingDemo.swift in Sources */,
 				C4E231E524E55E4E00D367FD /* BlurDemo.swift in Sources */,
-				F83058DA25BF688300EE17E1 /* NoPullBarDemo copy.swift in Sources */,
+				F83058DA25BF688300EE17E1 /* NoPullBarDemo.swift in Sources */,
 				F8A42B8C24DB1A67005DE55B /* InlineDemosViewController.swift in Sources */,
 				F8A42B6024D36DE3005DE55B /* MapDemo.swift in Sources */,
 				F8A42B8424DA022F005DE55B /* OnlyCloseWithButtonDemo.swift in Sources */,

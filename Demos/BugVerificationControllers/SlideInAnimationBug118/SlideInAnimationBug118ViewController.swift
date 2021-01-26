@@ -36,13 +36,36 @@ class SlideInAnimationBug118ViewController: UIViewController, Demoable {
             
             let newHeight = selfie.collectionView.contentSize.height
             if newHeight > 0 && newHeight != selfie.collectionViewHeightConstraint.constant {
-                //FIXME: Causes sheet dim overlay to animate strangely
+                //FIXME: Causes sheet dim overlay to animate strangely.
+                // Moving the
                 print(selfie.collectionView.contentSize.height)
                 UIView.performWithoutAnimation {
                     selfie.collectionViewHeightConstraint.constant = newHeight
                 }
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+/*
+        // By moving the section from viewDidLoad to the commented out code block below, the bug goes away.
+         
+        contentSizeObserverToken?.invalidate()
+        contentSizeObserverToken = collectionView.observe(\UICollectionView.contentSize, options: [.new]) { [weak self] (object, change) in
+            guard let selfie = self else { return }
+
+            let newHeight = selfie.collectionView.contentSize.height
+            if newHeight > 0 && newHeight != selfie.collectionViewHeightConstraint.constant {
+                //FIXME: Causes sheet dim overlay to animate strangely.
+                // Moving the
+                print(selfie.collectionView.contentSize.height)
+                UIView.performWithoutAnimation {
+                    selfie.collectionViewHeightConstraint.constant = newHeight
+                }
+            }
+        }
+ */
     }
     
     static func openDemo(from parent: UIViewController, in view: UIView?) {

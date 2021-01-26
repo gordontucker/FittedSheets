@@ -34,8 +34,13 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
             
             sheet.contentViewController.view.transform = .identity
             containerView.addSubview(sheet.view)
-            sheet.view.setNeedsLayout()
-            sheet.view.layoutIfNeeded()
+            //sheet.view.frame = containerView.frame
+            Constraints(for: sheet.view) {
+                $0.edges.pinToSuperview()
+            }
+            UIView.performWithoutAnimation {
+                sheet.view.layoutIfNeeded()
+            }
             sheet.contentViewController.updatePreferredHeight()
             sheet.resize(to: sheet.currentSize, animated: false)
             let contentView = sheet.contentViewController.contentView
@@ -43,6 +48,10 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
             sheet.overlayView.alpha = 0
             
             let heightPercent = contentView.bounds.height / UIScreen.main.bounds.height
+            
+            UIView.performWithoutAnimation {
+                sheet.view.layoutIfNeeded()
+            }
             
             // Use a normal animation to animate the shadown and background view
             UIView.animate(withDuration: self.options.transitionDuration * 0.6, delay: 0, options: [.curveEaseOut], animations: {

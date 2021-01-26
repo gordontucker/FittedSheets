@@ -11,11 +11,11 @@ Minimum requirement:
 ## About
 This project is to enable easily presenting view controllers in a bottom sheet that supports scrollviews and multiple sizes. Contributions and feedback are very welcome.  
 
-The bottom sheet tries to be smart about the height it takes. If the view controller is smaller than the sizes specified, it will only grow as large as the intrensic height of the presented view controller. If it is larger, it will stop at each height specified in the initializer or setSizes function.
+The bottom sheet tries to be smart about the height it takes. If the view controller is smaller than the sizes specified, it will only grow as large as the intrinsic height of the presented view controller. If it is larger, it will stop at each height specified in the initializer or setSizes function.
 
-| Intrensic Heights | Fullscreen Modal | True Fullscreen | Scrolling | Inline |
+| Intrinsic Heights | Fullscreen Modal | True Fullscreen | Scrolling | Inline |
 |:-:|:-:|:-:|:-:|:-:|
-| ![Intrensid Heights](./Screens/IntrensicHeight.gif) | ![Fullscreen Modal](./Screens/FullscreenHeight.gif) | ![True Fullscreen](./Screens/TrueFullscreenHeight.gif) | ![Scrolling](./Screens/Scrolling.gif) | ![Inline](./Screens/Inline.gif) | 
+| ![Intrensid Heights](./Screens/IntrinsicHeight.gif) | ![Fullscreen Modal](./Screens/FullscreenHeight.gif) | ![True Fullscreen](./Screens/TrueFullscreenHeight.gif) | ![Scrolling](./Screens/Scrolling.gif) | ![Inline](./Screens/Inline.gif) | 
 
 ## Usage
 
@@ -50,8 +50,8 @@ let options = SheetOptions(
     // Extends the background behind the pull bar or not
     shouldExtendBackground: true,
     
-    // Attempts to use intrensic heights on navigation controllers. This does not work well in combination with keyboards without your code handling it.
-    setIntrensicHeightOnNavigationControllers: true, 
+    // Attempts to use intrinsic heights on navigation controllers. This does not work well in combination with keyboards without your code handling it.
+    setIntrinsicHeightOnNavigationControllers: true, 
     
     // Pulls the view controller behind the safe area top, especially useful when embedding navigation controllers
     useFullScreenMode: true,
@@ -71,7 +71,7 @@ let options = SheetOptions(
 
 let sheetController = SheetViewController(
     controller: controller, 
-    sizes: [.intrensic, .percent(0.25), .fixed(200), .fullScreen])
+    sizes: [.intrinsic, .percent(0.25), .fixed(200), .fullScreen])
     
     
 // The size of the grip in the pull bar

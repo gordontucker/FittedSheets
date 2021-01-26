@@ -18,7 +18,7 @@ let package = Package(
         .library(name: "FittedSheets", targets: ["FittedSheets"]),
     ],
     targets: [
-        .target(name: "FittedSheets", path: "FittedSheetsPod"),
+        .target(name: "FittedSheets", path: "FittedSheets"),
     ],
     swiftLanguageVersions: [.v5]
 )

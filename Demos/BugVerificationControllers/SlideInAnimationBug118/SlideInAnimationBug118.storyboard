@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sbo-BB-anW">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Slide In Animation Bug118 View Controller-->
+        <scene sceneID="3HO-4W-IMU">
+            <objects>
+                <viewController storyboardIdentifier="AddTagsViewController" id="sbo-BB-anW" customClass="SlideInAnimationBug118ViewController" customModule="Demos" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ab1-Wx-ijV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Add Tags" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qx9-Js-AXJ">
+                                <rect key="frame" x="171.5" y="64" width="71" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wX7-82-Vya">
+                                <rect key="frame" x="0.0" y="109.5" width="414" height="752.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="uQH-sx-unA"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="4" id="uql-Ds-PX5">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <connections>
+                                    <outlet property="dataSource" destination="sbo-BB-anW" id="ZRF-o5-fZM"/>
+                                    <outlet property="delegate" destination="sbo-BB-anW" id="toH-8X-TDa"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ISE-nA-WiB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="wX7-82-Vya" firstAttribute="leading" secondItem="Ab1-Wx-ijV" secondAttribute="leading" id="Bsc-R5-sGU"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="wX7-82-Vya" secondAttribute="bottom" priority="999" constant="25" id="GFd-Lp-IyE"/>
+                            <constraint firstItem="ISE-nA-WiB" firstAttribute="bottom" secondItem="wX7-82-Vya" secondAttribute="bottom" priority="998" id="IZ7-1r-GEZ"/>
+                            <constraint firstItem="Qx9-Js-AXJ" firstAttribute="top" secondItem="ISE-nA-WiB" secondAttribute="top" constant="20" id="TEQ-Jd-bDX"/>
+                            <constraint firstItem="Qx9-Js-AXJ" firstAttribute="centerX" secondItem="ISE-nA-WiB" secondAttribute="centerX" id="WB7-9f-sp4"/>
+                            <constraint firstAttribute="trailing" secondItem="wX7-82-Vya" secondAttribute="trailing" id="lVv-60-sJ2"/>
+                            <constraint firstItem="wX7-82-Vya" firstAttribute="top" secondItem="Qx9-Js-AXJ" secondAttribute="bottom" constant="25" id="wzg-G8-4AB"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="wX7-82-Vya" id="Npr-22-Umb"/>
+                        <outlet property="collectionViewHeightConstraint" destination="uQH-sx-unA" id="QbW-Gz-XA3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dif-ad-bEw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="971" y="94"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1130"
+   LastUpgradeVersion = "1160"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F857D0902204B71F004C862F"
-               BuildableName = "FittedSheets.framework"
-               BlueprintName = "FittedSheets"
+               BlueprintIdentifier = "F8034160212625DD00EAD717"
+               BuildableName = "Demos.app"
+               BlueprintName = "Demos"
                ReferencedContainer = "container:FittedSheets.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,6 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F8034174212625DF00EAD717"
+               BuildableName = "FittedSheetsTests.xctest"
+               BlueprintName = "FittedSheetsTests"
+               ReferencedContainer = "container:FittedSheets.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F803417F212625DF00EAD717"
+               BuildableName = "FittedSheetsUITests.xctest"
+               BlueprintName = "FittedSheetsUITests"
+               ReferencedContainer = "container:FittedSheets.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -40,6 +60,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "F8034160212625DD00EAD717"
+            BuildableName = "Demos.app"
+            BlueprintName = "Demos"
+            ReferencedContainer = "container:FittedSheets.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -47,15 +77,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F857D0902204B71F004C862F"
-            BuildableName = "FittedSheets.framework"
-            BlueprintName = "FittedSheets"
+            BlueprintIdentifier = "F8034160212625DD00EAD717"
+            BuildableName = "Demos.app"
+            BlueprintName = "Demos"
             ReferencedContainer = "container:FittedSheets.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

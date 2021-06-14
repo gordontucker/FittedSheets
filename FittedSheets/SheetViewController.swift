@@ -54,6 +54,10 @@ public class SheetViewController: UIViewController {
     public var childViewController: UIViewController {
         return self.contentViewController.childViewController
     }
+
+    public override var childForStatusBarStyle: UIViewController? {
+        childViewController
+    }
     
     public static var hasBlurBackground = false
     public var hasBlurBackground = SheetViewController.hasBlurBackground {

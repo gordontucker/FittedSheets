@@ -205,27 +205,23 @@ public class SheetViewController: UIViewController {
         self.additionalSafeAreaInsets = UIEdgeInsets(top: -self.options.pullBarHeight, left: 0, bottom: 0, right: 0)
         
         self.view.backgroundColor = UIColor.clear
+        self.addPanGestureRecognizer()
         if !options.useInlineMode {
-            self.addPanGestureRecognizer()
             self.addOverlay()
             self.addBlurBackground()
-            self.addContentView()
-            self.addOverlayTapView()
-            self.registerKeyboardObservers()
-            self.resize(to: self.sizes.first ?? .intrinsic, animated: false)
         }
+        self.addContentView()
+        self.addOverlayTapView()
+        self.registerKeyboardObservers()
+        self.resize(to: self.sizes.first ?? .intrinsic, animated: false)
     }
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         if options.useInlineMode {
-            self.addPanGestureRecognizer()
             self.addOverlay()
             self.addBlurBackground()
-            self.addContentView()
-            self.addOverlayTapView()
-            self.registerKeyboardObservers()
         }
         self.updateOrderedSizes()
         self.contentViewController.updatePreferredHeight()

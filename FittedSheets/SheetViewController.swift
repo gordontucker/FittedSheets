@@ -289,26 +289,19 @@ public class SheetViewController: UIViewController {
     }
     
     private func addOverlay() {
-        if let nav = self.parentVC?.navigationController, options.useSecondOverlay {
-            var frame = nav.navigationBar.frame
-            if frame.origin.y != 0 {
-                frame = CGRect(x: frame.origin.x,
-                               y: 0,
-                               width: frame.size.width,
-                               height: (options.navBarHeight ?? frame.size.height) + UIApplication.shared.statusBarFrame.height)
-            }
-
-            secondOverlayView = UIView(frame: frame)
-            nav.view.addSubview(secondOverlayView!)
-            secondOverlayView?.backgroundColor = self.hasBlurBackground ? .clear : self.overlayColor
-        }
-        
         self.view.addSubview(self.overlayView)
         Constraints(for: self.overlayView) {
             $0.edges(.top, .left, .right, .bottom).pinToSuperview()
         }
         self.overlayView.isUserInteractionEnabled = false
         self.overlayView.backgroundColor = self.hasBlurBackground ? .clear : self.overlayColor
+        
+        if let nav = self.parentVC?.navigationController, let parentView = self.parentVC?.view {
+            let viewRect = parentView.convert(parentView.bounds, to: nil)
+            secondOverlayView = UIView(frame: CGRect(x: 0, y: 0, width: viewRect.width, height: viewRect.origin.y))
+            nav.view.addSubview(secondOverlayView!)
+            secondOverlayView?.backgroundColor = self.hasBlurBackground ? .clear : self.overlayColor
+        }
     }
     
     private func addBlurBackground() {

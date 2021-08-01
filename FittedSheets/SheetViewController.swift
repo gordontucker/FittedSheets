@@ -292,9 +292,7 @@ public class SheetViewController: UIViewController {
         if let nav = self.parentVC?.navigationController {
             var frame = nav.navigationBar.frame
             if frame.origin.y != 0 {
-                // covers status bar
-                frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width,
-                               height: frame.size.height + abs(frame.origin.y) + UIApplication.shared.statusBarFrame.height)
+                frame = CGRect(x: frame.origin.x, y: 0, width: frame.size.width, height: frame.size.height + UIApplication.shared.statusBarFrame.height)
             }
 
             secondOverlayView = UIView(frame: frame)

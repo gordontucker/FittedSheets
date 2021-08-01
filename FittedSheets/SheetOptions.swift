@@ -20,7 +20,7 @@ public struct SheetOptions {
     }
     
     public var pullBarHeight: CGFloat = 24
-    
+    public var navBarHeight: CGFloat? = nil
     public var presentingViewCornerRadius: CGFloat = 12
     public var shouldExtendBackground = true
     public var setIntrinsicHeightOnNavigationControllers = true
@@ -67,7 +67,8 @@ public struct SheetOptions {
                 shrinkPresentingViewController: Bool? = nil,
                 useInlineMode: Bool? = nil,
                 horizontalPadding: CGFloat? = nil,
-                maxWidth: CGFloat? = nil) {
+                maxWidth: CGFloat? = nil,
+                navBarHeight: CGFloat? = nil) {
         let defaultOptions = SheetOptions.default
         self.pullBarHeight = pullBarHeight ?? defaultOptions.pullBarHeight
         self.presentingViewCornerRadius = presentingViewCornerRadius ?? defaultOptions.presentingViewCornerRadius
@@ -79,6 +80,7 @@ public struct SheetOptions {
         self.horizontalPadding = horizontalPadding ?? defaultOptions.horizontalPadding
         let maxWidth = maxWidth ?? defaultOptions.maxWidth
         self.maxWidth = maxWidth == 0 ? nil : maxWidth
+        self.navBarHeight = navBarHeight
     }
     
     @available(*, unavailable, message: "cornerRadius, minimumSpaceAbovePullBar, gripSize and gripColor are now properties on SheetViewController. Use them instead.")

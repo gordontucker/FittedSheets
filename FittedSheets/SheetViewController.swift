@@ -224,6 +224,7 @@ public class SheetViewController: UIViewController {
     
     public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        self.overlayView.removeFromSuperview()
         if let presenter = self.transition.presenter, self.options.shrinkPresentingViewController {
             self.transition.restorePresentor(presenter, completion: { _ in
                 self.didDismiss?(self)
@@ -274,7 +275,7 @@ public class SheetViewController: UIViewController {
     }
     
     private func addOverlay() {
-        self.view.addSubview(self.overlayView)
+        UIApplication.shared.keyWindow?.addSubview(overlayView)
         Constraints(for: self.overlayView) {
             $0.edges(.top, .left, .right, .bottom).pinToSuperview()
         }

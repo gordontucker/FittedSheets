@@ -206,10 +206,8 @@ public class SheetViewController: UIViewController {
         
         self.view.backgroundColor = UIColor.clear
         self.addPanGestureRecognizer()
-        if !options.useInlineMode {
-            self.addOverlay()
-            self.addBlurBackground()
-        }
+        self.addOverlay()
+        self.addBlurBackground()
         self.addContentView()
         self.addOverlayTapView()
         self.registerKeyboardObservers()
@@ -221,7 +219,6 @@ public class SheetViewController: UIViewController {
         
         if options.useInlineMode {
             self.addOverlay()
-            self.addBlurBackground()
         }
         self.updateOrderedSizes()
         self.contentViewController.updatePreferredHeight()
@@ -285,14 +282,17 @@ public class SheetViewController: UIViewController {
     }
     
     private func addOverlay() {
-        self.view.addSubview(self.overlayView)
-        Constraints(for: self.overlayView) {
-            $0.edges(.top, .left, .right, .bottom).pinToSuperview()
+        if self.overlayView.superview == nil {
+            self.view.addSubview(self.overlayView)
+            Constraints(for: self.overlayView) {
+                $0.edges(.top, .left, .right, .bottom).pinToSuperview()
+            }
+            self.overlayView.isUserInteractionEnabled = false
+            self.overlayView.backgroundColor = self.hasBlurBackground ? .clear : self.overlayColor
         }
-        self.overlayView.isUserInteractionEnabled = false
-        self.overlayView.backgroundColor = self.hasBlurBackground ? .clear : self.overlayColor
         
         if let nav = self.parentVC?.navigationController, let parentView = self.parentVC?.view {
+            secondOverlayView?.removeFromSuperview()
             let viewRect = parentView.convert(parentView.bounds, to: nil)
             secondOverlayView = UIView(frame: CGRect(x: 0, y: 0, width: viewRect.width, height: viewRect.origin.y))
             nav.view.addSubview(secondOverlayView!)

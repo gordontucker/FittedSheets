@@ -275,10 +275,11 @@ public class SheetViewController: UIViewController {
     }
     
     private func addOverlay() {
-        if let nav = self.parent?.navigationController else {
+        if let nav = self.parent?.navigationController {
             nav.view.addSubview(overlayView)
+        } else {
+            parent?.view.addSubview(overlayView)
         }
-        parent?.view.addSubview(overlayView)
 
         Constraints(for: self.overlayView) {
             $0.edges(.top, .left, .right, .bottom).pinToSuperview()

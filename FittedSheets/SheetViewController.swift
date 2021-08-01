@@ -289,7 +289,7 @@ public class SheetViewController: UIViewController {
     }
     
     private func addOverlay() {
-        if let nav = self.parentVC?.navigationController {
+        if let nav = self.parentVC?.navigationController, options.useSecondOverlay {
             var frame = nav.navigationBar.frame
             if frame.origin.y != 0 {
                 frame = CGRect(x: frame.origin.x,

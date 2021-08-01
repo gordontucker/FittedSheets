@@ -64,6 +64,7 @@ public class SheetViewController: UIViewController {
         didSet {
             blurView.isHidden = !hasBlurBackground
             overlayView.backgroundColor = hasBlurBackground ? .clear : self.overlayColor
+            secondOverlayView?.backgroundColor = hasBlurBackground ? .clear : self.overlayColor
         }
     }
     
@@ -82,6 +83,7 @@ public class SheetViewController: UIViewController {
     public var overlayColor = SheetViewController.overlayColor {
         didSet {
             self.overlayView.backgroundColor = self.hasBlurBackground ? .clear : self.overlayColor
+            self.secondOverlayView?.backgroundColor = hasBlurBackground ? .clear : self.overlayColor
         }
     }
     
@@ -139,6 +141,7 @@ public class SheetViewController: UIViewController {
     
     public private(set) var contentViewController: SheetContentViewController
     var overlayView = UIView()
+    private var secondOverlayView: UIView?
     var blurView = UIVisualEffectView()
     var overlayTapView = UIView()
     var overflowView = UIView()
@@ -202,17 +205,17 @@ public class SheetViewController: UIViewController {
         self.additionalSafeAreaInsets = UIEdgeInsets(top: -self.options.pullBarHeight, left: 0, bottom: 0, right: 0)
         
         self.view.backgroundColor = UIColor.clear
+    }
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         self.addPanGestureRecognizer()
         self.addOverlay()
         self.addBlurBackground()
         self.addContentView()
         self.addOverlayTapView()
         self.registerKeyboardObservers()
-        self.resize(to: self.sizes.first ?? .intrinsic, animated: false)
-    }
-    
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         self.updateOrderedSizes()
         self.contentViewController.updatePreferredHeight()
         self.resize(to: self.currentSize, animated: false)
@@ -224,7 +227,7 @@ public class SheetViewController: UIViewController {
     
     public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        self.overlayView.removeFromSuperview()
+        self.secondOverlayView?.removeFromSuperview()
         if let presenter = self.transition.presenter, self.options.shrinkPresentingViewController {
             self.transition.restorePresentor(presenter, completion: { _ in
                 self.didDismiss?(self)
@@ -275,12 +278,19 @@ public class SheetViewController: UIViewController {
     }
     
     private func addOverlay() {
-        if let nav = self.parent?.navigationController {
-            nav.view.addSubview(overlayView)
-        } else {
-            parent?.view.addSubview(overlayView)
-        }
+        if let nav = self.parentVC?.navigationController {
+            var frame = nav.navigationBar.frame
+            if frame.origin.y > 0 {
+                // covers status bar
+                frame = CGRect(x: frame.origin.x, y: 0, width: frame.size.width, height: frame.size.height + frame.origin.y)
+            }
 
+            secondOverlayView = UIView(frame: frame)
+            nav.view.addSubview(secondOverlayView!)
+            secondOverlayView?.backgroundColor = self.hasBlurBackground ? .clear : self.overlayColor
+        }
+        
+        self.view.addSubview(self.overlayView)
         Constraints(for: self.overlayView) {
             $0.edges(.top, .left, .right, .bottom).pinToSuperview()
         }
@@ -390,6 +400,7 @@ public class SheetViewController: UIViewController {
                     self.contentViewHeightConstraint.constant = self.height(for: self.currentSize)
                     self.transition.setPresentor(percentComplete: 0)
                     self.overlayView.alpha = 1
+                    self.secondOverlayView?.alpha = 1
                 }, completion: { _ in
                     self.isPanning = false
                 })
@@ -401,6 +412,7 @@ public class SheetViewController: UIViewController {
                     let percent = max(0, min(1, offset / max(1, newHeight)))
                     self.transition.setPresentor(percentComplete: percent)
                     self.overlayView.alpha = 1 - percent
+                    self.secondOverlayView?.alpha = 1 - percent
                     self.contentViewController.view.transform = CGAffineTransform(translationX: 0, y: offset)
                 } else {
                     self.contentViewController.view.transform = CGAffineTransform.identity
@@ -428,6 +440,7 @@ public class SheetViewController: UIViewController {
                         self.view.backgroundColor = UIColor.clear
                         self.transition.setPresentor(percentComplete: 1)
                         self.overlayView.alpha = 0
+                        self.secondOverlayView?.alpha = 0
                     }, completion: { complete in
                         self.attemptDismiss(animated: false)
                     })
@@ -471,6 +484,7 @@ public class SheetViewController: UIViewController {
                     self.contentViewHeightConstraint.constant = newContentHeight
                     self.transition.setPresentor(percentComplete: 0)
                     self.overlayView.alpha = 1
+                    self.secondOverlayView?.alpha = 1
                     self.view.layoutIfNeeded()
                 }, completion: { complete in
                     self.isPanning = false
@@ -597,9 +611,12 @@ public class SheetViewController: UIViewController {
         }
     }
     
+    var parentVC: UIViewController?
+    
     /// Animates the sheet in, but only if presenting using the inline mode
     public func animateIn(to view: UIView, in parent: UIViewController, size: SheetSize? = nil, duration: TimeInterval = 0.3, completion: (() -> Void)? = nil) {
         
+        self.parentVC = parent
         self.willMove(toParent: parent)
         parent.addChild(self)
         view.addSubview(self.view)
@@ -627,6 +644,7 @@ public class SheetViewController: UIViewController {
         let contentView = self.contentViewController.view!
         contentView.transform = CGAffineTransform(translationX: 0, y: contentView.bounds.height)
         self.overlayView.alpha = 0
+        self.secondOverlayView?.alpha = 0
         self.updateOrderedSizes()
         
         UIView.animate(
@@ -634,6 +652,7 @@ public class SheetViewController: UIViewController {
             animations: {
                 contentView.transform = .identity
                 self.overlayView.alpha = 1
+                self.secondOverlayView?.alpha = 1
             },
             completion: { _ in
                 completion?()
@@ -655,6 +674,7 @@ public class SheetViewController: UIViewController {
             animations: {
                 contentView.transform = CGAffineTransform(translationX: 0, y: contentView.bounds.height)
                 self.overlayView.alpha = 0
+                self.secondOverlayView?.alpha = 0
             },
             completion: { _ in
                 self.view.removeFromSuperview()

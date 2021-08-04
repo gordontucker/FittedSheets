@@ -591,6 +591,13 @@ public class SheetViewController: UIViewController {
         }
     }
     
+    /// Recalculates the intrinsic height of the sheet based on the content, and updates the sheet height to match.
+    ///
+    /// **Note:** Only meant for use with `.intrinsic` sheet size
+    public func updateIntrinsicHeight() {
+        contentViewController.updatePreferredHeight()
+    }
+    
     /// Animates the sheet in, but only if presenting using the inline mode
     public func animateIn(to view: UIView, in parent: UIViewController, size: SheetSize? = nil, duration: TimeInterval = 0.3, completion: (() -> Void)? = nil) {
         

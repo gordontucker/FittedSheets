@@ -33,7 +33,8 @@ class ModalDemosViewController: UIViewController {
         HorizontalPaddingDemo.self,
         MaxWidthDemo.self,
         BlurDemo.self,
-        NestedSheetsDemo.self
+        NestedSheetsDemo.self,
+        RubberBandDemo.self
     ].sorted(by: { $0.name < $1.name })
     
     override func viewDidLoad() {

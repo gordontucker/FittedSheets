@@ -199,7 +199,7 @@ public class SheetViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.additionalSafeAreaInsets = UIEdgeInsets(top: -self.options.pullBarHeight, left: 0, bottom: 0, right: 0)
+        self.compatibleAdditionalSafeAreaInsets = UIEdgeInsets(top: -self.options.pullBarHeight, left: 0, bottom: 0, right: 0)
         
         self.view.backgroundColor = UIColor.clear
         self.addPanGestureRecognizer()
@@ -335,7 +335,7 @@ public class SheetViewController: UIViewController {
             if (self.options.useFullScreenMode) {
                 top = 0
             } else {
-                top = max(12, UIApplication.shared.windows.first(where:  { $0.isKeyWindow })?.safeAreaInsets.top ?? 12)
+                top = max(12, UIApplication.shared.windows.first(where:  { $0.isKeyWindow })?.compatibleSafeAreaInsets.top ?? 12)
             }
             $0.bottom.pinToSuperview()
             $0.top.pinToSuperview(inset: top, relation: .greaterThanOrEqual).priority = UILayoutPriority(999)
@@ -518,7 +518,7 @@ public class SheetViewController: UIViewController {
         if self.options.useFullScreenMode {
             fullscreenHeight = self.view.bounds.height - self.minimumSpaceAbovePullBar
         } else {
-            fullscreenHeight = self.view.bounds.height - self.view.safeAreaInsets.top - self.minimumSpaceAbovePullBar
+            fullscreenHeight = self.view.bounds.height - self.view.compatibleSafeAreaInsets.top - self.minimumSpaceAbovePullBar
         }
         switch (size) {
             case .fixed(let height):

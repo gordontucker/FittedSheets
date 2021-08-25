@@ -12,7 +12,7 @@ import PackageDescription
 let package = Package(
     name: "FittedSheets",
     platforms: [
-        .iOS(.v13), .tvOS(.v10), .macOS(.v10_12), .watchOS(.v3)
+        .iOS(.v11), .tvOS(.v10), .macOS(.v10_12), .watchOS(.v3)
     ],
     products: [
         .library(name: "FittedSheets", targets: ["FittedSheets"]),

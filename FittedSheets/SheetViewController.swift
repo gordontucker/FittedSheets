@@ -106,6 +106,12 @@ public class SheetViewController: UIViewController {
         get { return self.contentViewController.cornerRadius }
         set { self.contentViewController.cornerRadius = newValue }
     }
+
+    public static var cornerCurve: CALayerCornerCurve = .circular
+    public var cornerCurve: CALayerCornerCurve {
+        get { return self.contentViewController.cornerCurve }
+        set { self.contentViewController.cornerCurve = newValue }
+    }
     
     public static var gripSize: CGSize = CGSize (width: 50, height: 6)
     public var gripSize: CGSize {

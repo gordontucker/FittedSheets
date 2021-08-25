@@ -80,6 +80,9 @@ sheetController.gripSize = CGSize(width: 50, height: 6)
 // The color of the grip on the pull bar
 sheetController.gripColor = UIColor(white: 0.868, alpha: 1)
 
+// The corner curve of the sheet
+sheetController.cornerCurve = .continuous
+
 // The corner radius of the sheet
 sheetController.cornerRadius = 20
     

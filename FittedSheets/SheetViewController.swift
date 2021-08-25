@@ -107,7 +107,10 @@ public class SheetViewController: UIViewController {
         set { self.contentViewController.cornerRadius = newValue }
     }
 
+    @available(iOS 13.0, *)
     public static var cornerCurve: CALayerCornerCurve = .circular
+
+    @available(iOS 13.0, *)
     public var cornerCurve: CALayerCornerCurve {
         get { return self.contentViewController.cornerCurve }
         set { self.contentViewController.cornerCurve = newValue }

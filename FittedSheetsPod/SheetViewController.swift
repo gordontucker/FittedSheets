@@ -21,6 +21,13 @@ open class SheetViewController: UIViewController {
             self.handleView.backgroundColor = self.handleColor
         }
     }
+    
+    public var handleBarColor: UIColor = UIColor(white: 0.868, alpha: 1) {
+        didSet {
+            self.pullBarView.backgroundColor = self.handleBarColor
+        }
+    }
+    
     public var handleSize: CGSize = CGSize(width: 50, height: 6)
     public var handleTopEdgeInset: CGFloat = 9
     public var handleBottomEdgeInset: CGFloat = 9

@@ -93,6 +93,8 @@ public class SheetContentViewController: UIViewController {
         self.updatePreferredHeight()
         self.updateCornerRadius()
         self.setupOverflowView()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(contentSizeDidChange), name: UIContentSizeCategory.didChangeNotification, object: nil)
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -284,6 +286,10 @@ public class SheetContentViewController: UIViewController {
     
     @objc func pullBarTapped(_ gesture: UITapGestureRecognizer) {
         self.delegate?.pullBarTapped()
+    }
+
+    @objc func contentSizeDidChange() {
+        self.updatePreferredHeight()
     }
 }
 

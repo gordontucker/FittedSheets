@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42F0967527040EE7009774EA /* Compatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F0967427040EE7009774EA /* Compatible.swift */; };
 		C4E231E524E55E4E00D367FD /* BlurDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E231E424E55E4E00D367FD /* BlurDemo.swift */; };
 		F8034165212625DD00EAD717 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8034164212625DD00EAD717 /* AppDelegate.swift */; };
 		F803416A212625DD00EAD717 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8034168212625DD00EAD717 /* Main.storyboard */; };
@@ -99,6 +100,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		42F0967427040EE7009774EA /* Compatible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Compatible.swift; sourceTree = "<group>"; };
 		46334410249C041700F334E5 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		C4E231E424E55E4E00D367FD /* BlurDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurDemo.swift; sourceTree = "<group>"; };
 		F8034161212625DD00EAD717 /* Demos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demos.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -254,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				F8C1A06A24E2FF4600807078 /* Localization */,
+				42F0967427040EE7009774EA /* Compatible.swift */,
 				F8A42B4924D1E241005DE55B /* SheetViewController.swift */,
 				F8A42B4B24D1E2EF005DE55B /* SheetContentViewController.swift */,
 				F803419C212F208300EAD717 /* Yalta.swift */,
@@ -503,6 +506,7 @@
 				F8A42B9624DB3495005DE55B /* SheetView.swift in Sources */,
 				F8C1A07024E3017F00807078 /* Localize.swift in Sources */,
 				F857D0A22204B776004C862F /* SheetSize.swift in Sources */,
+				42F0967527040EE7009774EA /* Compatible.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -711,7 +715,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = FittedSheets/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -742,7 +746,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = FittedSheets/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

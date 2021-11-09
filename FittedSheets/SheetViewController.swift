@@ -402,7 +402,7 @@ public class SheetViewController: UIViewController {
             case .ended:
                 let velocity = (0.2 * gesture.velocity(in: self.view).y)
                 var finalHeight = newHeight - offset - velocity
-                if velocity > 500 {
+                if velocity > options.pullDismissThreshod {
                     // They swiped hard, always just close the sheet when they do
                     finalHeight = -1
                 }

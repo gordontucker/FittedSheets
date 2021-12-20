@@ -47,6 +47,7 @@ public class SheetViewController: UIViewController {
            self.updateAccessibility()
        }
    }
+
     /// If true you can pull using UIControls (so you can grab and drag a button to control the sheet)
     public var shouldRecognizePanGestureWithUIControls: Bool = true
     
@@ -136,6 +137,7 @@ public class SheetViewController: UIViewController {
     public var shouldDismiss: ((SheetViewController) -> Bool)?
     public var didDismiss: ((SheetViewController) -> Void)?
     public var sizeChanged: ((SheetViewController, SheetSize, CGFloat) -> Void)?
+    public var disablePullGesture: Bool = false
     
     public private(set) var contentViewController: SheetContentViewController
     var overlayView = UIView()
@@ -163,11 +165,7 @@ public class SheetViewController: UIViewController {
     public init(controller: UIViewController, sizes: [SheetSize] = [.intrinsic], options: SheetOptions? = nil) {
         let options = options ?? SheetOptions.default
         self.contentViewController = SheetContentViewController(childViewController: controller, options: options)
-        if #available(iOS 13.0, *) {
-            self.contentViewController.contentBackgroundColor = UIColor.systemBackground
-        } else {
-            self.contentViewController.contentBackgroundColor = UIColor.white
-        }
+        self.contentViewController.contentBackgroundColor = .clear
         self.sizes = sizes.count > 0 ? sizes : [.intrinsic]
         self.options = options
         self.transition = SheetTransition(options: options)
@@ -350,6 +348,7 @@ public class SheetViewController: UIViewController {
     }
     
     @objc func panned(_ gesture: UIPanGestureRecognizer) {
+        guard !disablePullGesture else { return }
         let point = gesture.translation(in: gesture.view?.superview)
         if gesture.state == .began {
             self.firstPanPoint = point
@@ -465,6 +464,9 @@ public class SheetViewController: UIViewController {
                     self.contentViewHeightConstraint.constant = newContentHeight
                     self.transition.setPresentor(percentComplete: 0)
                     self.overlayView.alpha = 1
+                    if self.currentSize == self.sizes[0] {
+                        self.view.endEditing(true)
+                    }
                     self.view.layoutIfNeeded()
                 }, completion: { complete in
                     self.isPanning = false
@@ -543,20 +545,18 @@ public class SheetViewController: UIViewController {
         
         let previousSize = self.currentSize
         self.currentSize = size
-        
-        let oldConstraintHeight = self.contentViewHeightConstraint.constant
+
+        let oldConstraintHeight = self.contentViewHeightConstraint?.constant
         
         let newHeight = self.height(for: size)
         
-        guard oldConstraintHeight != newHeight else {
-            return
-        }
-        
+        guard oldConstraintHeight != newHeight else { return }
+
         if animated {
             UIView.animate(withDuration: duration, delay: 0, options: options, animations: { [weak self] in
                 guard let self = self, let constraint = self.contentViewHeightConstraint else { return }
                 constraint.constant = newHeight
-                self.view.layoutIfNeeded()
+                self.contentViewController.view.layoutIfNeeded()
             }, completion: { _ in
                 if previousSize != size {
                     self.sizeChanged?(self, size, newHeight)
@@ -669,6 +669,11 @@ public class SheetViewController: UIViewController {
 extension SheetViewController: SheetViewDelegate {
     func sheetPoint(inside point: CGPoint, with event: UIEvent?) -> Bool {
         let isInOverlay = self.overlayTapView.bounds.contains(point)
+        if isInOverlay {
+            resize(to: sizes[0])
+            view.endEditing(true)
+        }
+        autoAdjustToKeyboard = !isInOverlay
         if self.allowGestureThroughOverlay, isInOverlay {
             return false
         } else {

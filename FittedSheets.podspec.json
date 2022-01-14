@@ -13,7 +13,7 @@
     "tag": "2.4.2"
   },
   "platforms": {
-    "ios": "11.0"
+    "ios": "10.0"
   },
   "social_media_url": "https://twitter.com/tuckeredoutfmly",
   "requires_arc": true,

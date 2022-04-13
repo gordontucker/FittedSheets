@@ -9,7 +9,7 @@
 #if os(iOS) || os(tvOS) || os(watchOS)
 import UIKit
 
-protocol SheetViewDelegate: class {
+protocol SheetViewDelegate: AnyObject {
     func sheetPoint(inside point: CGPoint, with event: UIEvent?) -> Bool
 }
 

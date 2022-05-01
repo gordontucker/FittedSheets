@@ -58,6 +58,10 @@ public class SheetViewController: UIViewController {
     public override var childForStatusBarStyle: UIViewController? {
         childViewController
     }
+	
+    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return childViewController.supportedInterfaceOrientations
+    }
     
     public static var hasBlurBackground = false
     public var hasBlurBackground = SheetViewController.hasBlurBackground {

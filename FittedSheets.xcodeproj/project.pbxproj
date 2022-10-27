@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D18902926C015F700CB6790 /* RubberBandDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D18902826C015F700CB6790 /* RubberBandDemo.swift */; };
 		C4E231E524E55E4E00D367FD /* BlurDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E231E424E55E4E00D367FD /* BlurDemo.swift */; };
 		F8034165212625DD00EAD717 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8034164212625DD00EAD717 /* AppDelegate.swift */; };
 		F803416A212625DD00EAD717 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8034168212625DD00EAD717 /* Main.storyboard */; };
@@ -99,6 +100,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0D18902826C015F700CB6790 /* RubberBandDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RubberBandDemo.swift; sourceTree = "<group>"; };
 		46334410249C041700F334E5 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		C4E231E424E55E4E00D367FD /* BlurDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurDemo.swift; sourceTree = "<group>"; };
 		F8034161212625DD00EAD717 /* Demos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demos.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -302,6 +304,7 @@
 				F857D0A62204B856004C862F /* SimpleDemo.swift */,
 				F8799C9925BF5EB70095F24F /* ColorDemo.swift */,
 				F8A42B7624D9FD3D005DE55B /* NestedSheetsDemo.swift */,
+				0D18902826C015F700CB6790 /* RubberBandDemo.swift */,
 				F83058D925BF688300EE17E1 /* NoPullBarDemo.swift */,
 				F8A42B7A24D9FFBE005DE55B /* ClearPullBarDemo.swift */,
 				F8A42B5F24D36DE3005DE55B /* MapDemo.swift */,
@@ -476,6 +479,7 @@
 				F8A42B8C24DB1A67005DE55B /* InlineDemosViewController.swift in Sources */,
 				F8A42B6024D36DE3005DE55B /* MapDemo.swift in Sources */,
 				F8A42B8424DA022F005DE55B /* OnlyCloseWithButtonDemo.swift in Sources */,
+				0D18902926C015F700CB6790 /* RubberBandDemo.swift in Sources */,
 				F83058FD25BF777400EE17E1 /* SlideInAnimationBug118TagCell.swift in Sources */,
 				F857D0AE2204D709004C862F /* TableViewDemo.swift in Sources */,
 				F8FAC6B925A3930F0042A307 /* MaxWidthDemo.swift in Sources */,

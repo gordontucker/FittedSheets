@@ -21,6 +21,13 @@ public class SheetContentViewController: UIViewController {
         get { self.childContainerView.backgroundColor }
         set { self.childContainerView.backgroundColor = newValue }
     }
+
+    @available(iOS 13.0, *)
+    public lazy var cornerCurve: CALayerCornerCurve = .circular {
+        didSet {
+            self.updateCornerCurve()
+        }
+    }
     
     public var cornerRadius: CGFloat = 0 {
         didSet {
@@ -91,6 +98,9 @@ public class SheetContentViewController: UIViewController {
         self.setupPullBarView()
         self.setupChildViewController()
         self.updatePreferredHeight()
+        if #available(iOS 13.0, *) {
+            self.updateCornerCurve()
+        }
         self.updateCornerRadius()
         self.setupOverflowView()
 
@@ -123,7 +133,13 @@ public class SheetContentViewController: UIViewController {
     func adjustForKeyboard(height: CGFloat) {
         self.updateChildViewControllerBottomConstraint(adjustment: -height)
     }
-    
+
+    @available(iOS 13.0, *)
+    private func updateCornerCurve() {
+        self.contentWrapperView.layer.cornerCurve = self.cornerCurve
+        self.childContainerView.layer.cornerCurve = self.cornerCurve
+    }
+
     private func updateCornerRadius() {
         self.contentWrapperView.layer.cornerRadius = self.treatPullBarAsClear ? 0 : self.cornerRadius
         self.childContainerView.layer.cornerRadius = self.treatPullBarAsClear ? self.cornerRadius : 0

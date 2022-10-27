@@ -22,9 +22,13 @@ public class SheetContentViewController: UIViewController {
         set { self.childContainerView.backgroundColor = newValue }
     }
 
+    private var _cornerCurve: Any? = nil
     @available(iOS 13.0, *)
-    public lazy var cornerCurve: CALayerCornerCurve = .circular {
-        didSet {
+    public var cornerCurve: CALayerCornerCurve {
+        get {
+            return _cornerCurve as? CALayerCornerCurve ?? CALayerCornerCurve.circular }
+        set {
+            _cornerCurve = newValue
             self.updateCornerCurve()
         }
     }

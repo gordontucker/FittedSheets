@@ -115,7 +115,7 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
                 }
                 
                 if SheetOptions.shrinkingNestedPresentingViewControllers {
-                    var scale = 1.0
+                    var scale: CGFloat = 1.0
                     let presenters = SheetTransition.currentPresenters.reversed()
                     for lowerPresenter in presenters {
                         scale *= 0.92

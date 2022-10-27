@@ -34,7 +34,8 @@ class ModalDemosViewController: UIViewController {
         MaxWidthDemo.self,
         BlurDemo.self,
         NestedSheetsDemo.self,
-        RubberBandDemo.self
+        RubberBandDemo.self,
+        CornerCurveDemo.self
     ].sorted(by: { $0.name < $1.name })
     
     override func viewDidLoad() {

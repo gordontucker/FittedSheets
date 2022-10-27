@@ -63,6 +63,9 @@ public struct SheetOptions {
 
     public var isRubberBandEnabled: Bool = false
     
+    /// Experimental flag that attempts to shrink the nested presentations more each time a new sheet is presented. This must be set before any sheet is presented.
+    public static var shrinkingNestedPresentingViewControllers = false
+    
     public init() { }
     public init(pullBarHeight: CGFloat? = nil,
                 presentingViewCornerRadius: CGFloat? = nil,

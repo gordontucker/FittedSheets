@@ -14,6 +14,9 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
     weak var presenter: UIViewController?
     var options: SheetOptions
     
+    /// Cache of presenters so we can do the experimental shrinkingNestedPresentingViewControllers behavior
+    static var currentPresenters: [UIViewController] = []
+    
     init(options: SheetOptions) {
         self.options = options
         super.init()
@@ -32,6 +35,9 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
             }
             self.presenter = presenter
             
+            if SheetOptions.shrinkingNestedPresentingViewControllers {
+                SheetTransition.currentPresenters.append(presenter)
+            }
             sheet.contentViewController.view.transform = .identity
             containerView.addSubview(sheet.view)
             //sheet.view.frame = containerView.frame
@@ -56,11 +62,7 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
             // Use a normal animation to animate the shadown and background view
             UIView.animate(withDuration: self.options.transitionDuration * 0.6, delay: 0, options: [.curveEaseOut], animations: {
                 if self.options.shrinkPresentingViewController {
-                    let topSafeArea = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.compatibleSafeAreaInsets.top ?? 0
-                    
-                    presenter.view.layer.transform = CATransform3DConcat(CATransform3DMakeTranslation(0, topSafeArea/2, 0), CATransform3DMakeScale(0.92, 0.92, 1))
-                    presenter.view.layer.cornerRadius = self.options.presentingViewCornerRadius
-                    presenter.view.layer.masksToBounds = true
+                    self.setPresentor(percentComplete: 0)
                 }
                 sheet.overlayView.alpha = 1
             }, completion: nil)
@@ -102,12 +104,23 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
     }
 
     func restorePresentor(_ presenter: UIViewController, animated: Bool = true, animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
+        SheetTransition.currentPresenters.removeAll(where: { $0 == presenter })
+        let topSafeArea = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.compatibleSafeAreaInsets.top ?? 0
         UIView.animate(
             withDuration: self.options.transitionDuration,
             animations: {
                 if self.options.shrinkPresentingViewController {
                     presenter.view.layer.transform = CATransform3DMakeScale(1, 1, 1)
                     presenter.view.layer.cornerRadius = 0
+                }
+                
+                if SheetOptions.shrinkingNestedPresentingViewControllers {
+                    var scale = 1.0
+                    let presenters = SheetTransition.currentPresenters.reversed()
+                    for lowerPresenter in presenters {
+                        scale *= 0.92
+                        lowerPresenter.view.layer.transform = CATransform3DConcat(CATransform3DMakeTranslation(0, topSafeArea/2, 0), CATransform3DMakeScale(scale, scale, 1))
+                    }
                 }
                 animations?()
             },
@@ -119,12 +132,21 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
 
     func setPresentor(percentComplete: CGFloat) {
         guard self.options.shrinkPresentingViewController, let presenter = self.presenter else { return }
-        let scale: CGFloat = min(1, 0.92 + (0.08 * percentComplete))
+        
+        var scale: CGFloat = min(1, 0.92 + (0.08 * percentComplete))
 
         let topSafeArea = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.compatibleSafeAreaInsets.top ?? 0
 
         presenter.view.layer.transform = CATransform3DConcat(CATransform3DMakeTranslation(0, (1 - percentComplete) * topSafeArea/2, 0), CATransform3DMakeScale(scale, scale, 1))
         presenter.view.layer.cornerRadius = self.options.presentingViewCornerRadius * (1 - percentComplete)
+        
+        if SheetOptions.shrinkingNestedPresentingViewControllers {
+            let presenters = SheetTransition.currentPresenters.reversed().dropFirst()
+            for lowerPresenter in presenters {
+                scale *= 0.92
+                lowerPresenter.view.layer.transform = CATransform3DConcat(CATransform3DMakeTranslation(0, (1 - percentComplete) * topSafeArea/2, 0), CATransform3DMakeScale(scale, scale, 1))
+            }
+        }
     }
 }
 

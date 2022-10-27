@@ -546,6 +546,9 @@ public class SheetViewController: UIViewController {
             case .intrinsic:
                 contentHeight = self.contentViewController.preferredHeight + self.keyboardHeight
             case .percent(let percent):
+                if (percent > 1) {
+                    debugPrint("Size percent should be less than or equal to 1.0, but was set to \(percent))")
+                }
                 contentHeight = (self.view.bounds.height) * CGFloat(percent) + self.keyboardHeight
             case .marginFromTop(let margin):
                 contentHeight = (self.view.bounds.height) - margin + self.keyboardHeight

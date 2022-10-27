@@ -21,6 +21,13 @@ public class SheetContentViewController: UIViewController {
         get { self.childContainerView.backgroundColor }
         set { self.childContainerView.backgroundColor = newValue }
     }
+
+    @available(iOS 13.0, *)
+    public lazy var cornerCurve: CALayerCornerCurve = .circular {
+        didSet {
+            self.updateCornerCurve()
+        }
+    }
     
     public var cornerRadius: CGFloat = 0 {
         didSet {
@@ -91,8 +98,13 @@ public class SheetContentViewController: UIViewController {
         self.setupPullBarView()
         self.setupChildViewController()
         self.updatePreferredHeight()
+        if #available(iOS 13.0, *) {
+            self.updateCornerCurve()
+        }
         self.updateCornerRadius()
         self.setupOverflowView()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(contentSizeDidChange), name: UIContentSizeCategory.didChangeNotification, object: nil)
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -121,7 +133,13 @@ public class SheetContentViewController: UIViewController {
     func adjustForKeyboard(height: CGFloat) {
         self.updateChildViewControllerBottomConstraint(adjustment: -height)
     }
-    
+
+    @available(iOS 13.0, *)
+    private func updateCornerCurve() {
+        self.contentWrapperView.layer.cornerCurve = self.cornerCurve
+        self.childContainerView.layer.cornerCurve = self.cornerCurve
+    }
+
     private func updateCornerRadius() {
         self.contentWrapperView.layer.cornerRadius = self.treatPullBarAsClear ? 0 : self.cornerRadius
         self.childContainerView.layer.cornerRadius = self.treatPullBarAsClear ? self.cornerRadius : 0
@@ -198,13 +216,13 @@ public class SheetContentViewController: UIViewController {
                 view.top.pinToSuperview()
         }
         if self.options.shouldExtendBackground, self.options.pullBarHeight > 0 {
-            self.childViewController.additionalSafeAreaInsets = UIEdgeInsets(top: self.options.pullBarHeight, left: 0, bottom: 0, right: 0)
+            self.childViewController.compatibleAdditionalSafeAreaInsets = UIEdgeInsets(top: self.options.pullBarHeight, left: 0, bottom: 0, right: 0)
         }
         
         self.childViewController.didMove(toParent: self)
         
         self.childContainerView.layer.masksToBounds = true
-        self.childContainerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        self.childContainerView.layer.compatibleMaskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
     }
 
     private func setupContentView() {
@@ -220,7 +238,7 @@ public class SheetContentViewController: UIViewController {
         }
         
         self.contentWrapperView.layer.masksToBounds = true
-        self.contentWrapperView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        self.contentWrapperView.layer.compatibleMaskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
                 
         self.contentView.addSubview(overflowView) {
             $0.edges(.left, .right).pinToSuperview()
@@ -284,6 +302,10 @@ public class SheetContentViewController: UIViewController {
     
     @objc func pullBarTapped(_ gesture: UITapGestureRecognizer) {
         self.delegate?.pullBarTapped()
+    }
+
+    @objc func contentSizeDidChange() {
+        self.updatePreferredHeight()
     }
 }
 

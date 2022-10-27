@@ -71,7 +71,7 @@ let options = SheetOptions(
 
 let sheetController = SheetViewController(
     controller: controller, 
-    sizes: [.intrinsic, .percent(0.25), .fixed(200), .fullScreen])
+    sizes: [.intrinsic, .percent(0.25), .fixed(200), .fullscreen])
     
     
 // The size of the grip in the pull bar

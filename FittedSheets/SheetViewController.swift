@@ -427,7 +427,7 @@ public class SheetViewController: UIViewController {
                 
                 let animationDuration = TimeInterval(abs(velocity*0.0002) + 0.2)
                 
-                guard finalHeight > 0 || !self.dismissOnPull else {
+                guard finalHeight > 0 || !(self.dismissOnPull && self.shouldDismiss?(self) ?? true) else {
                     // Dismiss
                     UIView.animate(
                         withDuration: animationDuration,

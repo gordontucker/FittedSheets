@@ -230,6 +230,10 @@ public class SheetViewController: UIViewController {
         self.updateOrderedSizes()
         self.contentViewController.updatePreferredHeight()
         self.resize(to: self.currentSize, animated: false)
+
+        if self.options.useInlineMode {
+            (self.view as? SheetView)?.viewToTranslateGesture = presentingViewController?.view
+        }
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
@@ -634,8 +638,8 @@ public class SheetViewController: UIViewController {
         
         self.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.view.topAnchor.constraint(equalTo: view.topAnchor),
-            self.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            self.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            self.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             self.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             self.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])

@@ -55,6 +55,10 @@ public class SheetViewController: UIViewController {
         return self.contentViewController.childViewController
     }
 
+    /// If true ViewController in inlineMode whoold consider safeArea
+    /// can be used with TabBar
+    public var shouldConsiderSafeAreaInInlineMode: Bool = false
+
     public override var childForStatusBarStyle: UIViewController? {
         childViewController
     }
@@ -637,12 +641,21 @@ public class SheetViewController: UIViewController {
         self.didMove(toParent: parent)
         
         self.view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            self.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            self.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            self.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            self.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
+        if #available(iOS 11.0, *), shouldConsiderSafeAreaInInlineMode {
+            NSLayoutConstraint.activate([
+                self.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                self.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+                self.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                self.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                self.view.topAnchor.constraint(equalTo: view.topAnchor),
+                self.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                self.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                self.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            ])
+        }
         self.animateIn(size: size, duration: duration, completion: completion)
     }
     

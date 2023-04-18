@@ -618,6 +618,7 @@ public class SheetViewController: UIViewController {
                     self.view.removeFromSuperview()
                     self.removeFromParent()
                     self.didDismiss?(self)
+                    self.dismiss(animated: animated, completion: nil)
                 }
             } else {
                 self.dismiss(animated: animated, completion: nil)

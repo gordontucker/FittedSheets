@@ -582,7 +582,7 @@ public class SheetViewController: UIViewController {
             UIView.animate(withDuration: duration, delay: 0, options: options, animations: { [weak self] in
                 guard let self = self, let constraint = self.contentViewHeightConstraint else { return }
                 constraint.constant = newHeight
-                self.contentViewController.view.layoutIfNeeded()
+                self.view.layoutIfNeeded()
             }, completion: { _ in
                 if previousSize != size {
                     self.sizeChanged?(self, size, newHeight)

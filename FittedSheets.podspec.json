@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/gordontucker/FittedSheets.git",
-    "tag": "2.6.0"
+    "tag": "2.6.1"
   },
   "platforms": {
     "ios": "10.0"

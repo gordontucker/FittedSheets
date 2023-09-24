@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Nhuan Vu on 8/25/21.
 //
@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIView {
-    open var compatibleSafeAreaInsets: UIEdgeInsets {
+    public var compatibleSafeAreaInsets: UIEdgeInsets {
         if #available(iOS 11.0, *) {
             return self.safeAreaInsets
         } else {
@@ -19,7 +19,7 @@ extension UIView {
 }
 
 extension CALayer {
-    open var compatibleMaskedCorners: CACornerMask {
+    public var compatibleMaskedCorners: CACornerMask {
         get {
             if #available(iOS 11.0, *) {
                 return self.maskedCorners
@@ -36,7 +36,7 @@ extension CALayer {
 }
 
 extension UIViewController {
-    open var compatibleAdditionalSafeAreaInsets: UIEdgeInsets {
+    public var compatibleAdditionalSafeAreaInsets: UIEdgeInsets {
         get {
             if #available(iOS 11.0, *) {
                 return self.additionalSafeAreaInsets

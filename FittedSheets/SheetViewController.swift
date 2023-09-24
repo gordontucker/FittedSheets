@@ -715,12 +715,13 @@ extension SheetViewController: UIGestureRecognizerDelegate {
     }
     
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        guard let panGestureRecognizer = gestureRecognizer as? InitialTouchPanGestureRecognizer, let childScrollView = self.childScrollView, let point = panGestureRecognizer.initialTouchLocation else { return true }
-        
         if let pan = gestureRecognizer as? UIPanGestureRecognizer, let closure = panGestureShouldBegin, let should = closure(pan) {
             return should
         }
         
+        guard let panGestureRecognizer = gestureRecognizer as? InitialTouchPanGestureRecognizer, let childScrollView = self.childScrollView, let point = panGestureRecognizer.initialTouchLocation else { return true }
+        
+
         let pointInChildScrollView = self.view.convert(point, to: childScrollView).y - childScrollView.contentOffset.y
         
         let velocity = panGestureRecognizer.velocity(in: panGestureRecognizer.view?.superview)

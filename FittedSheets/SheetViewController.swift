@@ -544,7 +544,7 @@ public class SheetViewController: UIViewController {
             case .fullscreen:
                 contentHeight = fullscreenHeight
             case .intrinsic:
-                contentHeight = self.contentViewController.preferredHeight + self.keyboardHeight
+                contentHeight = self.contentViewController.preferredHeight
             case .percent(let percent):
                 if (percent > 1) {
                     debugPrint("Size percent should be less than or equal to 1.0, but was set to \(percent))")

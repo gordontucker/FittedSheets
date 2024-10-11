@@ -63,6 +63,8 @@ public class SheetViewController: UIViewController {
         return childViewController.supportedInterfaceOrientations
     }
     
+    public var mayEndEditingOnResize = true
+
     public static var hasBlurBackground = false
     public var hasBlurBackground = SheetViewController.hasBlurBackground {
         didSet {
@@ -725,7 +727,7 @@ extension SheetViewController: UIGestureRecognizerDelegate {
         
         let velocity = panGestureRecognizer.velocity(in: panGestureRecognizer.view?.superview)
         guard pointInChildScrollView > 0, pointInChildScrollView < childScrollView.bounds.height else {
-            if keyboardHeight > 0 {
+            if keyboardHeight > 0 && mayEndEditingOnResize {
                 childScrollView.endEditing(true)
             }
             return true

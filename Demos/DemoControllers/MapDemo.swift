@@ -14,17 +14,20 @@ class MapDemo: SimpleDemo {
     
     override class func openDemo(from parent: UIViewController, in view: UIView?) {
         let useInlineMode = view != nil
-        
+
         let controller = ColorDemo()
+
+        var options = SheetOptions(useInlineMode: useInlineMode)
+        options.shrinkPresentingViewController = !useInlineMode
         
         let sheet = SheetViewController(
             controller: controller,
             sizes: [.fixed(100), .percent(0.5), .fullscreen],
-            options: SheetOptions(useInlineMode: useInlineMode))
+            options: options)
         sheet.allowPullingPastMaxHeight = false
         sheet.allowPullingPastMinHeight = false
         
-        sheet.dismissOnPull = false
+        sheet.dismissOnPull = true
         sheet.dismissOnOverlayTap = false
         sheet.overlayColor = UIColor.clear
         
@@ -32,7 +35,7 @@ class MapDemo: SimpleDemo {
         sheet.contentViewController.view.layer.shadowOpacity = 0.1
         sheet.contentViewController.view.layer.shadowRadius = 10
         sheet.allowGestureThroughOverlay = true
-        
+
         addSheetEventLogging(to: sheet)
         
         if let view = view {

@@ -63,6 +63,8 @@ public class SheetViewController: UIViewController {
         return childViewController.supportedInterfaceOrientations
     }
     
+    public var mayEndEditingOnResize = true
+
     public static var hasBlurBackground = false
     public var hasBlurBackground = SheetViewController.hasBlurBackground {
         didSet {
@@ -104,7 +106,10 @@ public class SheetViewController: UIViewController {
             self.overlayTapView.isUserInteractionEnabled = !self.allowGestureThroughOverlay
         }
     }
-    
+
+    public static var enableGestureRecognizer: Bool = true
+    public var enableGestureRecognizer = SheetViewController.enableGestureRecognizer
+
     public static var cornerRadius: CGFloat = 12
     public var cornerRadius: CGFloat {
         get { return self.contentViewController.cornerRadius }
@@ -357,6 +362,8 @@ public class SheetViewController: UIViewController {
     }
     
     private func addPanGestureRecognizer() {
+      guard enableGestureRecognizer else { return }
+
         let panGestureRecognizer = InitialTouchPanGestureRecognizer(target: self, action: #selector(panned(_:)))
         self.view.addGestureRecognizer(panGestureRecognizer)
         panGestureRecognizer.delegate = self
@@ -725,7 +732,7 @@ extension SheetViewController: UIGestureRecognizerDelegate {
         
         let velocity = panGestureRecognizer.velocity(in: panGestureRecognizer.view?.superview)
         guard pointInChildScrollView > 0, pointInChildScrollView < childScrollView.bounds.height else {
-            if keyboardHeight > 0 {
+            if keyboardHeight > 0 && mayEndEditingOnResize {
                 childScrollView.endEditing(true)
             }
             return true

@@ -170,6 +170,7 @@ public class SheetViewController: UIViewController {
     private var panGestureRecognizer: InitialTouchPanGestureRecognizer!
     private var prePanHeight: CGFloat = 0
     private var isPanning: Bool = false
+    private var isAnimatingPresentation: Bool = false
     
     public var contentBackgroundColor: UIColor? {
         get { self.contentViewController.contentBackgroundColor }
@@ -229,9 +230,17 @@ public class SheetViewController: UIViewController {
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if self.isBeingPresented {
+            self.isAnimatingPresentation = true
+        }
         self.updateOrderedSizes()
         self.contentViewController.updatePreferredHeight()
         self.resize(to: self.currentSize, animated: false)
+    }
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.isAnimatingPresentation = false
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
@@ -658,6 +667,7 @@ public class SheetViewController: UIViewController {
             print("It appears your sheet is not set as a subview of another view. Make sure to add this view as a subview before trying to animate it in.")
             return
         }
+        self.isAnimatingPresentation = true
         self.view.superview?.layoutIfNeeded()
         self.contentViewController.updatePreferredHeight()
         self.resize(to: size ?? self.sizes.first ?? self.currentSize, animated: false)
@@ -673,6 +683,7 @@ public class SheetViewController: UIViewController {
                 self.overlayView.alpha = 1
             },
             completion: { _ in
+                self.isAnimatingPresentation = false
                 completion?()
             }
         )
@@ -779,7 +790,18 @@ extension SheetViewController: SheetContentViewDelegate {
         }
         // If our intrinsic size changed and that is what we are sized to currently, use that
         if self.currentSize == .intrinsic, !self.isPanning {
-            self.resize(to: .intrinsic)
+            if self.isAnimatingPresentation {
+                var animationOptions = self.options.transitionAnimationOptions
+                animationOptions.insert(.beginFromCurrentState)
+                self.resize(
+                    to: .intrinsic,
+                    duration: self.options.transitionDuration,
+                    options: animationOptions,
+                    animated: true
+                )
+            } else {
+                self.resize(to: .intrinsic)
+            }
         }
     }
 }

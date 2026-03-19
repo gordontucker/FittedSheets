@@ -672,21 +672,34 @@ public class SheetViewController: UIViewController {
         self.contentViewController.updatePreferredHeight()
         self.resize(to: size ?? self.sizes.first ?? self.currentSize, animated: false)
         let contentView = self.contentViewController.view!
-        contentView.transform = CGAffineTransform(translationX: 0, y: contentView.bounds.height)
+        contentView.transform = CGAffineTransform(translationX: 0, y: self.view.bounds.height)
         self.overlayView.alpha = 0
         self.updateOrderedSizes()
-        
-        UIView.animate(
-            withDuration: duration,
-            animations: {
-                contentView.transform = .identity
-                self.overlayView.alpha = 1
-            },
-            completion: { _ in
-                self.isAnimatingPresentation = false
-                completion?()
+
+        DispatchQueue.main.async {
+            UIView.performWithoutAnimation {
+                self.view.layoutIfNeeded()
             }
-        )
+            self.contentViewController.updatePreferredHeight()
+            self.resize(to: size ?? self.sizes.first ?? self.currentSize, animated: false)
+            UIView.performWithoutAnimation {
+                self.view.layoutIfNeeded()
+            }
+
+            contentView.transform = CGAffineTransform(translationX: 0, y: contentView.bounds.height)
+
+            UIView.animate(
+                withDuration: duration,
+                animations: {
+                    contentView.transform = .identity
+                    self.overlayView.alpha = 1
+                },
+                completion: { _ in
+                    self.isAnimatingPresentation = false
+                    completion?()
+                }
+            )
+        }
     }
     
     /// Animates the sheet out, but only if presenting using the inline mode
@@ -790,18 +803,7 @@ extension SheetViewController: SheetContentViewDelegate {
         }
         // If our intrinsic size changed and that is what we are sized to currently, use that
         if self.currentSize == .intrinsic, !self.isPanning {
-            if self.isAnimatingPresentation {
-                var animationOptions = self.options.transitionAnimationOptions
-                animationOptions.insert(.beginFromCurrentState)
-                self.resize(
-                    to: .intrinsic,
-                    duration: self.options.transitionDuration,
-                    options: animationOptions,
-                    animated: true
-                )
-            } else {
-                self.resize(to: .intrinsic)
-            }
+            self.resize(to: .intrinsic, animated: !self.isAnimatingPresentation)
         }
     }
 }

@@ -50,37 +50,47 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
             sheet.contentViewController.updatePreferredHeight()
             sheet.resize(to: sheet.currentSize, animated: false)
             let contentView = sheet.contentViewController.contentView
-            contentView.transform = CGAffineTransform(translationX: 0, y: contentView.bounds.height)
+            contentView.transform = CGAffineTransform(translationX: 0, y: sheet.view.bounds.height)
             sheet.overlayView.alpha = 0
-            
-            let heightPercent = contentView.bounds.height / UIScreen.main.bounds.height
-            
-            UIView.performWithoutAnimation {
-                sheet.view.layoutIfNeeded()
-            }
-            
-            // Use a normal animation to animate the shadown and background view
-            UIView.animate(withDuration: self.options.transitionDuration * 0.6, delay: 0, options: [.curveEaseOut], animations: {
-                if self.options.shrinkPresentingViewController {
-                    self.setPresentor(percentComplete: 0)
-                }
-                sheet.overlayView.alpha = 1
-            }, completion: nil)
 
-            // Use a bounce effect to animate the view in
-            UIView.animate(
-                withDuration: self.options.transitionDuration,
-                delay: 0,
-                usingSpringWithDamping: self.options.transitionDampening + ((heightPercent - 0.2) * 1.25 * 0.17),
-                initialSpringVelocity: self.options.transitionVelocity * heightPercent,
-                options: self.options.transitionAnimationOptions,
-                animations: {
-                    contentView.transform = .identity
-                },
-                completion: { _ in
-                    transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+            // Defer the slide-up animation by one run loop to let self-sizing content
+            // (e.g. collection views with estimated cell sizes) finish computing their
+            // intrinsic content size. The content is fully off-screen during this delay.
+            DispatchQueue.main.async {
+                UIView.performWithoutAnimation {
+                    sheet.view.layoutIfNeeded()
                 }
-            )
+                sheet.contentViewController.updatePreferredHeight()
+                sheet.resize(to: sheet.currentSize, animated: false)
+                UIView.performWithoutAnimation {
+                    sheet.view.layoutIfNeeded()
+                }
+
+                contentView.transform = CGAffineTransform(translationX: 0, y: contentView.bounds.height)
+
+                let heightPercent = contentView.bounds.height / UIScreen.main.bounds.height
+
+                UIView.animate(withDuration: self.options.transitionDuration * 0.6, delay: 0, options: [.curveEaseOut], animations: {
+                    if self.options.shrinkPresentingViewController {
+                        self.setPresentor(percentComplete: 0)
+                    }
+                    sheet.overlayView.alpha = 1
+                }, completion: nil)
+
+                UIView.animate(
+                    withDuration: self.options.transitionDuration,
+                    delay: 0,
+                    usingSpringWithDamping: self.options.transitionDampening + ((heightPercent - 0.2) * 1.25 * 0.17),
+                    initialSpringVelocity: self.options.transitionVelocity * heightPercent,
+                    options: self.options.transitionAnimationOptions,
+                    animations: {
+                        contentView.transform = .identity
+                    },
+                    completion: { _ in
+                        transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+                    }
+                )
+            }
         } else {
             guard let presenter = transitionContext.viewController(forKey: .to),
             let sheet = transitionContext.viewController(forKey: .from) as? SheetViewController else {

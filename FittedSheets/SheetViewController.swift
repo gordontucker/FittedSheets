@@ -266,13 +266,33 @@ public class SheetViewController: UIViewController {
     private var firstPanPoint: CGPoint = CGPoint.zero
     private var panGestureRecognizer: InitialTouchPanGestureRecognizer!
     private var prePanHeight: CGFloat = 0
+    /// The smallest detent's height as it was when the drag began.
+    ///
+    /// The pan clamps against this rather than re-reading `height(for: orderedSizes.first)` on every
+    /// sample. Read live, an intrinsic height that changes mid-drag (content arriving from a network
+    /// call, a row appearing) instantly moves both the clamped height and the pull-past-min offset —
+    /// so the sheet jumps under a finger that has not moved. The release snap still uses the live
+    /// height, so the gesture ends at the *current* detent; only the in-flight geometry is latched.
+    private var prePanMinHeight: CGFloat = 0
+    /// An intrinsic-height change that arrived while the sheet was moving.
+    ///
+    /// `preferredHeightChanged` cannot resize mid-gesture — it would fight the drag, and the release
+    /// snap has already been aimed — so the correction is deferred to the moment the sheet settles
+    /// rather than dropped. Dropped, the sheet stays at the height the snap was aimed at, which is no
+    /// longer its intrinsic height, and nothing re-syncs it until the content happens to change again.
+    private var hasPendingIntrinsicResize = false
     private var isPanning: Bool = false {
         didSet {
             // A drag (and the snap/dismiss/cancel animation that follows it, plus any re-grab) all
             // keep isPanning true until the sheet finally settles, so this is the one place to
             // begin/end progressive height tracking for the whole interaction.
             guard isPanning != oldValue else { return }
-            if isPanning { self.beginHeightTracking() } else { self.endHeightTracking() }
+            if isPanning {
+                self.beginHeightTracking()
+            } else {
+                self.endHeightTracking()
+                self.flushPendingIntrinsicResize()
+            }
         }
     }
     /// Drives the progressive `progressChanged` callback by sampling the presentation layer each frame
@@ -618,10 +638,13 @@ public class SheetViewController: UIViewController {
             } else {
                 self.prePanHeight = contentView.bounds.height
             }
+            self.prePanMinHeight = self.height(for: self.orderedSizes.first)
             self.isPanning = true
         }
-        
-        let minHeight: CGFloat = self.height(for: self.orderedSizes.first)
+
+        // Latched at `.began`, not re-read per sample — see `prePanMinHeight`. Falls back to the live
+        // value for a stray `.changed` that never saw a `.began`.
+        let minHeight: CGFloat = self.isPanning ? self.prePanMinHeight : self.height(for: self.orderedSizes.first)
         let maxHeight: CGFloat
         if self.allowPullingPastMaxHeight {
             maxHeight = self.height(for: .fullscreen) // self.view.bounds.height
@@ -692,6 +715,8 @@ public class SheetViewController: UIViewController {
                         self.transition.setPresentor(percentComplete: 1)
                         self.overlayView.alpha = 0
                     }, completion: { complete in
+                        // Leaving: a deferred intrinsic correction has nothing left to correct.
+                        self.hasPendingIntrinsicResize = false
                         self.isPanning = false
                         self.performDismiss(animated: false)   // shouldDismiss already evaluated in the guard above
                     })
@@ -869,6 +894,22 @@ public class SheetViewController: UIViewController {
             ?? self.contentViewController.viewIfLoaded?.bounds.height
             ?? 0
         return self.makeProgress(height: height)
+    }
+
+    /// Applies an intrinsic-height change that arrived while the sheet was moving, now that it has
+    /// settled. Runs from `isPanning`'s transition to false — the one point every ending funnels
+    /// through (release snap, cancelled gesture, interrupted re-grab).
+    private func flushPendingIntrinsicResize() {
+        guard self.hasPendingIntrinsicResize else { return }
+        self.hasPendingIntrinsicResize = false
+        // Not while leaving: a sheet being dismissed (or already detached) must not animate back to
+        // a detent on its way out.
+        guard self.currentSize == .intrinsic, self.isViewLoaded, self.view.window != nil,
+              !self.isBeingDismissed else { return }
+        self.resize(to: .intrinsic,
+                    duration: self.intrinsicTransitionDuration,
+                    options: [.beginFromCurrentState],
+                    dampingRatio: self.intrinsicTransitionDampening)
     }
 
     private func tearDownHeightTracking() {
@@ -1333,7 +1374,10 @@ extension SheetViewController: SheetContentViewDelegate {
         // keep their own tuned timing. Deliberately NOT .allowUserInteraction: this uses
         // UIView.animate (not the interruptible snap animator), so letting a pan begin mid-spring
         // would capture the final model height and jump under the finger.
-        if self.currentSize == .intrinsic, !self.isPanning {
+        if self.currentSize == .intrinsic, self.isPanning {
+            // Mid-drag or mid-snap: defer, don't drop. See `hasPendingIntrinsicResize`.
+            self.hasPendingIntrinsicResize = true
+        } else if self.currentSize == .intrinsic {
             if self.hasAppeared {
                 self.resize(to: .intrinsic,
                             duration: self.intrinsicTransitionDuration,
